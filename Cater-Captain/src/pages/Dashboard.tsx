@@ -1,9 +1,9 @@
 import React from 'react';
+import { ChakraProvider, theme } from '@chakra-ui/react';
+import CreateEventForm from '../components/CreateEventForm';
 
-  import { ChakraProvider, theme } from '@chakra-ui/react';
-  import CreateEventForm from '../components/CreateEventForm';
 
-  
+
 
 const Dashboard: React.FC = () => {
 
