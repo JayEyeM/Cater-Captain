@@ -56,7 +56,52 @@ const CreateEventForm: React.FC = () => {
           />
         </FormControl>
 
-        {/* Other form controls omitted for brevity */}
+        <FormControl id="venueName">
+          <FormLabel>Venue Name</FormLabel>
+          <Input
+            type="text"
+            value={formValues.venueName}
+            onChange={(event) => handleChange(event, "venueName")}
+          />
+        </FormControl>
+
+        <FormControl id="location">
+          <FormLabel>Location</FormLabel>
+          <Input
+            type="text"
+            value={formValues.location}
+            onChange={(event) => handleChange(event, "location")}
+          />
+        </FormControl> 
+
+        <FormControl id="date">
+          <FormLabel>Date</FormLabel>
+          <Input
+            type="date"
+            value={formValues.date}
+            onChange={(event) => handleChange(event, "date")}
+          />
+        </FormControl>
+
+        <FormControl id="startTime">
+          <FormLabel>Start Time</FormLabel>
+          <Input
+            type="time"
+            value={formValues.startTime}
+            onChange={(event) => handleChange(event, "startTime")}
+          />
+        </FormControl>
+
+        <FormControl id="endTime">
+          <FormLabel>End Time</FormLabel>
+          <Input
+            type="time"
+            value={formValues.endTime}
+            onChange={(event) => handleChange(event, "endTime")}
+          />  
+        </FormControl>
+
+        
 
         <Button type="submit" colorScheme="blue" mt={4}>
           Create Event
