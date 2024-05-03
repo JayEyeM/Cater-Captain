@@ -5,10 +5,13 @@ import {
   Input,
   Button,
   Box,
+  useTheme
 } from "@chakra-ui/react";
-import { theme } from '@chakra-ui/react';
 
-interface EventFormValues {
+
+
+
+export interface EventFormValues {
   eventName: string;
   venueName: string;
   location: string;
@@ -27,6 +30,7 @@ const CreateEventForm: React.FC = () => {
     endTime: "",
   });
 
+  const theme = useTheme();
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     fieldName: keyof EventFormValues
@@ -40,14 +44,20 @@ const CreateEventForm: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    localStorage.setItem("formValues", JSON.stringify(formValues));
+    const existingEventsJSON= localStorage.getItem('events');
+    const exisitingEvents : EventFormValues[] = existingEventsJSON ? JSON.parse(existingEventsJSON) : [];
+
+    const updatedEvents = [...exisitingEvents, formValues];
+
+    localStorage.setItem('events', JSON.stringify(updatedEvents));
     console.log("Form submitted:", formValues);
   };
 
   return (
-    <Box sx={{ background: theme.colors.gray[100] }}>
+    
+    <Box bg={"#141220"}>
       <form onSubmit={handleSubmit}>
-        <FormControl id="eventName">
+        <FormControl id="eventName" color="#CBE6AD">
           <FormLabel>Event Name</FormLabel>
           <Input
             type="text"
@@ -56,7 +66,7 @@ const CreateEventForm: React.FC = () => {
           />
         </FormControl>
 
-        <FormControl id="venueName">
+        <FormControl id="venueName" color="#CBE6AD">
           <FormLabel>Venue Name</FormLabel>
           <Input
             type="text"
@@ -65,7 +75,7 @@ const CreateEventForm: React.FC = () => {
           />
         </FormControl>
 
-        <FormControl id="location">
+        <FormControl id="location" color="#CBE6AD">
           <FormLabel>Location</FormLabel>
           <Input
             type="text"
@@ -74,7 +84,7 @@ const CreateEventForm: React.FC = () => {
           />
         </FormControl> 
 
-        <FormControl id="date">
+        <FormControl id="date" color="#CBE6AD">
           <FormLabel>Date</FormLabel>
           <Input
             type="date"
@@ -83,7 +93,7 @@ const CreateEventForm: React.FC = () => {
           />
         </FormControl>
 
-        <FormControl id="startTime">
+        <FormControl id="startTime" color="#CBE6AD">
           <FormLabel>Start Time</FormLabel>
           <Input
             type="time"
@@ -92,7 +102,7 @@ const CreateEventForm: React.FC = () => {
           />
         </FormControl>
 
-        <FormControl id="endTime">
+        <FormControl id="endTime" color="#CBE6AD">
           <FormLabel>End Time</FormLabel>
           <Input
             type="time"
@@ -103,11 +113,12 @@ const CreateEventForm: React.FC = () => {
 
         
 
-        <Button type="submit" colorScheme="blue" mt={4}>
+        <Button type="submit" color="#CBE6AD" bg="#141220" variant="outline" mt={4}>
           Create Event
         </Button>
       </form>
     </Box>
+    
   );
 };
 
