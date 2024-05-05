@@ -5,7 +5,7 @@ import {
   Input,
   Button,
   Box,
-  useTheme
+  
 } from "@chakra-ui/react";
 
 
@@ -30,7 +30,7 @@ const CreateEventForm: React.FC = () => {
     endTime: "",
   });
 
-  const theme = useTheme();
+
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     fieldName: keyof EventFormValues

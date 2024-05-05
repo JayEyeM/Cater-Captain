@@ -1,11 +1,21 @@
 // import React, {useState} from 'react';
 import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Text, Button } from '@chakra-ui/react'
 import { EventFormValues } from '../components/CreateEventForm';
+import React, { useState } from 'react';
 
 const ViewSavedEvents: React.FC = () => {
         //get event data from local storage
+      const [savedEvents, setSavedEvents] = useState<EventFormValues[]>(() => {
         const savedEventsJSON = localStorage.getItem('events');
-        const savedEvents = savedEventsJSON ? JSON.parse(savedEventsJSON) : [];
+        return savedEventsJSON ? JSON.parse(savedEventsJSON) : [];
+      });
+
+      const handleDeleteEvent = (index: number) => {
+        const updatedEvents = savedEvents.filter((_, i) => i !== index);
+        setSavedEvents(updatedEvents);
+        localStorage.setItem('events', JSON.stringify(updatedEvents));
+      }
+        
 
         return (
             <Stack spacing={4}>
@@ -32,7 +42,7 @@ const ViewSavedEvents: React.FC = () => {
             <Button variant='outline' color='#CBE6AD'>
               Edit Event
             </Button>
-            <Button variant='outline' color='#D2A4A4' ml={2}>
+            <Button variant='outline' color='#D2A4A4' ml={2} onClick={() => handleDeleteEvent(index)}>
               Delete Event
             </Button>
           </CardFooter>
