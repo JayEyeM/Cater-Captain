@@ -5,10 +5,13 @@ import {
   Input,
   Button,
   Box,
+  
 } from "@chakra-ui/react";
-import { theme } from '@chakra-ui/react';
 
-interface EventFormValues {
+
+
+
+export interface EventFormValues {
   eventName: string;
   venueName: string;
   location: string;
@@ -27,6 +30,7 @@ const CreateEventForm: React.FC = () => {
     endTime: "",
   });
 
+
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     fieldName: keyof EventFormValues
@@ -40,14 +44,20 @@ const CreateEventForm: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    localStorage.setItem("formValues", JSON.stringify(formValues));
+    const existingEventsJSON= localStorage.getItem('events');
+    const exisitingEvents : EventFormValues[] = existingEventsJSON ? JSON.parse(existingEventsJSON) : [];
+
+    const updatedEvents = [...exisitingEvents, formValues];
+
+    localStorage.setItem('events', JSON.stringify(updatedEvents));
     console.log("Form submitted:", formValues);
   };
 
   return (
-    <Box sx={{ background: theme.colors.gray[100] }}>
+    
+    <Box bg={"#141220"}>
       <form onSubmit={handleSubmit}>
-        <FormControl id="eventName">
+        <FormControl id="eventName" color="#CBE6AD">
           <FormLabel>Event Name</FormLabel>
           <Input
             type="text"
@@ -56,13 +66,59 @@ const CreateEventForm: React.FC = () => {
           />
         </FormControl>
 
-        {/* Other form controls omitted for brevity */}
+        <FormControl id="venueName" color="#CBE6AD">
+          <FormLabel>Venue Name</FormLabel>
+          <Input
+            type="text"
+            value={formValues.venueName}
+            onChange={(event) => handleChange(event, "venueName")}
+          />
+        </FormControl>
 
-        <Button type="submit" colorScheme="blue" mt={4}>
+        <FormControl id="location" color="#CBE6AD">
+          <FormLabel>Location</FormLabel>
+          <Input
+            type="text"
+            value={formValues.location}
+            onChange={(event) => handleChange(event, "location")}
+          />
+        </FormControl> 
+
+        <FormControl id="date" color="#CBE6AD">
+          <FormLabel>Date</FormLabel>
+          <Input
+            type="date"
+            value={formValues.date}
+            onChange={(event) => handleChange(event, "date")}
+          />
+        </FormControl>
+
+        <FormControl id="startTime" color="#CBE6AD">
+          <FormLabel>Start Time</FormLabel>
+          <Input
+            type="time"
+            value={formValues.startTime}
+            onChange={(event) => handleChange(event, "startTime")}
+          />
+        </FormControl>
+
+        <FormControl id="endTime" color="#CBE6AD">
+          <FormLabel>End Time</FormLabel>
+          <Input
+            type="time"
+            value={formValues.endTime}
+            onChange={(event) => handleChange(event, "endTime")}
+          />  
+        </FormControl>
+
+        
+
+        <Button type="submit" color="#CBE6AD" bg="#141220" variant="outline" mt={4}>
           Create Event
         </Button>
       </form>
     </Box>
+    
   );
 };
 
