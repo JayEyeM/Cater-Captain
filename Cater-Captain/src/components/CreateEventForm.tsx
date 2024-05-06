@@ -56,6 +56,14 @@ const CreateEventForm: React.FC<CreateEventFormProps> = ({ setEventsChanged }) =
 
     localStorage.setItem('events', JSON.stringify(updatedEvents));
     setEventsChanged(true);
+    setFormValues({
+      eventName: "",
+      venueName: "",
+      location: "",
+      date: "",
+      startTime: "",
+      endTime: "",
+    })
     console.log("Form submitted:", formValues);
   };
 

@@ -20,8 +20,7 @@ useEffect(() => {
                 <h1>Dis' yer Dashboard Page!</h1>
                 <p>This is where you gonna get down to bizness!</p>
                 <CreateEventForm setEventsChanged={setEventsChanged}/>
-                <ViewSavedEvents //eventsChanged={eventsChanged}} 
-                />
+                <ViewSavedEvents eventsChanged={eventsChanged}/>
         </div>
     </ChakraProvider>
     );
