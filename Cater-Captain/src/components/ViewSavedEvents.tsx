@@ -1,12 +1,15 @@
 // import React, {useState} from 'react';
 import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Text, Button } from '@chakra-ui/react'
 import { EventFormValues } from '../components/CreateEventForm';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 //define interface here
+interface ViewSavedEventsProps {
+  eventsChanged: boolean;
+}
 //pass in events changed props here
 
-const ViewSavedEvents: React.FC = () => {
+const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ eventsChanged }) => {
         //get event data from local storage
       const [savedEvents, setSavedEvents] = useState<EventFormValues[]>(() => {
         const savedEventsJSON = localStorage.getItem('events');
@@ -14,6 +17,13 @@ const ViewSavedEvents: React.FC = () => {
       });
 
       //useEffect to refetch loacl storage here
+      useEffect(() => {
+        if (eventsChanged) {
+          const savedEventsJSON = localStorage.getItem('events');
+          const savedEvents: EventFormValues[] = savedEventsJSON ? JSON.parse(savedEventsJSON) : [];
+          setSavedEvents(savedEvents);
+        }
+      }, [eventsChanged]);
 
       const handleDeleteEvent = (index: number) => {
         const updatedEvents = savedEvents.filter((_, i) => i !== index);
