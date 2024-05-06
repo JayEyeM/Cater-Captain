@@ -3,12 +3,17 @@ import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Text, Button } 
 import { EventFormValues } from '../components/CreateEventForm';
 import React, { useState } from 'react';
 
+//define interface here
+//pass in events changed props here
+
 const ViewSavedEvents: React.FC = () => {
         //get event data from local storage
       const [savedEvents, setSavedEvents] = useState<EventFormValues[]>(() => {
         const savedEventsJSON = localStorage.getItem('events');
         return savedEventsJSON ? JSON.parse(savedEventsJSON) : [];
       });
+
+      //useEffect to refetch loacl storage here
 
       const handleDeleteEvent = (index: number) => {
         const updatedEvents = savedEvents.filter((_, i) => i !== index);
