@@ -20,7 +20,12 @@ export interface EventFormValues {
   endTime: string;
 }
 
-const CreateEventForm: React.FC = () => {
+interface CreateEventFormProps {
+  setEventsChanged: any;
+  testField?: string;
+}
+
+const CreateEventForm: React.FC<CreateEventFormProps> = ({ setEventsChanged }) => {
   const [formValues, setFormValues] = useState<EventFormValues>({
     eventName: "",
     venueName: "",
@@ -50,6 +55,7 @@ const CreateEventForm: React.FC = () => {
     const updatedEvents = [...exisitingEvents, formValues];
 
     localStorage.setItem('events', JSON.stringify(updatedEvents));
+    setEventsChanged(true);
     console.log("Form submitted:", formValues);
   };
 
