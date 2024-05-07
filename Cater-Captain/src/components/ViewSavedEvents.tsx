@@ -6,10 +6,11 @@ import React, { useState, useEffect } from 'react';
 //define interface here
 interface ViewSavedEventsProps {
   eventsChanged: boolean;
+  setEditEvent: (event: EventFormValues | null) => void;
 }
 //pass in events changed props here
 
-const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ eventsChanged }) => {
+const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ eventsChanged, setEditEvent }) => {
         //get event data from local storage
       const [savedEvents, setSavedEvents] = useState<EventFormValues[]>(() => {
         const savedEventsJSON = localStorage.getItem('events');
@@ -30,10 +31,15 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ eventsChanged }) => {
         setSavedEvents(updatedEvents);
         localStorage.setItem('events', JSON.stringify(updatedEvents));
       }
+
+      const handleEditEvent = (index: number) => {
+        const eventToEdit = savedEvents[index];
+        setEditEvent(eventToEdit);
+      }
         
 
-        return (
-            <Stack spacing={4}>
+    return (
+      <Stack spacing={4}>
       {savedEvents.map((event: EventFormValues, index: number) => (
         <Card
         key={index}
@@ -54,7 +60,7 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ eventsChanged }) => {
           </CardBody>
 
           <CardFooter>
-            <Button variant='outline' color='#CBE6AD'>
+            <Button variant='outline' color='#CBE6AD' onClick={() => handleEditEvent(index)}>
               Edit Event
             </Button>
             <Button variant='outline' color='#D2A4A4' ml={2} onClick={() => handleDeleteEvent(index)}>
@@ -64,7 +70,7 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ eventsChanged }) => {
         </Card>
       ))}
     </Stack>
-        )
+    );
 }
 
 

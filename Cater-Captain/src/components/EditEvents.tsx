@@ -8,7 +8,7 @@ interface EditEventFormProps {
 }
 
 const EditEventForm: React.FC<EditEventFormProps> = ({ event, onSave }) => {
-  const [editedEvent, setEditedEvent] = useState<EventFormValues>(event);
+  const [editedEvent, setEditedEvent] = useState<EventFormValues>({ ...event });
 
   const handleChange = (fieldName: keyof EventFormValues, value: string) => {
     setEditedEvent(prevEvent => ({
@@ -79,7 +79,7 @@ const EditEventForm: React.FC<EditEventFormProps> = ({ event, onSave }) => {
           />
         </FormControl>
 
-        <Button type="submit" colorScheme="blue" mt={4}>
+        <Button type="submit" colorScheme="blue" mt={4} onClick={() => onSave(editedEvent)}>
           Save Event
         </Button>
       </form>
