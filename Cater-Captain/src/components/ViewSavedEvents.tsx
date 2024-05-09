@@ -2,6 +2,7 @@
 import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Text, Button } from '@chakra-ui/react'
 import { EventFormValues } from '../components/CreateEventForm';
 import React, { useState, useEffect } from 'react';
+import SortEvents from './SortEvents';
 
 //define interface here
 interface ViewSavedEventsProps {
@@ -17,18 +18,20 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ eventsChanged, setEdi
         return savedEventsJSON ? JSON.parse(savedEventsJSON) : [];
       });
 
+      const [filteredEvents, setFilteredEvents] = useState<EventFormValues[]>(savedEvents);
+      const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
+      const [selectedYear, setSelectedYear] = useState<string | null>(null);
+
       //useEffect to refetch loacl storage here
       useEffect(() => {
-        if (eventsChanged) {
-          const savedEventsJSON = localStorage.getItem('events');
-          const savedEvents: EventFormValues[] = savedEventsJSON ? JSON.parse(savedEventsJSON) : [];
-          setSavedEvents(savedEvents);
-        }
-      }, [eventsChanged]);
+        savedEvents.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+        handleFilterChange(selectedMonth, selectedYear);
+      }, [selectedMonth, selectedYear, eventsChanged]);
 
       const handleDeleteEvent = (index: number) => {
         const updatedEvents = savedEvents.filter((_, i) => i !== index);
         setSavedEvents(updatedEvents);
+        setFilteredEvents(updatedEvents);
         localStorage.setItem('events', JSON.stringify(updatedEvents));
       }
 
@@ -36,11 +39,27 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ eventsChanged, setEdi
         const eventToEdit = savedEvents[index];
         setEditEvent(eventToEdit);
       }
+
+      const handleFilterChange = (month: string | null, year: string | null) => {
+        let filteredEvents: EventFormValues[] = savedEvents;
+    
+        if (month && year) {
+          filteredEvents = savedEvents.filter(event => {
+            const eventDate = new Date(event.date);
+            const eventMonth = eventDate.getMonth() + 1;
+            const eventYear = eventDate.getFullYear();
+            return eventMonth === parseInt(month) && eventYear === parseInt(year);
+          });
+        }
+    
+        setFilteredEvents(filteredEvents);
+      }
         
 
     return (
       <Stack spacing={4}>
-      {savedEvents.map((event: EventFormValues, index: number) => (
+        <SortEvents onFilterChange={handleFilterChange} />
+      {filteredEvents.map((event: EventFormValues, index: number) => (
         <Card
         key={index}
         direction={{ base: 'column', sm: 'row' }}
