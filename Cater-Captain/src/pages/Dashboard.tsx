@@ -4,6 +4,7 @@ import CreateEventForm from '../components/CreateEventForm';
 import ViewSavedEvents from '../components/ViewSavedEvents';
 import EditEventForm from '../components/EditEvents';
 import { EventFormValues } from '../components/CreateEventForm';
+import SortEvents from '../components/SortEvents';
 
 
 
