@@ -42,7 +42,7 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ eventsChanged, setEdi
 
       const handleFilterChange = (month: string | null, year: string | null) => {
         let filteredEvents: EventFormValues[] = savedEvents;
-    
+      
         if (month && year) {
           filteredEvents = savedEvents.filter(event => {
             const eventDate = new Date(event.date);
@@ -50,10 +50,22 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ eventsChanged, setEdi
             const eventYear = eventDate.getFullYear();
             return eventMonth === parseInt(month) && eventYear === parseInt(year);
           });
+        } else if (month) {
+          filteredEvents = savedEvents.filter(event => {
+            const eventDate = new Date(event.date);
+            const eventMonth = eventDate.getMonth() + 1;
+            return eventMonth === parseInt(month);
+          });
+        } else if (year) {
+          filteredEvents = savedEvents.filter(event => {
+            const eventDate = new Date(event.date);
+            const eventYear = eventDate.getFullYear();
+            return eventYear === parseInt(year);
+          });
         }
-    
+      
         setFilteredEvents(filteredEvents);
-      }
+      };
         
 
     return (
