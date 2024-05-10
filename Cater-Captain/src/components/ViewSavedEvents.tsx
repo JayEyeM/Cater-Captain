@@ -24,9 +24,13 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ eventsChanged, setEdi
 
       //useEffect to refetch loacl storage here
       useEffect(() => {
-        savedEvents.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-        handleFilterChange(selectedMonth, selectedYear);
-      }, [selectedMonth, selectedYear, eventsChanged]);
+        if (eventsChanged) {
+          const savedEventsJSON = localStorage.getItem('events');
+          const savedEvents: EventFormValues[] = savedEventsJSON ? JSON.parse(savedEventsJSON) : [];
+          setSavedEvents(savedEvents);
+          setFilteredEvents(savedEvents);
+        }
+      }, [eventsChanged]);
 
       const handleDeleteEvent = (index: number) => {
         const updatedEvents = savedEvents.filter((_, i) => i !== index);

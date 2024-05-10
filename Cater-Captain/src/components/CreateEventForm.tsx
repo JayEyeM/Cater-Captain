@@ -21,11 +21,12 @@ export interface EventFormValues {
 }
 
 interface CreateEventFormProps {
+  setSavedEvents: any;
   setEventsChanged: any;
   testField?: string;
 }
 
-const CreateEventForm: React.FC<CreateEventFormProps> = ({ setEventsChanged }) => {
+const CreateEventForm: React.FC<CreateEventFormProps> = ({ setSavedEvents, setEventsChanged }) => {
   const [formValues, setFormValues] = useState<EventFormValues>({
     eventName: "",
     venueName: "",
@@ -56,6 +57,7 @@ const CreateEventForm: React.FC<CreateEventFormProps> = ({ setEventsChanged }) =
 
     localStorage.setItem('events', JSON.stringify(updatedEvents));
     setEventsChanged(true);
+    setSavedEvents(updatedEvents);
     setFormValues({
       eventName: "",
       venueName: "",
@@ -70,6 +72,7 @@ const CreateEventForm: React.FC<CreateEventFormProps> = ({ setEventsChanged }) =
   return (
     
     <Box bg={"#141220"}>
+      <h1>Create Event Form</h1>
       <form onSubmit={handleSubmit}>
         <FormControl id="eventName" color="#CBE6AD">
           <FormLabel>Event Name</FormLabel>

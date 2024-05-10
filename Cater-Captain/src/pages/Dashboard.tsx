@@ -36,7 +36,8 @@ useEffect(() => {
         <div>
                 <h1>Dis' yer Dashboard Page!</h1>
                 <p>This is where you gonna get down to bizness!</p>
-                <CreateEventForm setEventsChanged={setEventsChanged}/>
+                <CreateEventForm setEventsChanged={setEventsChanged}
+                setSavedEvents={handleSaveEvent}/>
                 <ViewSavedEvents eventsChanged={eventsChanged} setEditEvent={setEditEvent}/>
                 {editEvent && <EditEventForm event={editEvent} onSave={handleSaveEvent} />}
         </div>
