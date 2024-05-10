@@ -23,9 +23,10 @@ const EditEventForm: React.FC<EditEventFormProps> = ({ event, onSave }) => {
   };
 
   return (
-    <Box>
+    <Box bg={"#141220"}>
+      <h1>Edit Event Form</h1>
       <form onSubmit={handleSubmit}>
-        <FormControl>
+        <FormControl color="#CBE6AD">
           <FormLabel>Event Name</FormLabel>
           <Input
             type="text"
@@ -34,7 +35,7 @@ const EditEventForm: React.FC<EditEventFormProps> = ({ event, onSave }) => {
           />
         </FormControl>
 
-        <FormControl>
+        <FormControl color="#CBE6AD">
           <FormLabel>Venue Name</FormLabel>
           <Input
             type="text"
@@ -43,7 +44,7 @@ const EditEventForm: React.FC<EditEventFormProps> = ({ event, onSave }) => {
           />
         </FormControl>
 
-        <FormControl>
+        <FormControl color="#CBE6AD">
           <FormLabel>Location</FormLabel>
           <Input
             type="text"
@@ -52,7 +53,7 @@ const EditEventForm: React.FC<EditEventFormProps> = ({ event, onSave }) => {
           />
         </FormControl>
 
-        <FormControl>
+        <FormControl color="#CBE6AD">
           <FormLabel>Date</FormLabel>
           <Input
             type="date"
@@ -61,7 +62,7 @@ const EditEventForm: React.FC<EditEventFormProps> = ({ event, onSave }) => {
           />
         </FormControl>
 
-        <FormControl>
+        <FormControl color="#CBE6AD">
           <FormLabel>Start Time</FormLabel>
           <Input
             type="time"
@@ -70,7 +71,7 @@ const EditEventForm: React.FC<EditEventFormProps> = ({ event, onSave }) => {
           />
         </FormControl>
 
-        <FormControl>
+        <FormControl color="#CBE6AD">
           <FormLabel>End Time</FormLabel>
           <Input
             type="time"
@@ -79,7 +80,7 @@ const EditEventForm: React.FC<EditEventFormProps> = ({ event, onSave }) => {
           />
         </FormControl>
 
-        <Button type="submit" colorScheme="blue" mt={4} onClick={() => onSave(editedEvent)}>
+        <Button type="submit" colorScheme="blue" variant="outline" mt={4} onClick={() => onSave(editedEvent)}>
           Save Event
         </Button>
       </form>
