@@ -19,8 +19,7 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ eventsChanged, setEdi
       });
 
       const [filteredEvents, setFilteredEvents] = useState<EventFormValues[]>(savedEvents);
-      const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
-      const [selectedYear, setSelectedYear] = useState<string | null>(null);
+      
 
       //useEffect to refetch loacl storage here
       useEffect(() => {
@@ -44,27 +43,18 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ eventsChanged, setEdi
         setEditEvent(eventToEdit);
       }
 
-      const handleFilterChange = (month: string | null, year: string | null) => {
+      const handleFilterChange = (startDate: string, endDate: string) => {
+        console.log('startDate:', startDate);
+  console.log('endDate:', endDate);
+  console.log('savedEvents:', savedEvents);
         let filteredEvents: EventFormValues[] = savedEvents;
       
-        if (month && year) {
+        if (startDate && endDate) {
+          const startDateObj = new Date(startDate);
+          const endDateObj = new Date(endDate);
           filteredEvents = savedEvents.filter(event => {
             const eventDate = new Date(event.date);
-            const eventMonth = eventDate.getMonth() + 1;
-            const eventYear = eventDate.getFullYear();
-            return eventMonth === parseInt(month) && eventYear === parseInt(year);
-          });
-        } else if (month) {
-          filteredEvents = savedEvents.filter(event => {
-            const eventDate = new Date(event.date);
-            const eventMonth = eventDate.getMonth() + 1;
-            return eventMonth === parseInt(month);
-          });
-        } else if (year) {
-          filteredEvents = savedEvents.filter(event => {
-            const eventDate = new Date(event.date);
-            const eventYear = eventDate.getFullYear();
-            return eventYear === parseInt(year);
+            return eventDate >= startDateObj && eventDate <= endDateObj;
           });
         }
       
@@ -74,7 +64,7 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ eventsChanged, setEdi
 
     return (
       <Stack spacing={4}>
-        <SortEvents onFilterChange={handleFilterChange} />
+        <SortEvents onFilterChange={(startDate, endDate) => handleFilterChange(startDate, endDate)} />
       {filteredEvents.map((event: EventFormValues, index: number) => (
         <Card
         key={index}
