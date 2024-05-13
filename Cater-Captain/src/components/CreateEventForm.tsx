@@ -8,10 +8,14 @@ import {
   
 } from "@chakra-ui/react";
 
-
-
+export const generateUniqueId = () => {
+  const timestamp = Date.now().toString(36);
+  const randomString = Math.random().toString(36).slice(2, 5);
+  return `EvEnT${timestamp}${randomString}`;
+};
 
 export interface EventFormValues {
+  id: string;
   eventName: string;
   venueName: string;
   location: string;
@@ -28,6 +32,7 @@ interface CreateEventFormProps {
 
 const CreateEventForm: React.FC<CreateEventFormProps> = ({ setSavedEvents, setEventsChanged }) => {
   const [formValues, setFormValues] = useState<EventFormValues>({
+    id: "",
     eventName: "",
     venueName: "",
     location: "",
@@ -53,12 +58,25 @@ const CreateEventForm: React.FC<CreateEventFormProps> = ({ setSavedEvents, setEv
     const existingEventsJSON= localStorage.getItem('events');
     const exisitingEvents : EventFormValues[] = existingEventsJSON ? JSON.parse(existingEventsJSON) : [];
 
-    const updatedEvents = [...exisitingEvents, formValues];
+    const uniqueId = generateUniqueId();
+
+    const updatedFormValues: EventFormValues = {
+      id: uniqueId,
+      eventName: formValues.eventName,
+      venueName: formValues.venueName,
+      location: formValues.location,
+      date: formValues.date,
+      startTime: formValues.startTime,
+      endTime: formValues.endTime,
+    };
+
+    const updatedEvents = [...exisitingEvents, updatedFormValues];
 
     localStorage.setItem('events', JSON.stringify(updatedEvents));
     setEventsChanged(true);
     setSavedEvents(updatedEvents);
     setFormValues({
+      id: "",
       eventName: "",
       venueName: "",
       location: "",
