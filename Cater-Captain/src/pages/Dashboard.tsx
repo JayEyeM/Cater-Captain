@@ -4,6 +4,7 @@ import CreateEventForm from '../components/CreateEventForm';
 import ViewSavedEvents from '../components/ViewSavedEvents';
 import EditEventForm from '../components/EditEvents';
 import { EventFormValues } from '../components/CreateEventForm';
+import { generateUniqueId }  from '../components/CreateEventForm';
 
 
 
@@ -18,6 +19,9 @@ const handleSaveEvent = (updatedEvent: EventFormValues) => {
     const index = savedEvents.findIndex((event) => event.eventName === updatedEvent.eventName);
 
     if (index !== -1) {
+        const uniqueId = generateUniqueId();
+        updatedEvent.id = uniqueId;
+
         savedEvents[index] = updatedEvent;
         localStorage.setItem('events', JSON.stringify(savedEvents));
         setEventsChanged(true);

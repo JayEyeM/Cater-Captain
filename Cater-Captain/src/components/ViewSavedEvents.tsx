@@ -66,8 +66,9 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ eventsChanged, setEdi
       <Stack spacing={4}>
         <SortEvents onFilterChange={(startDate, endDate) => handleFilterChange(startDate, endDate)} />
       {filteredEvents.map((event: EventFormValues, index: number) => (
+        console.log(event.id),
         <Card
-        key={index}
+        key={event.id}
         direction={{ base: 'column', sm: 'row' }}
         overflow='hidden'
         variant='outline'
@@ -82,6 +83,7 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ eventsChanged, setEdi
             <Text><strong>Date:</strong> {event.date}</Text>
             <Text><strong>Start Time:</strong> {event.startTime}</Text>
             <Text><strong>End Time:</strong> {event.endTime}</Text>
+            <Text><strong>id:</strong>{event.id}</Text>
           </CardBody>
 
           <CardFooter>
