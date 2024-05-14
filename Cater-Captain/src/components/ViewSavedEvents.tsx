@@ -31,17 +31,19 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ eventsChanged, setEdi
         }
       }, [eventsChanged]);
 
-      const handleDeleteEvent = (index: number) => {
-        const updatedEvents = savedEvents.filter((_, i) => i !== index);
+      const handleDeleteEvent = (id: string) => {
+        const updatedEvents = savedEvents.filter(event => event.id !== id);
         setSavedEvents(updatedEvents);
         setFilteredEvents(updatedEvents);
         localStorage.setItem('events', JSON.stringify(updatedEvents));
       }
 
-      const handleEditEvent = (index: number) => {
-        const eventToEdit = savedEvents[index];
+      const handleEditEvent = (id: string) => {
+        const eventToEdit = savedEvents.find(event => event.id === id);
+        if (eventToEdit) {
         setEditEvent(eventToEdit);
       }
+    }
 
       const handleFilterChange = (startDate: string, endDate: string) => {
         console.log('startDate:', startDate);
@@ -65,7 +67,7 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ eventsChanged, setEdi
     return (
       <Stack spacing={4}>
         <SortEvents onFilterChange={(startDate, endDate) => handleFilterChange(startDate, endDate)} />
-      {filteredEvents.map((event: EventFormValues, index: number) => (
+      {filteredEvents.map((event: EventFormValues) => (
         console.log(event.id),
         <Card
         key={event.id}
@@ -87,10 +89,10 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ eventsChanged, setEdi
           </CardBody>
 
           <CardFooter>
-            <Button variant='outline' color='#CBE6AD' onClick={() => handleEditEvent(index)}>
+            <Button variant='outline' color='#CBE6AD' onClick={() => handleEditEvent(event.id)}>
               Edit Event
             </Button>
-            <Button variant='outline' color='#D2A4A4' ml={2} onClick={() => handleDeleteEvent(index)}>
+            <Button variant='outline' color='#D2A4A4' ml={2} onClick={() => handleDeleteEvent(event.id)}>
               Delete Event
             </Button>
           </CardFooter>
