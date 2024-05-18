@@ -7,154 +7,220 @@ import {
   Box,
   
 } from "@chakra-ui/react";
+import { EventForm } from './Interfaces';
+import ViewSavedEvents from './ViewSavedEvents';
 
-export const generateUniqueId = () => {
-  const timestamp = Date.now().toString(36);
-  const randomString = Math.random().toString(36).slice(2, 5);
-  return `EvEnT${timestamp}${randomString}`;
+//Get max event array length +1
+const generateUniqueId = () => {
+  const maxId = Math.max(...ViewSavedEvents.savedEvents.map((event) => event.id));
+  return maxId + 1;
 };
 
-export interface EventFormValues {
-  id: string;
-  eventName: string;
-  venueName: string;
-  location: string;
-  date: string;
-  startTime: string;
-  endTime: string;
-}
-
-interface CreateEventFormProps {
-  setSavedEvents: any;
-  setEventsChanged: any;
-  testField?: string;
-}
-
-const CreateEventForm: React.FC<CreateEventFormProps> = ({ setSavedEvents, setEventsChanged }) => {
-  const [formValues, setFormValues] = useState<EventFormValues>({
-    id: "",
-    eventName: "",
-    venueName: "",
-    location: "",
-    date: "",
-    startTime: "",
-    endTime: "",
+//Create Event Form
+const CreateEventForm: React.FC = () => {
+  const [event, setEvent] = useState<EventForm>({
+    EventName: "",
+    CustomerFirstName: "",
+    CustomerLastName: "",
+    CustomerPhoneNumber: 0,
+    CustomerEmail: "",
+    EventType: "",
+    NumberOfGuests: 0,
+    EventDate: "",
+    StartTime: "",
+    EndTime: "",
+    VenueName: "",
+    VenueStreetAddress: "",
+    VenueCity: "",
+    id: generateUniqueId(),
   });
 
-
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    fieldName: keyof EventFormValues
-  ) => {
-    const { value } = event.target;
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      [fieldName]: value,
-    }));
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const existingEventsJSON= localStorage.getItem('events');
-    const exisitingEvents : EventFormValues[] = existingEventsJSON ? JSON.parse(existingEventsJSON) : [];
-
-    const uniqueId = generateUniqueId();
-
-    const updatedFormValues: EventFormValues = {
-      id: uniqueId,
-      eventName: formValues.eventName,
-      venueName: formValues.venueName,
-      location: formValues.location,
-      date: formValues.date,
-      startTime: formValues.startTime,
-      endTime: formValues.endTime,
-    };
-
-    const updatedEvents = [...exisitingEvents, updatedFormValues];
-
-    localStorage.setItem('events', JSON.stringify(updatedEvents));
-    setEventsChanged(true);
-    setSavedEvents(updatedEvents);
-    setFormValues({
-      id: "",
-      eventName: "",
-      venueName: "",
-      location: "",
-      date: "",
-      startTime: "",
-      endTime: "",
-    })
-    console.log("Form submitted:", formValues);
-  };
-
   return (
-    
-    <Box bg={"#141220"}>
+    <Box bg={"#141220"} style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', padding: '20px', zIndex: 1000, boxShadow: '0 5px 26px #CBE6AD', borderRadius: '4px'}}>
       <h1>Create Event Form</h1>
-      <form onSubmit={handleSubmit}>
-        <FormControl id="eventName" color="#CBE6AD">
+      <form>
+        <FormControl color="#CBE6AD">
           <FormLabel>Event Name</FormLabel>
           <Input
             type="text"
-            value={formValues.eventName}
-            onChange={(event) => handleChange(event, "eventName")}
+            value={event.EventName}
+            onChange={(event) =>
+              setEvent((prevEvent) => ({
+                ...prevEvent,
+                EventName: event.target.value,
+              }))
+            }
           />
         </FormControl>
-
-        <FormControl id="venueName" color="#CBE6AD">
-          <FormLabel>Venue Name</FormLabel>
+        <FormControl color="#CBE6AD">
+          <FormLabel>Customer First Name</FormLabel>
           <Input
             type="text"
-            value={formValues.venueName}
-            onChange={(event) => handleChange(event, "venueName")}
+            value={event.CustomerFirstName}
+            onChange={(event) =>
+              setEvent((prevEvent) => ({
+                ...prevEvent,
+                CustomerFirstName: event.target.value,
+              }))
+            }
           />
         </FormControl>
-
-        <FormControl id="location" color="#CBE6AD">
-          <FormLabel>Location</FormLabel>
+        <FormControl color="#CBE6AD">
+          <FormLabel>Customer Last Name</FormLabel>
+          <Input
+            type="text" 
+            value={event.CustomerLastName}
+            onChange={(event) =>
+             setEvent((prevEvent) => ({
+               ...prevEvent,
+               CustomerLastName: event.target.value,
+             }))
+            }
+          />
+        </FormControl>
+        <FormControl color="#CBE6AD">
+          <FormLabel>Customer Phone Number</FormLabel>
+          <Input
+            type="number"
+            value={event.CustomerPhoneNumber}
+            onChange={(event) =>
+              setEvent((prevEvent) => ({
+                ...prevEvent,
+                CustomerPhoneNumber: parseInt(event.target.value),
+              }))
+            }
+          />
+        </FormControl>
+        <FormControl color="#CBE6AD">
+          <FormLabel>Customer Email</FormLabel>
           <Input
             type="text"
-            value={formValues.location}
-            onChange={(event) => handleChange(event, "location")}
+            value={event.CustomerEmail}
+            onChange={(event) =>  
+              setEvent((prevEvent) => ({
+                ...prevEvent,
+                CustomerEmail: event.target.value,
+              }))
+            }
           />
-        </FormControl> 
-
-        <FormControl id="date" color="#CBE6AD">
-          <FormLabel>Date</FormLabel>
+        </FormControl>
+        <FormControl color="#CBE6AD">
+          <FormLabel>Event Type</FormLabel>
+          <Input
+            type="text"
+            value={event.EventType}
+            onChange={(event) =>
+             setEvent((prevEvent) => ({
+               ...prevEvent,
+               EventType: event.target.value,
+             }))
+            }
+          />
+        </FormControl>
+        <FormControl color="#CBE6AD">
+          <FormLabel>Number of Guests</FormLabel>
+          <Input
+            type="number"
+            value={event.NumberOfGuests}
+            onChange={(event) =>
+             setEvent((prevEvent) => ({
+               ...prevEvent,
+               NumberOfGuests: parseInt(event.target.value),
+             }))
+            }
+          />
+        </FormControl>
+        <FormControl color="#CBE6AD">
+          <FormLabel>Event Date</FormLabel>
           <Input
             type="date"
-            value={formValues.date}
-            onChange={(event) => handleChange(event, "date")}
+            value={event.EventDate}
+            onChange={(event) =>
+              setEvent((prevEvent) => ({
+                ...prevEvent,
+                EventDate: event.target.value,
+              }))
+            }
           />
         </FormControl>
-
-        <FormControl id="startTime" color="#CBE6AD">
-          <FormLabel>Start Time</FormLabel>
+        <FormControl color="#CBE6AD">
+          <FormLabel>Start Time</FormLabel> 
           <Input
             type="time"
-            value={formValues.startTime}
-            onChange={(event) => handleChange(event, "startTime")}
+            value={event.StartTime}
+            onChange={(event) =>
+              setEvent((prevEvent) => ({
+                ...prevEvent,
+                StartTime: event.target.value,
+              }))
+            }
           />
         </FormControl>
-
-        <FormControl id="endTime" color="#CBE6AD">
+        <FormControl color="#CBE6AD">
           <FormLabel>End Time</FormLabel>
           <Input
             type="time"
-            value={formValues.endTime}
-            onChange={(event) => handleChange(event, "endTime")}
-          />  
+            value={event.EndTime}
+            onChange={(event) =>
+              setEvent((prevEvent) => ({
+                ...prevEvent,
+                EndTime: event.target.value,
+              }))
+            }
+          />
+        </FormControl>
+        <FormControl color="#CBE6AD">
+          <FormLabel>Venue Name</FormLabel> 
+          <Input
+            type="text"
+            value={event.VenueName}
+            onChange={(event) =>
+              setEvent((prevEvent) => ({
+                ...prevEvent,
+                VenueName: event.target.value,
+              }))
+            }
+          />
+        </FormControl>
+        <FormControl color="#CBE6AD">
+          <FormLabel>Venue Street Address</FormLabel>
+          <Input
+            type="text" 
+            value={event.VenueStreetAddress}
+            onChange={(event) =>
+              setEvent((prevEvent) => ({
+                ...prevEvent,
+                VenueStreetAddress: event.target.value,
+              }))  
+            } 
+          />
+        </FormControl>
+        <FormControl color="#CBE6AD">
+          <FormLabel>Venue City</FormLabel>
+          <Input
+            type="text"
+            value={event.VenueCity}
+            onChange={(event) =>
+              setEvent((prevEvent) => ({
+                ...prevEvent,
+                VenueCity: event.target.value,
+              }))
+            }
+          />
         </FormControl>
 
-        
-
-        <Button type="submit" color="#CBE6AD" bg="#141220" variant="outline" mt={4}>
-          Create Event
+        <Button type="submit" colorScheme="lightGreen" variant="outline" mt={4} onClick={handleSave}>
+          Save
+        </Button>
+        <Button type="submit" colorScheme="Red" variant="outline" mt={4} onClick={handleCancel}>
+          Cancel
         </Button>
       </form>
     </Box>
-    
   );
 };
+
+
+
 
 export default CreateEventForm;

@@ -1,106 +1,95 @@
 // import React, {useState} from 'react';
 import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Text, Button } from '@chakra-ui/react'
-import { EventFormValues } from '../components/CreateEventForm';
+import { Event } from '../components/Interfaces';
 import React, { useState, useEffect } from 'react';
-import SortEvents from './SortEvents';
+import { generateUniqueId } from './CreateEventForm';
 
-//define interface here
-interface ViewSavedEventsProps {
-  eventsChanged: boolean;
-  setEditEvent: (event: EventFormValues | null) => void;
+// Initial saved events
+let initialSavedEvents = [{
+  //Event 1 with values defined in the ViewSavedEvents interface
+  EventName: "Event 1",
+CustomerFirstName: "Customer1FirstName",
+CustomerLastName: "Customer1LastName",
+CustomerPhoneNumber: 1234567890,
+CustomerEmail: "p0n9D@example.com",
+EventType: "Wedding",
+NumberOfGuests: 55,
+EventDate: "2022-01-01",
+StartTime: "4:00pm",
+EndTime: "7:00pm",
+VenueName: "Venue 1",
+VenueStreetAddress: "123 Main Street",
+VenueCity: "New York",
+id: generateUniqueId(),
+},
+{
+//Event 2 with values defined in the ViewSavedEvents interface
+EventName: "Event 2",
+CustomerFirstName: "Customer2FirstName",
+CustomerLastName: "Customer2LastName",
+CustomerPhoneNumber: 1234567890,
+CustomerEmail: "p0n9D@example.com",
+EventType: "Wedding",
+NumberOfGuests: 55,
+EventDate: "2022-01-01",
+StartTime: "4:00pm",
+EndTime: "7:00pm",
+VenueName: "Venue 2",
+VenueStreetAddress: "123 Main Street",
+VenueCity: "New York",
+id: generateUniqueId(),
+},
+{
+//Event 3 with values defined in the ViewSavedEvents interface
+EventName: "Event 3",
+CustomerFirstName: "Customer3FirstName",
+CustomerLastName: "Customer3LastName",
+CustomerPhoneNumber: 1234567890,
+CustomerEmail: "p0n9D@example.com",
+EventType: "Wedding",
+NumberOfGuests: 55,
+EventDate: "2022-01-01",
+StartTime: "4:00pm",
+EndTime: "7:00pm",
+VenueName: "Venue 3",
+VenueStreetAddress: "123 Main Street",
+VenueCity: "New York",
+id: generateUniqueId(),
 }
-//pass in events changed props here
+];
 
-const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ eventsChanged, setEditEvent }) => {
-        //get event data from local storage
-      const [savedEvents, setSavedEvents] = useState<EventFormValues[]>(() => {
-        const savedEventsJSON = localStorage.getItem('events');
-        return savedEventsJSON ? JSON.parse(savedEventsJSON) : [];
-      });
+const ViewSavedEvents: React.FC<{ initialSavedEvents: Event[] }> = ({ initialSavedEvents }) => {
+  const [savedEvents, setSavedEvents] = useState<Event[]>(initialSavedEvents);
 
-      const [filteredEvents, setFilteredEvents] = useState<EventFormValues[]>(savedEvents);
-      
-
-      //useEffect to refetch loacl storage here
-      useEffect(() => {
-        if (eventsChanged) {
-          const savedEventsJSON = localStorage.getItem('events');
-          const savedEvents: EventFormValues[] = savedEventsJSON ? JSON.parse(savedEventsJSON) : [];
-          setSavedEvents(savedEvents);
-          setFilteredEvents(savedEvents);
-        }
-      }, [eventsChanged]);
-
-      const handleDeleteEvent = (id: string) => {
-        const updatedEvents = savedEvents.filter(event => event.id !== id);
-        setSavedEvents(updatedEvents);
-        setFilteredEvents(updatedEvents);
-        localStorage.setItem('events', JSON.stringify(updatedEvents));
-      }
-
-      const handleEditEvent = (id: string) => {
-        const eventToEdit = savedEvents.find(event => event.id === id);
-        if (eventToEdit) {
-        setEditEvent(eventToEdit);
-      }
-    }
-
-      const handleFilterChange = (startDate: string, endDate: string) => {
-        console.log('startDate:', startDate);
-  console.log('endDate:', endDate);
-  console.log('savedEvents:', savedEvents);
-        let filteredEvents: EventFormValues[] = savedEvents;
-      
-        if (startDate && endDate) {
-          const startDateObj = new Date(startDate);
-          const endDateObj = new Date(endDate);
-          filteredEvents = savedEvents.filter(event => {
-            const eventDate = new Date(event.date);
-            return eventDate >= startDateObj && eventDate <= endDateObj;
-          });
-        }
-      
-        setFilteredEvents(filteredEvents);
-      };
-        
-
-    return (
-      <Stack spacing={4}>
-        <SortEvents onFilterChange={(startDate, endDate) => handleFilterChange(startDate, endDate)} />
-      {filteredEvents.map((event: EventFormValues) => (
-        console.log(event.id),
-        <Card
-        key={event.id}
-        direction={{ base: 'column', sm: 'row' }}
-        overflow='hidden'
-        variant='outline'
-      >
-          <CardHeader>
-            <Heading size='md'>{event.eventName}</Heading>
-          </CardHeader>
-
-          <CardBody>
-            <Text><strong>Venue Name:</strong> {event.venueName}</Text>
-            <Text><strong>Location:</strong> {event.location}</Text>
-            <Text><strong>Date:</strong> {event.date}</Text>
-            <Text><strong>Start Time:</strong> {event.startTime}</Text>
-            <Text><strong>End Time:</strong> {event.endTime}</Text>
-            <Text><strong>id:</strong>{event.id}</Text>
-          </CardBody>
-
-          <CardFooter>
-            <Button variant='outline' color='#CBE6AD' onClick={() => handleEditEvent(event.id)}>
-              Edit Event
-            </Button>
-            <Button variant='outline' color='#D2A4A4' ml={2} onClick={() => handleDeleteEvent(event.id)}>
-              Delete Event
-            </Button>
-          </CardFooter>
-        </Card>
-      ))}
-    </Stack>
-    );
+  return (
+    <Card maxW='sm'>
+      <CardHeader>
+        <Heading size='md'>Saved Events</Heading>
+      </CardHeader>
+      <CardBody>
+        {savedEvents.map((event) => (
+          <Stack key={event.id} spacing='4'>
+            <Text>Event Name: {event.EventName}</Text>
+            <Text>Customer Name: {event.CustomerFirstName} {event.CustomerLastName}</Text>
+            <Text>Customer Phone Number: {event.CustomerPhoneNumber}</Text>
+            <Text>Customer Email: {event.CustomerEmail}</Text>
+            <Text>Event Type: {event.EventType}</Text>
+            <Text>Number of Guests: {event.NumberOfGuests}</Text>
+            <Text>Event Date: {event.EventDate}</Text>
+            <Text>Start Time: {event.StartTime}</Text>
+            <Text>End Time: {event.EndTime}</Text>
+            <Text>Venue Name: {event.VenueName}</Text>
+            <Text>Venue Street Address: {event.VenueStreetAddress}</Text>
+            <Text>Venue City: {event.VenueCity}</Text>
+            <Text>Event ID: {event.id}</Text>
+          </Stack>
+        ))}
+      </CardBody>
+      <CardFooter>
+        <Button variant='outline' colorScheme='lightGreen'>Edit</Button>
+        <Button variant='outline' colorScheme='red'>Delete</Button>
+      </CardFooter>
+    </Card>
+  );
 }
-
-
 export default ViewSavedEvents;

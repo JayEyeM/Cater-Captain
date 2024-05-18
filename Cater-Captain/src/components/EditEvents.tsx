@@ -5,10 +5,23 @@ import { FormControl, FormLabel, Input, Button, Box } from "@chakra-ui/react";
 interface EditEventFormProps {
   event: EventFormValues;
   onSave: (updatedEvent: EventFormValues) => void;
+  onCancel: () => void;
 }
 
-const EditEventForm: React.FC<EditEventFormProps> = ({ event, onSave }) => {
+const EditEventForm: React.FC<EditEventFormProps> = ({ event, onSave, onCancel }) => {
   const [editedEvent, setEditedEvent] = useState<EventFormValues>({ ...event });
+  //const [isFormVisible, setIsFormVisible] = useState(true);
+
+  const handleCancel = () => {
+    setEditedEvent(event);
+    onCancel();
+  }
+
+  const handleSave = () => {
+    onSave(editedEvent);
+    onCancel();
+  }
+
 
   const handleChange = (fieldName: keyof EventFormValues, value: string) => {
     setEditedEvent(prevEvent => ({
@@ -19,11 +32,16 @@ const EditEventForm: React.FC<EditEventFormProps> = ({ event, onSave }) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    console.log("Form submitted");
     onSave(editedEvent);
   };
 
+  
+
   return (
-    <Box bg={"#141220"}>
+    <>
+    {/* {isFormVisible && ( */}
+    <Box bg={"#141220"} style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', padding: '20px', zIndex: 1000, boxShadow: '0 5px 26px #CBE6AD', borderRadius: '4px'}}>
       <h1>Edit Event Form</h1>
       <form onSubmit={handleSubmit}>
         <FormControl color="#CBE6AD">
@@ -80,12 +98,19 @@ const EditEventForm: React.FC<EditEventFormProps> = ({ event, onSave }) => {
           />
         </FormControl>
 
-        <Button type="submit" colorScheme="blue" variant="outline" mt={4} onClick={() => onSave(editedEvent)}>
+        <Button type="submit" colorScheme="blue" variant="outline" mt={4} onClick={handleSave}>
           Save Event
+        </Button>
+        <Button type="reset" colorScheme="red" variant="outline" mt={4} onClick={handleCancel}>
+          Cancel
         </Button>
       </form>
     </Box>
+    {/* )} */}
+    </>
   );
 };
 
 export default EditEventForm;
+
+
