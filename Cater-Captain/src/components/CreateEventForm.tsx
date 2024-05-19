@@ -10,11 +10,13 @@ import {
 import { EventForm } from './Interfaces';
 import ViewSavedEvents from './ViewSavedEvents';
 
+
 //Get max event array length +1
-const generateUniqueId = () => {
-  const maxId = Math.max(...ViewSavedEvents.savedEvents.map((event) => event.id));
+const generateUniqueId = (savedEvents: Event[]) => {
+  const maxId = savedEvents.length > 0 ? Math.max(...savedEvents.map((event) => event.id)) : 0;
   return maxId + 1;
 };
+
 
 //Create Event Form
 const CreateEventForm: React.FC = () => {
@@ -32,7 +34,7 @@ const CreateEventForm: React.FC = () => {
     VenueName: "",
     VenueStreetAddress: "",
     VenueCity: "",
-    id: generateUniqueId(),
+    id: generateUniqueId([]),
   });
 
   return (
