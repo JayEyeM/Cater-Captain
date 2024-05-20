@@ -61,6 +61,11 @@ id: generateUniqueId(),
 const ViewSavedEvents: React.FC<{ initialSavedEvents: Event[] }> = ({ initialSavedEvents }) => {
   const [savedEvents, setSavedEvents] = useState<Event[]>(initialSavedEvents);
 
+  //handle edit event
+  const handleEditEvent = (id: number, updatedEvent: Event) => {
+    setSavedEvents(prevEvents => prevEvents.map(event => event.id === id ? updatedEvent : event));
+  };
+
   return (
     <Card maxW='sm'>
       <CardHeader>
