@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState, useEffect } from 'react';
 import {
   FormControl,
   FormLabel,
@@ -12,34 +12,37 @@ import { EventForm, Event } from './Interfaces';
 //Create CreateEventProps
 interface CreateEventProps {
   onAddEvent: (event: EventForm) => void;
+  isCreateEventFormVisible: boolean;
+  setIsCreateEventFormVisible: Dispatch<SetStateAction<boolean>>;
+  currentEvent: EventForm;
+  setCurrentEvent: Dispatch<SetStateAction<EventForm>>;
 }
 
 //Create generateUniqueId function
 //Get max event array length +1
-const generateUniqueId = (savedEvents: Event[]) => {
+export const generateUniqueId = (savedEvents: Event[]) => {
   const maxId = savedEvents.length > 0 ? Math.max(...savedEvents.map((event) => event.id)) : 0;
   return maxId + 1;
 };
 
 
 //Create Event Form
-const CreateEventForm: React.FC<CreateEventProps> = ({ onAddEvent }) => {
-  const [formData, setFormData] = useState<EventForm>({
-    EventName: "",
-    CustomerFirstName: "",
-    CustomerLastName: "",
-    CustomerPhoneNumber: 0,
-    CustomerEmail: "",
-    EventType: "",
-    NumberOfGuests: 0,
-    EventDate: "",
-    StartTime: "",
-    EndTime: "",
-    VenueName: "",
-    VenueStreetAddress: "",
-    VenueCity: "",
-    id: generateUniqueId([]),
-  });
+const CreateEventForm: React.FC<CreateEventProps> = ({ onAddEvent, 
+  isCreateEventFormVisible, 
+  setIsCreateEventFormVisible, 
+  currentEvent, 
+  setCurrentEvent }) => {
+    if (!isCreateEventFormVisible) {
+      return null;
+    }
+
+  const [formData, setFormData] = useState<EventForm>(currentEvent);
+
+  //sync form data with current event
+  useEffect(() => {
+    setFormData(currentEvent);
+  }, [currentEvent]);
+
 
   //handle change event
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,9 +51,13 @@ const CreateEventForm: React.FC<CreateEventProps> = ({ onAddEvent }) => {
       ...prevFormData,
       [name]: value,
     }));
+    setCurrentEvent(prevFormData => ({
+      ...prevFormData,
+      [name]: value,
+    }));
   };
 
-  //handle submit event
+  //handle submit event to local storage
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const storedEvents = JSON.parse(localStorage.getItem('events') || '[]');
@@ -60,44 +67,14 @@ const CreateEventForm: React.FC<CreateEventProps> = ({ onAddEvent }) => {
     localStorage.setItem('events', JSON.stringify(storedEvents));
     
     onAddEvent(newEvent);
-    
-    setFormData({
-      EventName: "",
-      CustomerFirstName: "",
-      CustomerLastName: "",
-      CustomerPhoneNumber: 0,
-      CustomerEmail: "",
-      EventType: "",
-      NumberOfGuests: 0,
-      EventDate: "",
-      StartTime: "",
-      EndTime: "",
-      VenueName: "",
-      VenueStreetAddress: "",
-      VenueCity: "",
-      id: generateUniqueId(storedEvents),
-    });
+
+    setIsCreateEventFormVisible(false);
   };
 
 
   //handleCancel form
   const handleCancel = () => {
-    setFormData({
-      EventName: "",
-      CustomerFirstName: "",
-      CustomerLastName: "",
-      CustomerPhoneNumber: 0,
-      CustomerEmail: "",
-      EventType: "",
-      NumberOfGuests: 0,
-      EventDate: "",
-      StartTime: "",
-      EndTime: "",
-      VenueName: "",
-      VenueStreetAddress: "",
-      VenueCity: "",
-      id: generateUniqueId(JSON.parse(localStorage.getItem('events') || '[]')),
-    });
+    setIsCreateEventFormVisible(false);
   };
 
   return (

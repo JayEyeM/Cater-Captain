@@ -1,80 +1,62 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ChakraProvider, theme } from '@chakra-ui/react';
 import CreateEventForm from '../components/CreateEventForm';
 import ViewSavedEvents from '../components/ViewSavedEvents';
-import EditEventForm from '../components/EditEvents';
-import generateUniqueId from '../components/CreateEventForm';
+import { EventForm, Event } from '../components/Interfaces';
 
-
-
-//create dashboard component
 const Dashboard: React.FC = () => {
-    const [isCreateEventFormVisible, setIsCreateEventFormVisible] = useState(false);
-    const [isViewSavedEventsFormVisible, setIsViewSavedEventsFormVisible] = useState(false);
-    const [isEditEventFormVisible, setIsEditEventFormVisible] = useState(false);
-    const [currentEvent, setCurrentEvent] = useState<EventForm>({
-        EventName: "",
-        CustomerFirstName: "",
-        CustomerLastName: "",
-        CustomerPhoneNumber: 0,
-        CustomerEmail: "",
-        EventType: "",
-        NumberOfGuests: 0,
-        EventDate: "",
-        StartTime: "",
-        EndTime: "",
-        VenueName: "",
-        VenueStreetAddress: "",
-        VenueCity: "",
-        id: generateUniqueId(),
-    });
-    const [initialSavedEvents, setInitialSavedEvents] = useState<Event[]>([]);
-    const [savedEvents, setSavedEvents] = useState<Event[]>([]);
-    const [isDarkMode, setIsDarkMode] = useState(true); // Set default theme to dark
+  const [isCreateEventFormVisible, setIsCreateEventFormVisible] = useState(false);
+  const [currentEvent, setCurrentEvent] = useState<EventForm>({
+    EventName: "",
+    CustomerFirstName: "",
+    CustomerLastName: "",
+    CustomerPhoneNumber: 0,
+    CustomerEmail: "",
+    EventType: "",
+    NumberOfGuests: 0,
+    EventDate: "",
+    StartTime: "",
+    EndTime: "",
+    VenueName: "",
+    VenueStreetAddress: "",
+    VenueCity: "",
+    id: 0,
+  });
 
-    const toggleTheme = () => {
-        setIsDarkMode(!isDarkMode);
-    };
+  const [savedEvents, setSavedEvents] = useState<Event[]>([]);// State to store saved events
+  const [isDarkMode, setIsDarkMode] = useState(true); // Set default theme to dark
 
-    console.log('Current theme:', isDarkMode ? 'Dark Theme' : 'Light Theme');
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
 
-    return (
-        <ChakraProvider theme={theme}>
-            <button onClick={toggleTheme}>Toggle Theme</button>
-            <CreateEventForm
-                isCreateEventFormVisible={isCreateEventFormVisible}
-                setIsCreateEventFormVisible={setIsCreateEventFormVisible}
-                initialSavedEvents={initialSavedEvents}
-                setInitialSavedEvents={setInitialSavedEvents}
-                savedEvents={savedEvents}
-                setSavedEvents={setSavedEvents}
-                currentEvent={currentEvent}
-                setCurrentEvent={setCurrentEvent}
-            />
-            <ViewSavedEvents
-                isViewSavedEventsFormVisible={isViewSavedEventsFormVisible}
-                setIsViewSavedEventsFormVisible={setIsViewSavedEventsFormVisible}
-                initialSavedEvents={initialSavedEvents}
-                setInitialSavedEvents={setInitialSavedEvents}
-                savedEvents={savedEvents}
-                setSavedEvents={setSavedEvents}
-                currentEvent={currentEvent}
-                setCurrentEvent={setCurrentEvent}
-            />
-            <EditEventForm
-                isEditEventFormVisible={isEditEventFormVisible}
-                setIsEditEventFormVisible={setIsEditEventFormVisible}
-                initialSavedEvents={initialSavedEvents}
-                setInitialSavedEvents={setInitialSavedEvents}
-                savedEvents={savedEvents}
-                setSavedEvents={setSavedEvents}
-                currentEvent={currentEvent}
-                setCurrentEvent={setCurrentEvent}
-            />
-        </ChakraProvider>
-    );
+  console.log('Current theme:', isDarkMode ? 'Dark Theme' : 'Light Theme');
+
+  return (
+    <ChakraProvider theme={theme}>
+      <button type='button' onClick={toggleTheme}>Toggle Theme</button>
+      <CreateEventForm
+        isCreateEventFormVisible={isCreateEventFormVisible}
+        setIsCreateEventFormVisible={setIsCreateEventFormVisible}
+        currentEvent={currentEvent}
+        setCurrentEvent={setCurrentEvent}
+        onAddEvent={
+          (event: EventForm) => {
+            setSavedEvents([...savedEvents, event]);
+          }
+        }
+      />
+      <ViewSavedEvents
+        savedEvents={savedEvents}
+        setSavedEvents={setSavedEvents}
+        onEditEvent={(event: Event) => {
+          setCurrentEvent(event);
+          setIsCreateEventFormVisible(true);
+        }}
+        
+      />
+    </ChakraProvider>
+  );
 };
-
-
 
 export default Dashboard;
