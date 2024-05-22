@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Text, Button } from '@chakra-ui/react';
 import { Event } from '../components/Interfaces';
-import { generateUniqueId } from '../components/CreateEventForm';
+import { generateUniqueId } from './CreateEventForm';
 
 interface ViewSavedEventsProps {
   savedEvents: Event[];
@@ -10,86 +10,84 @@ interface ViewSavedEventsProps {
 }
 
 const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSavedEvents, onEditEvent }) => {
-  const [editedEvent, setEditedEvent] = useState<Event | null>(null);
-
   useEffect(() => {
-    const initialSavedEvents: Event[] = [
-      {
-        EventName: "Event 1",
-        CustomerFirstName: "Customer1FirstName",
-        CustomerLastName: "Customer1LastName",
-        CustomerPhoneNumber: 1234567890,
-        CustomerEmail: "p0n9D@example.com",
-        EventType: "Wedding",
-        NumberOfGuests: 55,
-        EventDate: "2022-01-01",
-        StartTime: "4:00pm",
-        EndTime: "7:00pm",
-        VenueName: "Venue 1",
-        VenueStreetAddress: "123 Main Street",
-        VenueCity: "New York",
-        id: generateUniqueId(savedEvents),
-      },
-      {
-        EventName: "Event 2",
-        CustomerFirstName: "Customer2FirstName",
-        CustomerLastName: "Customer2LastName",
-        CustomerPhoneNumber: 1234567890,
-        CustomerEmail: "p0n9D@example.com",
-        EventType: "Wedding",
-        NumberOfGuests: 55,
-        EventDate: "2022-01-01",
-        StartTime: "4:00pm",
-        EndTime: "7:00pm",
-        VenueName: "Venue 2",
-        VenueStreetAddress: "123 Main Street",
-        VenueCity: "New York",
-        id: generateUniqueId(savedEvents),
-      },
-      {
-        EventName: "Event 3",
-        CustomerFirstName: "Customer3FirstName",
-        CustomerLastName: "Customer3LastName",
-        CustomerPhoneNumber: 1234567890,
-        CustomerEmail: "p0n9D@example.com",
-        EventType: "Wedding",
-        NumberOfGuests: 55,
-        EventDate: "2022-01-01",
-        StartTime: "4:00pm",
-        EndTime: "7:00pm",
-        VenueName: "Venue 3",
-        VenueStreetAddress: "123 Main Street",
-        VenueCity: "New York",
-        id: generateUniqueId(savedEvents),
-      },
-      ...savedEvents // Include existing saved events
-    ];
-
-    setSavedEvents(initialSavedEvents);
+    const storedEvents = JSON.parse(localStorage.getItem('events') || '[]');
+    if (storedEvents.length === 0) {
+      // If no events in localStorage, set savedEvents to initialSavedEvents
+      setSavedEvents(initialSavedEvents);
+    } else {
+      // Otherwise, set savedEvents to events from localStorage
+      setSavedEvents(storedEvents);
+    }
   }, []);
+
+  const initialSavedEvents: Event[] = [
+    // Dummy data to initialize if there are no saved events
+    {
+      EventName: "Event 1",
+      CustomerFirstName: "Customer1FirstName",
+      CustomerLastName: "Customer1LastName",
+      CustomerPhoneNumber: 1234567890,
+      CustomerEmail: "p0n9D@example.com",
+      EventType: "Wedding",
+      NumberOfGuests: 55,
+      EventDate: "2022-01-01",
+      StartTime: "16:00",
+      EndTime: "19:00",
+      VenueName: "Venue 1",
+      VenueStreetAddress: "123 Main Street",
+      VenueCity: "New York",
+      id: generateUniqueId([]),
+    },
+    {
+      EventName: "Event 2",
+      CustomerFirstName: "Customer2FirstName",
+      CustomerLastName: "Customer2LastName",
+      CustomerPhoneNumber: 1234567890,
+      CustomerEmail: "p0n9D@example.com",
+      EventType: "Wedding",
+      NumberOfGuests: 55,
+      EventDate: "2022-01-01",
+      StartTime: "16:00",
+      EndTime: "19:00",
+      VenueName: "Venue 2",
+      VenueStreetAddress: "123 Main Street",
+      VenueCity: "New York",
+      id: generateUniqueId([]),
+    },
+    {
+      EventName: "Event 3",
+      CustomerFirstName: "Customer3FirstName",
+      CustomerLastName: "Customer3LastName",
+      CustomerPhoneNumber: 1234567890,
+      CustomerEmail: "p0n9D@example.com",
+      EventType: "Wedding",
+      NumberOfGuests: 55,
+      EventDate: "2022-01-01",
+      StartTime: "16:00",
+      EndTime: "19:00",
+      VenueName: "Venue 3",
+      VenueStreetAddress: "123 Main Street",
+      VenueCity: "New York",
+      id: generateUniqueId([]),
+    }
+  ];
 
   const handleDelete = (id: number) => {
     const updatedEvents = savedEvents.filter(event => event.id !== id);
     setSavedEvents(updatedEvents);
+    localStorage.setItem('events', JSON.stringify(updatedEvents));
   };
 
-  const handleEditEvent = (updatedEvent: Event) => {
-    const updatedEvents = savedEvents.map((event) => {
-      if (event.id === updatedEvent.id) {
-        return updatedEvent;
-      }
-      return event;
-    });
-    setSavedEvents(updatedEvents);
-    onEditEvent(updatedEvent);
-    setEditedEvent(updatedEvent);
-    editedEvent;
+  const handleEditEvent = (event: Event) => {
+    onEditEvent(event);
   };
 
   return (
     <div>
       {savedEvents.map((event) => (
-        <Card key={event.id}>
+        <Card key={event.id}
+        direction={{ base: 'column', sm: 'row' }}>
           <CardHeader>
             <Heading size="md">{event.EventName}</Heading>
           </CardHeader>
@@ -106,11 +104,12 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
               <Text>{event.VenueName}</Text>
               <Text>{event.VenueStreetAddress}</Text>
               <Text>{event.VenueCity}</Text>
+              <Text>Event ID: {event.id}</Text>
             </Stack>
           </CardBody>
           <CardFooter>
             <Button onClick={() => handleEditEvent(event)}>Edit</Button>
-            <Button onClick={() => handleDelete(event.id)}>Delete</Button> 
+            <Button onClick={() => handleDelete(event.id)}>Delete</Button>
           </CardFooter>
         </Card>
       ))}

@@ -1,50 +1,32 @@
 import React, { Dispatch, SetStateAction, useState, useEffect } from 'react';
-import {
-  FormControl,
-  FormLabel,
-  Input,
-  Button,
-  Box,
-  
-} from "@chakra-ui/react";
+import { FormControl, FormLabel, Input, Button, Box } from "@chakra-ui/react";
 import { EventForm, Event } from './Interfaces';
 
-//Create CreateEventProps
 interface CreateEventProps {
   onAddEvent: (event: EventForm) => void;
   isCreateEventFormVisible: boolean;
   setIsCreateEventFormVisible: Dispatch<SetStateAction<boolean>>;
   currentEvent: EventForm;
   setCurrentEvent: Dispatch<SetStateAction<EventForm>>;
+  savedEvents: Event[];
 }
 
-//Create generateUniqueId function
-//Get max event array length +1
 export const generateUniqueId = (savedEvents: Event[]) => {
   const maxId = savedEvents.length > 0 ? Math.max(...savedEvents.map((event) => event.id)) : 0;
   return maxId + 1;
 };
 
-
-//Create Event Form
-const CreateEventForm: React.FC<CreateEventProps> = ({ onAddEvent, 
-  isCreateEventFormVisible, 
-  setIsCreateEventFormVisible, 
-  currentEvent, 
-  setCurrentEvent }) => {
-    if (!isCreateEventFormVisible) {
-      return null;
-    }
+const CreateEventForm: React.FC<CreateEventProps> = ({ onAddEvent, isCreateEventFormVisible, setIsCreateEventFormVisible, currentEvent, setCurrentEvent }) => {
+  if (!isCreateEventFormVisible) {
+    return null;
+  }
 
   const [formData, setFormData] = useState<EventForm>(currentEvent);
 
-  //sync form data with current event
   useEffect(() => {
     setFormData(currentEvent);
   }, [currentEvent]);
 
-
-  //handle change event
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData(prevFormData => ({
@@ -57,28 +39,29 @@ const CreateEventForm: React.FC<CreateEventProps> = ({ onAddEvent,
     }));
   };
 
-  //handle submit event to local storage
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const storedEvents = JSON.parse(localStorage.getItem('events') || '[]');
     const newEvent = { ...formData, id: generateUniqueId(storedEvents) };
     
-    storedEvents.push(newEvent);
-    localStorage.setItem('events', JSON.stringify(storedEvents));
+    if (formData.id === 0) {
+      storedEvents.push(newEvent);
+    } else {
+      const eventIndex = storedEvents.findIndex((e: EventForm) => e.id === formData.id);
+      storedEvents[eventIndex] = formData;
+    }
     
-    onAddEvent(newEvent);
-
+    localStorage.setItem('events', JSON.stringify(storedEvents));
+    onAddEvent(formData);
     setIsCreateEventFormVisible(false);
   };
 
-
-  //handleCancel form
   const handleCancel = () => {
     setIsCreateEventFormVisible(false);
   };
 
   return (
-    <Box bg={"#141220"} style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', padding: '20px', zIndex: 1000, boxShadow: '0 5px 26px #CBE6AD', borderRadius: '4px'}}>
+    <Box bg={"#141220"} style={{ position: 'absolute', top: '30%', left: '50%', transform: 'translate(-50%, -50%)', padding: '20px', zIndex: 1000, boxShadow: '0 5px 26px #CBE6AD', borderRadius: '4px'}}>
       <h1>Create Event Form</h1>
       <form onSubmit={handleSubmit}>
         <FormControl color="#CBE6AD">
@@ -215,15 +198,12 @@ const CreateEventForm: React.FC<CreateEventProps> = ({ onAddEvent,
         <Button type="submit" colorScheme="lightGreen" variant="outline" mt={4}>
           Save
         </Button>
-        <Button type="submit" colorScheme="Red" variant="outline" mt={4} onClick={handleCancel}>
+        <Button colorScheme="Red" variant="outline" mt={4} onClick={handleCancel}>
           Cancel
         </Button>
       </form>
     </Box>
   );
 };
-
-
-
 
 export default CreateEventForm;
