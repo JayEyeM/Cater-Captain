@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Text, Button } from '@chakra-ui/react';
 import { Event } from '../components/Interfaces';
 import { generateUniqueId } from './CreateEventForm';
+import EventIngredientList from './EventIngredientList';
+import { Ingredient } from '../components/Interfaces';
 
 interface ViewSavedEventsProps {
   savedEvents: Event[];
@@ -10,19 +12,18 @@ interface ViewSavedEventsProps {
 }
 
 const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSavedEvents, onEditEvent }) => {
+  const [visibleIngredients, setVisibleIngredients] = useState<{ [key: number]: boolean }>({});
+
   useEffect(() => {
     const storedEvents = JSON.parse(localStorage.getItem('events') || '[]');
     if (storedEvents.length === 0) {
-      // If no events in localStorage, set savedEvents to initialSavedEvents
       setSavedEvents(initialSavedEvents);
     } else {
-      // Otherwise, set savedEvents to events from localStorage
       setSavedEvents(storedEvents);
     }
-  }, []);
+  }, [setSavedEvents]);
 
   const initialSavedEvents: Event[] = [
-    // Dummy data to initialize if there are no saved events
     {
       EventName: "Event 1",
       CustomerFirstName: "Customer1FirstName",
@@ -38,6 +39,7 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
       VenueStreetAddress: "123 Main Street",
       VenueCity: "New York",
       id: generateUniqueId([]),
+      ingredients: [],
     },
     {
       EventName: "Event 2",
@@ -54,6 +56,7 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
       VenueStreetAddress: "123 Main Street",
       VenueCity: "New York",
       id: generateUniqueId([]),
+      ingredients: [],
     },
     {
       EventName: "Event 3",
@@ -70,6 +73,7 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
       VenueStreetAddress: "123 Main Street",
       VenueCity: "New York",
       id: generateUniqueId([]),
+      ingredients: [],
     }
   ];
 
@@ -83,11 +87,59 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
     onEditEvent(event);
   };
 
+  const toggleIngredientList = (id: number) => {
+    setVisibleIngredients(prev => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
+  };
+
+  const handleAddIngredient = (eventId: number, newIngredient: Ingredient) => {
+    setSavedEvents(prevEvents =>
+      prevEvents.map(event =>
+        event.id === eventId ? { ...event, ingredients: [...(event.ingredients || []), newIngredient] } : event
+      )
+    );
+    updateLocalStorage();
+  };
+  
+  
+  const handleDeleteIngredient = (eventId: number, index: number) => {
+    setSavedEvents(prevEvents =>
+      prevEvents.map(event =>
+        event.id === eventId
+          ? { ...event, ingredients: event.ingredients.filter((_, i) => i !== index) }
+          : event
+      )
+    );
+    updateLocalStorage();
+  };
+  
+  const handleEditIngredient = (eventId: number, index: number, updatedIngredient: Ingredient) => {
+    setSavedEvents(prevEvents =>
+      prevEvents.map(event =>
+        event.id === eventId
+          ? {
+              ...event,
+              ingredients: event.ingredients.map((ingredient, i) =>
+                i === index ? updatedIngredient : ingredient
+              ),
+            }
+          : event
+      )
+    );
+    updateLocalStorage();
+  };
+
+  const updateLocalStorage = () => {
+    localStorage.setItem('events', JSON.stringify(savedEvents));
+  };
+  
+
   return (
     <div>
       {savedEvents.map((event) => (
-        <Card key={event.id}
-        direction={{ base: 'column', sm: 'row' }}>
+        <Card key={event.id} direction={{ base: 'column', sm: 'row' }}>
           <CardHeader>
             <Heading size="md">{event.EventName}</Heading>
           </CardHeader>
@@ -108,6 +160,19 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
             </Stack>
           </CardBody>
           <CardFooter>
+            <Button colorScheme="green" onClick={() => toggleIngredientList(event.id)}>
+              {visibleIngredients[event.id] ? "Hide Ingredients" : "Show Ingredients"}
+            </Button>
+            {visibleIngredients[event.id] && (
+              <EventIngredientList 
+              ingredients={event.ingredients || []}
+              onAddIngredient={(newIngredient) => handleAddIngredient(event.id, newIngredient)}
+              onDeleteIngredient={(index) => handleDeleteIngredient(event.id, index)}
+              onEditIngredient={(index, updatedIngredient) => handleEditIngredient(event.id, index, updatedIngredient)}
+              updateLocalStorage={updateLocalStorage}
+            />
+            
+            )}
             <Button onClick={() => handleEditEvent(event)}>Edit</Button>
             <Button onClick={() => handleDelete(event.id)}>Delete</Button>
           </CardFooter>

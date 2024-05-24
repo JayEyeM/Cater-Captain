@@ -22,6 +22,7 @@ const Dashboard: React.FC = () => {
     VenueStreetAddress: "",
     VenueCity: "",
     id: 0,
+    ingredients: [],
   });
 
   const [savedEvents, setSavedEvents] = useState<Event[]>([]);
@@ -54,6 +55,7 @@ const Dashboard: React.FC = () => {
           VenueStreetAddress: "",
           VenueCity: "",
           id: 0,
+          ingredients: [],
         });
         setIsCreateEventFormVisible(true);
       }}>Add New Event</Button>
