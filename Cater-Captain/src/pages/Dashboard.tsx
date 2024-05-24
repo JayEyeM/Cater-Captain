@@ -3,6 +3,7 @@ import { ChakraProvider, theme, Button } from '@chakra-ui/react';
 import CreateEventForm from '../components/CreateEventForm';
 import ViewSavedEvents from '../components/ViewSavedEvents';
 import { EventForm, Event } from '../components/Interfaces';
+import SortEvents from '../components/SortEvents';
 
 const Dashboard: React.FC = () => {
   const [isCreateEventFormVisible, setIsCreateEventFormVisible] = useState(false);
@@ -25,8 +26,18 @@ const Dashboard: React.FC = () => {
 
   const [savedEvents, setSavedEvents] = useState<Event[]>([]);
 
+  const handleFilterChange = (startDate: string, endDate: string) => {
+    const filteredEvents = savedEvents.filter(event => {
+      const eventDate = new Date(event.EventDate); 
+      return eventDate >= new Date(startDate) && eventDate <= new Date(endDate);
+    });
+    
+    setSavedEvents(filteredEvents);
+  };
+
   return (
     <ChakraProvider theme={theme}>
+      <h1 color='#CBE6AD'>Dashboard</h1>
       <Button variant="outline" colorScheme="green" onClick={() => {
         setCurrentEvent({
           EventName: "",
@@ -62,6 +73,7 @@ const Dashboard: React.FC = () => {
         }}
         savedEvents={savedEvents}
       />
+      <SortEvents onFilterChange={(startDate, endDate) => handleFilterChange(startDate, endDate)} />
       <ViewSavedEvents
         savedEvents={savedEvents}
         setSavedEvents={setSavedEvents}
