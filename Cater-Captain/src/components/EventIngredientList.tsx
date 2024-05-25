@@ -9,11 +9,15 @@ interface EventIngredientListProps {
   ingredients: Ingredient[];
   onAddIngredient: (newIngredient: Ingredient) => void; 
   onDeleteIngredient: (index: number) => void; 
-  onEditIngredient: (index: number, updatedIngredient: Ingredient) => void; 
-  updateLocalStorage: () => void;
+  onEditIngredient: (index: number, updatedIngredient: Ingredient) => void;
 }
 
-const EventIngredientList: React.FC<EventIngredientListProps> = ({ ingredients: initialIngredients = [], onAddIngredient, onDeleteIngredient, onEditIngredient, updateLocalStorage }) => {
+const EventIngredientList: React.FC<EventIngredientListProps> = ({
+  ingredients = [],
+  onAddIngredient,
+  onDeleteIngredient,
+  onEditIngredient,
+}) => {
   const [newIngredient, setNewIngredient] = React.useState<Ingredient>({
     name: '',
     units: '',
@@ -24,27 +28,18 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({ ingredients: 
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
-    setNewIngredient((prev) => ({
+    setNewIngredient(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : value,
     }));
   };
 
   const handleAddIngredient = () => {
-    onAddIngredient(newIngredient); 
+    onAddIngredient(newIngredient);
     setNewIngredient({ name: '', units: '', quantity: 0, onHand: false, needToOrder: false });
-    updateLocalStorage();
   };
 
-  const handleDeleteIngredient = (index: number) => {
-    onDeleteIngredient(index); 
-    updateLocalStorage();
-  };
-
-  const handleEditIngredient = (index: number, updatedIngredient: Ingredient) => {
-    onEditIngredient(index, updatedIngredient); 
-    updateLocalStorage();
-  };
+ 
 
   return (
     <Box>
@@ -97,7 +92,7 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({ ingredients: 
           </Tr>
         </Thead>
         <Tbody>
-        {initialIngredients && Array.isArray(initialIngredients) && initialIngredients.map((ingredient, index) => (
+          {ingredients.map((ingredient, index) => (
             <Tr key={index}>
               <Td>{ingredient.name}</Td>
               <Td>{ingredient.units}</Td>
@@ -105,17 +100,17 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({ ingredients: 
               <Td>
                 <Checkbox
                   isChecked={ingredient.onHand}
-                  onChange={(e) => handleEditIngredient(index, { ...ingredient, onHand: e.target.checked })}
+                  onChange={e => onEditIngredient(index, { ...ingredient, onHand: e.target.checked })}
                 />
               </Td>
               <Td>
                 <Checkbox
                   isChecked={ingredient.needToOrder}
-                  onChange={(e) => handleEditIngredient(index, { ...ingredient, needToOrder: e.target.checked })}
+                  onChange={e => onEditIngredient(index, { ...ingredient, needToOrder: e.target.checked })}
                 />
               </Td>
               <Td>
-                <Button onClick={() => handleDeleteIngredient(index)}>Delete</Button>
+                <Button onClick={() => onDeleteIngredient(index)}>Delete</Button>
               </Td>
             </Tr>
           ))}

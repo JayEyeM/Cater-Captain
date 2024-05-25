@@ -95,29 +95,31 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
   };
 
   const handleAddIngredient = (eventId: number, newIngredient: Ingredient) => {
-    setSavedEvents(prevEvents =>
-      prevEvents.map(event =>
+    setSavedEvents(prevEvents => {
+      const updatedEvents = prevEvents.map(event =>
         event.id === eventId ? { ...event, ingredients: [...(event.ingredients || []), newIngredient] } : event
-      )
-    );
-    updateLocalStorage();
+      );
+      localStorage.setItem('events', JSON.stringify(updatedEvents)); 
+      return updatedEvents;
+    });
   };
   
   
   const handleDeleteIngredient = (eventId: number, index: number) => {
-    setSavedEvents(prevEvents =>
-      prevEvents.map(event =>
+    setSavedEvents(prevEvents => {
+      const updatedEvents = prevEvents.map(event =>
         event.id === eventId
           ? { ...event, ingredients: event.ingredients.filter((_, i) => i !== index) }
           : event
-      )
-    );
-    updateLocalStorage();
+      );
+      localStorage.setItem('events', JSON.stringify(updatedEvents)); 
+      return updatedEvents;
+    });
   };
   
   const handleEditIngredient = (eventId: number, index: number, updatedIngredient: Ingredient) => {
-    setSavedEvents(prevEvents =>
-      prevEvents.map(event =>
+    setSavedEvents(prevEvents => {
+      const updatedEvents = prevEvents.map(event =>
         event.id === eventId
           ? {
               ...event,
@@ -126,14 +128,13 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
               ),
             }
           : event
-      )
-    );
-    updateLocalStorage();
+      );
+      localStorage.setItem('events', JSON.stringify(updatedEvents)); 
+      return updatedEvents;
+    });
   };
 
-  const updateLocalStorage = () => {
-    localStorage.setItem('events', JSON.stringify(savedEvents));
-  };
+ 
   
 
   return (
@@ -169,7 +170,7 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
               onAddIngredient={(newIngredient) => handleAddIngredient(event.id, newIngredient)}
               onDeleteIngredient={(index) => handleDeleteIngredient(event.id, index)}
               onEditIngredient={(index, updatedIngredient) => handleEditIngredient(event.id, index, updatedIngredient)}
-              updateLocalStorage={updateLocalStorage}
+              // updateLocalStorage={updateLocalStorage}
             />
             
             )}
