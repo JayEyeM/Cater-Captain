@@ -140,9 +140,9 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
   return (
     <div>
       {savedEvents.map((event) => (
-        <Card key={event.id} direction={{ base: 'column', sm: 'row' }}>
+        <Card key={event.id} direction={{ base: 'column', sm: 'row' }} backgroundColor={'#141220'} color={'#CBE6AD'} outline={'2px solid #CBE6AD'}>
           <CardHeader>
-            <Heading size="md">{event.EventName}</Heading>
+            <Heading size="lg">{event.EventName}</Heading>
           </CardHeader>
           <CardBody>
             <Stack spacing={4}>
@@ -160,10 +160,11 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
               <Text>Event ID: {event.id}</Text>
             </Stack>
           </CardBody>
-          <CardFooter>
+          <CardFooter style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
             <Button colorScheme="green" onClick={() => toggleIngredientList(event.id)}>
               {visibleIngredients[event.id] ? "Hide Ingredients" : "Show Ingredients"}
             </Button>
+            
             {visibleIngredients[event.id] && (
               <EventIngredientList 
               ingredients={event.ingredients || []}
@@ -174,8 +175,12 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
             />
             
             )}
-            <Button onClick={() => handleEditEvent(event)}>Edit</Button>
-            <Button onClick={() => handleDelete(event.id)}>Delete</Button>
+            <Button colorScheme="green">
+              View Menu
+            </Button>
+            <Button color={"lightGreen"} variant="outline" border={"2px"} borderColor={"lightGreen"} onClick={() => handleEditEvent(event)}>Edit</Button>
+            <Button color={"red"} variant="outline" border={"2px"} borderColor={"red"} onClick={() => handleDelete(event.id)}>Delete</Button>
+           
           </CardFooter>
         </Card>
       ))}
