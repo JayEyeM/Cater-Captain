@@ -4,6 +4,7 @@ import { Event } from '../components/Interfaces';
 import { generateUniqueId } from './CreateEventForm';
 import EventIngredientList from './EventIngredientList';
 import { Ingredient } from '../components/Interfaces';
+import EventMenu from './EventMenu';
 
 interface ViewSavedEventsProps {
   savedEvents: Event[];
@@ -13,6 +14,7 @@ interface ViewSavedEventsProps {
 
 const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSavedEvents, onEditEvent }) => {
   const [visibleIngredients, setVisibleIngredients] = useState<{ [key: number]: boolean }>({});
+  const [visibleMenu, setVisibleMenu] = useState<{ [key: number]: boolean }>({});
 
   useEffect(() => {
     const storedEvents = JSON.parse(localStorage.getItem('events') || '[]');
@@ -94,6 +96,13 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
     }));
   };
 
+  const toggleMenuList = (id: number) => {
+    setVisibleMenu(prev => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
+  };
+
   const handleAddIngredient = (eventId: number, newIngredient: Ingredient) => {
     setSavedEvents(prevEvents => {
       const updatedEvents = prevEvents.map(event =>
@@ -134,7 +143,28 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
     });
   };
 
- 
+  const handleAddMenuItem = (eventId: number, newMenuItem: string) => {
+    setSavedEvents(prevEvents => {
+      const updatedEvents = prevEvents.map(event =>
+        event.id === eventId ? { ...event, menuItems: [...(event.menuItems || []), newMenuItem] } : event
+      );
+      localStorage.setItem('events', JSON.stringify(updatedEvents)); 
+      return updatedEvents;
+    });
+  };
+
+  const handleDeleteMenuItem = (eventId: number, index: number) => {
+    setSavedEvents(prevEvents => {
+      const updatedEvents = prevEvents.map(event =>
+        event.id === eventId
+          ? { ...event, menuItems: event.menuItems ? event.menuItems.filter((_, i) => i !== index) : [] }
+          : event
+      );
+      localStorage.setItem('events', JSON.stringify(updatedEvents)); 
+      return updatedEvents;
+    });
+};
+
   
 
   return (
@@ -175,9 +205,17 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
             />
             
             )}
-            <Button colorScheme="green">
-              View Menu
+            <Button colorScheme="green" onClick={() => toggleMenuList(event.id)}>
+              {visibleMenu[event.id] ? "Hide Menu" : "Show Menu"}
             </Button>
+            {visibleMenu[event.id] && (
+              <EventMenu
+                menuItems={event.menuItems || []}
+                onAddMenuItem={(newMenuItem) => handleAddMenuItem(event.id, newMenuItem)}
+                onDeleteMenuItem={(index) => handleDeleteMenuItem(event.id, index)}
+              />
+            )}
+            
             <Button color={"lightGreen"} variant="outline" border={"2px"} borderColor={"lightGreen"} onClick={() => handleEditEvent(event)}>Edit</Button>
             <Button color={"red"} variant="outline" border={"2px"} borderColor={"red"} onClick={() => handleDelete(event.id)}>Delete</Button>
            
