@@ -16,6 +16,7 @@ export interface Event {
     VenueCity: string;
     id: number;
     ingredients: Ingredient[];
+    menuItems?: string[];
 }
 
 //Create interface for EventForm
@@ -35,6 +36,7 @@ export interface EventForm {
     VenueCity: string;
     id: number;
     ingredients: Ingredient[];
+    menuItems?: string[];
 }
 
 //Create interface for ViewSavedEvents
