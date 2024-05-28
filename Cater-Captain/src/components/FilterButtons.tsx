@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button, Stack } from '@chakra-ui/react';
+import { Stack } from '@chakra-ui/react';
 import { Event } from './Interfaces';
+import { SolidLightGreenButton } from './Buttons';
 
 interface FilterButtonsProps {
     setFilteredEvents: React.Dispatch<React.SetStateAction<Event[]>>;
@@ -41,9 +42,9 @@ const FilterButtons: React.FC<FilterButtonsProps> = ({ setFilteredEvents, savedE
 
   return (
     <Stack direction="row" spacing={4} mb={4}>
-      <Button colorScheme="blue" onClick={handleThisWeek}>This Week</Button>
-      <Button colorScheme="blue" onClick={handleThisMonth}>This Month</Button>
-      <Button colorScheme="blue" onClick={handleAllEvents}>All Events</Button>
+      <SolidLightGreenButton onClick={handleThisWeek}>This Week</SolidLightGreenButton>
+      <SolidLightGreenButton onClick={handleThisMonth}>This Month</SolidLightGreenButton>
+      <SolidLightGreenButton onClick={handleAllEvents}>All Events</SolidLightGreenButton>
     </Stack>
   );
 };

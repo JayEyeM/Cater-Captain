@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Text, Button } from '@chakra-ui/react';
+import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Text } from '@chakra-ui/react';
 import { Event } from '../components/Interfaces';
 import { generateUniqueId } from './CreateEventForm';
 import EventIngredientList from './EventIngredientList';
 import { Ingredient } from '../components/Interfaces';
 import EventMenu from './EventMenu';
+import { OutlineLightGreenButton, SolidLightGreenButton, OutlineLightRedButton } from './Buttons';
 
 interface ViewSavedEventsProps {
   savedEvents: Event[];
@@ -191,9 +192,9 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
             </Stack>
           </CardBody>
           <CardFooter style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
-            <Button colorScheme="green" onClick={() => toggleIngredientList(event.id)}>
+            <SolidLightGreenButton onClick={() => toggleIngredientList(event.id)}>
               {visibleIngredients[event.id] ? "Hide Ingredients" : "Show Ingredients"}
-            </Button>
+            </SolidLightGreenButton>
             
             {visibleIngredients[event.id] && (
               <EventIngredientList 
@@ -205,9 +206,10 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
             />
             
             )}
-            <Button colorScheme="green" onClick={() => toggleMenuList(event.id)}>
+            <SolidLightGreenButton onClick={() => toggleMenuList(event.id)}>
               {visibleMenu[event.id] ? "Hide Menu" : "Show Menu"}
-            </Button>
+            </SolidLightGreenButton>
+            
             {visibleMenu[event.id] && (
               <EventMenu
                 menuItems={event.menuItems || []}
@@ -215,9 +217,8 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
                 onDeleteMenuItem={(index) => handleDeleteMenuItem(event.id, index)}
               />
             )}
-            
-            <Button color={"lightGreen"} variant="outline" border={"2px"} borderColor={"lightGreen"} onClick={() => handleEditEvent(event)}>Edit</Button>
-            <Button color={"red"} variant="outline" border={"2px"} borderColor={"red"} onClick={() => handleDelete(event.id)}>Delete</Button>
+            <OutlineLightGreenButton onClick={() => handleEditEvent(event)}>Edit</OutlineLightGreenButton>
+            <OutlineLightRedButton onClick={() => handleDelete(event.id)}>Delete</OutlineLightRedButton>
            
           </CardFooter>
         </Card>

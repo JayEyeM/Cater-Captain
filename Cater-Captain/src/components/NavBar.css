@@ -1,0 +1,11 @@
+.nav-container {
+    display: flex;
+    
+    align-items: center;
+}
+
+.nav-container img {
+    margin: 5px 5px;
+}
+
+h1{margin: auto auto;}

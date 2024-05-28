@@ -3,9 +3,9 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Button,
   Box,
 } from "@chakra-ui/react";
+import { OutlineLightGreenButton } from './Buttons';
 
 interface SortEventsProps {
   onFilterChange: (startDate: string, endDate: string) => void;
@@ -52,10 +52,8 @@ const SortEvents: React.FC<SortEventsProps> = ({ onFilterChange }) => {
             onChange={handleDateChange}
           />
         </FormControl>
-
-        <Button type="submit" color="#CBE6AD" bg="#141220" variant="outline" mt={4}>
-          Sort Events
-        </Button>
+        <OutlineLightGreenButton type="submit" mt={4}> Sort Events </OutlineLightGreenButton>
+        
       </form>
     </Box>
   );
