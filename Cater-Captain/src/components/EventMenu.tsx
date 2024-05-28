@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import {
-  Box, Button, Input, Stack, Table, Tbody, Td, Th, Thead, Tr,
+  Box, Input, Stack, Table, Tbody, Td, Th, Thead, Tr,
 } from '@chakra-ui/react';
+import { SolidLightBlueButton, SolidLightRedButton } from './Buttons';
 
 interface EventMenuProps {
   menuItems: string[];
@@ -29,14 +30,15 @@ const EventMenu: React.FC<EventMenuProps> = ({
           value={newMenuItem}
           onChange={(e) => setNewMenuItem(e.target.value)}
         />
-        <Button onClick={handleAddMenuItem}>Add Menu Item</Button>
+        <SolidLightBlueButton onClick={handleAddMenuItem}>Add Menu Item</SolidLightBlueButton>
+        
       </Stack>
 
       <Table variant="simple" mt={5}>
         <Thead>
           <Tr>
             <Th>Menu Item</Th>
-            <Th>Actions</Th>
+            <Th>Delete Item</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -44,7 +46,8 @@ const EventMenu: React.FC<EventMenuProps> = ({
             <Tr key={index}>
               <Td>{item}</Td>
               <Td>
-                <Button onClick={() => onDeleteMenuItem(index)}>Delete</Button>
+                <SolidLightRedButton onClick={() => onDeleteMenuItem(index)}>Delete</SolidLightRedButton>
+                
               </Td>
             </Tr>
           ))}

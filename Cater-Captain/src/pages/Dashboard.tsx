@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { ChakraProvider, theme, Button } from '@chakra-ui/react';
+import { ChakraProvider, theme } from '@chakra-ui/react';
 import CreateEventForm from '../components/CreateEventForm';
 import ViewSavedEvents from '../components/ViewSavedEvents';
 import { EventForm, Event } from '../components/Interfaces';
 import SortEvents from '../components/SortEvents';
 import FilterButtons from '../components/FilterButtons';
+import { OutlineLightGreenButton } from '../components/Buttons';
+import NavBar from '../components/NavBar';
 
 const Dashboard: React.FC = () => {
   const [isCreateEventFormVisible, setIsCreateEventFormVisible] = useState(false);
@@ -69,8 +71,9 @@ const Dashboard: React.FC = () => {
 
   return (
     <ChakraProvider theme={theme}>
-      <h1 color='#CBE6AD'>Dashboard</h1>
-      <Button variant="outline" colorScheme="green" onClick={() => {
+      <NavBar />
+      <h1 color='#F5F5F5'>Dashboard</h1>
+      <OutlineLightGreenButton onClick={() => {
         setCurrentEvent({
           EventName: "",
           CustomerFirstName: "",
@@ -89,7 +92,7 @@ const Dashboard: React.FC = () => {
           ingredients: [],
         });
         setIsCreateEventFormVisible(true);
-      }}>Add New Event</Button>
+      }}>Add New Event</OutlineLightGreenButton>
       <FilterButtons 
   setFilteredEvents={setFilteredEvents} 
   savedEvents={savedEvents}

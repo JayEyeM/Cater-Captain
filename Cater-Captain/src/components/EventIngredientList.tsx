@@ -1,9 +1,10 @@
 import React from 'react';
 import {
-  Box, Button, Input, Stack, Table, Tbody, Td, Th, Thead, Tr, Checkbox,
+  Box, Input, Stack, Table, Tbody, Td, Th, Thead, Tr, Checkbox,
 } from '@chakra-ui/react';
 
 import { Ingredient } from './Interfaces';
+import { SolidLightBlueButton, SolidLightRedButton } from './Buttons';
 
 interface EventIngredientListProps {
   ingredients: Ingredient[];
@@ -77,7 +78,8 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
         >
           Need to Order
         </Checkbox>
-        <Button onClick={handleAddIngredient}>Add Ingredient</Button>
+        <SolidLightBlueButton onClick={handleAddIngredient}>Add Ingredient</SolidLightBlueButton>
+        
       </Stack>
 
       <Table variant="simple" mt={5}>
@@ -110,7 +112,8 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
                 />
               </Td>
               <Td>
-                <Button onClick={() => onDeleteIngredient(index)}>Delete</Button>
+                <SolidLightRedButton onClick={() => onDeleteIngredient(index)}>Delete</SolidLightRedButton>
+                
               </Td>
             </Tr>
           ))}

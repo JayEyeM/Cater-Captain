@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction, useState, useEffect } from 'react';
-import { FormControl, FormLabel, Input, Button, Box } from "@chakra-ui/react";
+import { FormControl, FormLabel, Input, Box } from "@chakra-ui/react";
 import { EventForm, Event } from './Interfaces';
+import { SolidLightGreenButton, OutlineLightRedButton } from './Buttons';
 
 interface CreateEventProps {
   onAddEvent: (event: EventForm) => void;
@@ -195,12 +196,10 @@ const CreateEventForm: React.FC<CreateEventProps> = ({ onAddEvent, isCreateEvent
           />
         </FormControl>
 
-        <Button type="submit" colorScheme="lightGreen" variant="outline" mt={4}>
-          Save
-        </Button>
-        <Button colorScheme="Red" variant="outline" mt={4} onClick={handleCancel}>
-          Cancel
-        </Button>
+        <SolidLightGreenButton type="submit" mt={4}> Save </SolidLightGreenButton>
+        
+        <OutlineLightRedButton type="submit" mt={4} onClick={handleCancel}> Cancel </OutlineLightRedButton>
+        
       </form>
     </Box>
   );
