@@ -3,6 +3,7 @@ import { FormControl, FormLabel, Input, Box } from "@chakra-ui/react";
 import { EventForm, Event } from './Interfaces';
 import { SolidLightGreenButton, OutlineLightRedButton } from './Buttons';
 
+//props for create event form component 
 interface CreateEventProps {
   onAddEvent: (event: EventForm) => void;
   isCreateEventFormVisible: boolean;
@@ -12,52 +13,81 @@ interface CreateEventProps {
   savedEvents: Event[];
 }
 
+//generate unique id for events in local storage
 export const generateUniqueId = (savedEvents: Event[]) => {
   const maxId = savedEvents.length > 0 ? Math.max(...savedEvents.map((event) => event.id)) : 0;
   return maxId + 1;
 };
 
+//create event form component 
 const CreateEventForm: React.FC<CreateEventProps> = ({ onAddEvent, isCreateEventFormVisible, setIsCreateEventFormVisible, currentEvent, setCurrentEvent }) => {
   if (!isCreateEventFormVisible) {
     return null;
   }
-
+    //use state for using current event data
   const [formData, setFormData] = useState<EventForm>(currentEvent);
-
+    //use effect for setting current event data
   useEffect(() => {
     setFormData(currentEvent);
   }, [currentEvent]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // Destructure the name and value from the event target.
     const { name, value } = event.target;
+
+    // Update the formData state.
     setFormData(prevFormData => ({
+      // Spread the previous formData and update the specified field.
       ...prevFormData,
       [name]: value,
     }));
+
+    // Update the currentEvent state.
     setCurrentEvent(prevFormData => ({
+      // Spread the previous currentEvent and update the specified field.
       ...prevFormData,
       [name]: value,
     }));
   };
 
+  
+  //handle submit for create event form which adds event to local storage
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    // Prevent the default form submission behavior
     event.preventDefault();
+
+    // Retrieve the stored events from localStorage
     const storedEvents = JSON.parse(localStorage.getItem('events') || '[]');
+
+    // Generate a unique ID for the new event
     const newEvent = { ...formData, id: generateUniqueId(storedEvents) };
-    
+
+    // If the event ID is 0, it means it's a new event
     if (formData.id === 0) {
+      // Push the new event into the stored events array
       storedEvents.push(newEvent);
     } else {
+      // Find the index of the event in the stored events array based on the event ID
       const eventIndex = storedEvents.findIndex((e: EventForm) => e.id === formData.id);
+
+      // Update the event in the stored events array with the new event data
       storedEvents[eventIndex] = formData;
     }
-    
+
+    // Set the updated events array back into localStorage
     localStorage.setItem('events', JSON.stringify(storedEvents));
+
+    // Call the onAddEvent function with the new event data
     onAddEvent(formData);
+
+    // Set the visibility of the create event form to false
     setIsCreateEventFormVisible(false);
   };
 
+  //handle cancel for create event form which hides the form
   const handleCancel = () => {
+    // Set the visibility of the create event form to false
+    // This will hide the form and make it inaccessible to the user
     setIsCreateEventFormVisible(false);
   };
 

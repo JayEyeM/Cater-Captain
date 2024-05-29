@@ -7,14 +7,18 @@ import {
 } from "@chakra-ui/react";
 import { OutlineLightGreenButton } from './Buttons';
 
+
+//props for sort events
 interface SortEventsProps {
   onFilterChange: (startDate: string, endDate: string) => void;
 }
 
+//sort events component with form for start and end date
 const SortEvents: React.FC<SortEventsProps> = ({ onFilterChange }) => {
   const [selectedStartDate, setSelectedStartDate] = useState<string | null>(null);
   const [selectedEndDate, setSelectedEndDate] = useState<string | null>(null);
 
+  //handle date change for start and end date
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     if (name === "startDate") {
@@ -24,6 +28,7 @@ const SortEvents: React.FC<SortEventsProps> = ({ onFilterChange }) => {
     }
   };
 
+  //handle submit for start and end date
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     onFilterChange(selectedStartDate ?? '', selectedEndDate ?? '');

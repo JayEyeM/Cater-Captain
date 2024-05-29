@@ -6,6 +6,7 @@ import {
 import { Ingredient } from './Interfaces';
 import { SolidLightBlueButton, SolidLightRedButton } from './Buttons';
 
+//props for event ingredient list
 interface EventIngredientListProps {
   ingredients: Ingredient[];
   onAddIngredient: (newIngredient: Ingredient) => void; 
@@ -13,6 +14,8 @@ interface EventIngredientListProps {
   onEditIngredient: (index: number, updatedIngredient: Ingredient) => void;
 }
 
+
+//event ingredient list component
 const EventIngredientList: React.FC<EventIngredientListProps> = ({
   ingredients = [],
   onAddIngredient,
@@ -27,6 +30,7 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
     needToOrder: false,
   });
 
+  //handle input change for event ingredient list
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setNewIngredient(prev => ({
@@ -35,6 +39,7 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
     }));
   };
 
+  //handle add ingredient for event ingredient list
   const handleAddIngredient = () => {
     onAddIngredient(newIngredient);
     setNewIngredient({ name: '', units: '', quantity: 0, onHand: false, needToOrder: false });

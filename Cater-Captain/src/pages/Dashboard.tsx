@@ -8,6 +8,7 @@ import FilterButtons from '../components/FilterButtons';
 import { OutlineLightGreenButton } from '../components/Buttons';
 import NavBar from '../components/NavBar';
 
+//set event form initial values
 const Dashboard: React.FC = () => {
   const [isCreateEventFormVisible, setIsCreateEventFormVisible] = useState(false);
   const [currentEvent, setCurrentEvent] = useState<EventForm>({
@@ -35,6 +36,8 @@ const Dashboard: React.FC = () => {
     setFilteredEvents(savedEvents);
   }, [savedEvents]);
 
+  //filter functions
+      //current week
   const handleThisWeek = () => {
     const now = new Date();
     const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
@@ -46,6 +49,7 @@ const Dashboard: React.FC = () => {
     setFilteredEvents(filteredEvents);
   };
 
+  //current month
   const handleThisMonth = () => {
     const now = new Date();
     const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
@@ -57,10 +61,12 @@ const Dashboard: React.FC = () => {
     setFilteredEvents(filteredEvents);
   };
 
+  //all events
   const handleAllEvents = () => {
     setFilteredEvents(savedEvents);
   };
 
+  //filter change to set filtered events
   const handleFilterChange = (startDate: string, endDate: string) => {
     const filteredEvents = savedEvents.filter(event => {
       const eventDate = new Date(event.EventDate); 

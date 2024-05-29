@@ -4,21 +4,27 @@ import {
 } from '@chakra-ui/react';
 import { SolidLightBlueButton, SolidLightRedButton } from './Buttons';
 
+//props for event menu
 interface EventMenuProps {
   menuItems: string[];
   onAddMenuItem: (newMenuItem: string) => void;
   onDeleteMenuItem: (index: number) => void;
 }
 
+//component for event menu 
 const EventMenu: React.FC<EventMenuProps> = ({
   menuItems = [],
   onAddMenuItem,
   onDeleteMenuItem,
 }) => {
+  //state for new menu item
   const [newMenuItem, setNewMenuItem] = useState('');
 
+  //functionlity for adding menu item
   const handleAddMenuItem = () => {
+    // Add the new menu item to the list of menu items
     onAddMenuItem(newMenuItem);
+    // Clear the input field
     setNewMenuItem('');
   };
 
