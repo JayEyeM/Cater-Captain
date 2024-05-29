@@ -3,6 +3,9 @@ import { Stack } from '@chakra-ui/react';
 import { Event } from './Interfaces';
 import { SolidLightGreenButton } from './Buttons';
 
+//filter events buttons for dashboard
+
+//props for filter buttons
 interface FilterButtonsProps {
     setFilteredEvents: React.Dispatch<React.SetStateAction<Event[]>>;
     savedEvents: Event[];
@@ -12,8 +15,9 @@ interface FilterButtonsProps {
   }
   
   
-
+//filter functions
 const FilterButtons: React.FC<FilterButtonsProps> = ({ setFilteredEvents, savedEvents }) => {
+//button for current week
   const handleThisWeek = () => {
     const now = new Date();
     const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
@@ -21,6 +25,7 @@ const FilterButtons: React.FC<FilterButtonsProps> = ({ setFilteredEvents, savedE
     handleFilterChange(startOfWeek, endOfWeek);
   };
 
+  //button for current month
   const handleThisMonth = () => {
     const now = new Date();
     const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
@@ -28,10 +33,12 @@ const FilterButtons: React.FC<FilterButtonsProps> = ({ setFilteredEvents, savedE
     handleFilterChange(startOfMonth, endOfMonth);
   };
 
+  //all events
   const handleAllEvents = () => {
     setFilteredEvents(savedEvents);
   };
 
+  //filter change to set filtered events
   const handleFilterChange = (startDate: Date, endDate: Date) => {
     const filteredEvents = savedEvents.filter(event => {
       const eventDate = new Date(event.EventDate);

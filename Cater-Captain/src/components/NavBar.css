@@ -1,11 +1,22 @@
-.nav-container {
+@font-face {
+    font-family: 'Cinzel';
+    src: url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
+  }
+  
+  .nav-container {
     display: flex;
-    
     align-items: center;
-}
-
-.nav-container img {
+  }
+  
+  .nav-container img {
     margin: 5px 5px;
-}
+  }
+  
+  #navTitle {
+    margin: auto auto;
+    font-size: 4rem;
+    font-family: 'Cinzel', serif;
+    color: #CBE6AD;
+  }
 
-h1{margin: auto auto;}
+  

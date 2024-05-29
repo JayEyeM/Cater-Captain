@@ -1,11 +1,15 @@
 import React from 'react';
 import { Button } from '@chakra-ui/react';
 
+//customized buttons for general use
+
+//props for buttons
 interface CustomButtonProps {
     children: React.ReactNode;
     [key: string]: any;
 }
 
+//green buttons solid and outline
 const SolidLightGreenButton: React.FC<CustomButtonProps> = ({ children, ...props }) => {
     return (
         <Button
@@ -35,6 +39,7 @@ const OutlineLightGreenButton: React.FC<CustomButtonProps> = ({ children, ...pro
     );
 };
 
+//red buttons solid and outline
 const SolidLightRedButton: React.FC<CustomButtonProps> = ({ children, ...props }) => {
     return (
         <Button
@@ -64,6 +69,7 @@ const OutlineLightRedButton: React.FC<CustomButtonProps> = ({ children, ...props
     );
 };
 
+//blue buttons solid and outline
 const SolidLightBlueButton: React.FC<CustomButtonProps> = ({ children, ...props }) => {
     return (
         <Button
