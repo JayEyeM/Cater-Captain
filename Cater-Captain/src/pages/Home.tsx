@@ -1,10 +1,12 @@
 import React from 'react';
+import NavBar from '../components/NavBar';
 
 const Home: React.FC = () => {
 
     return <div>
+            <NavBar buttonText="Dashboard" buttonLink="/dashboard" />
             <h1>Home Page</h1>
-            <p>This is what you gonna see first</p>
+            
     </div>;
 
     

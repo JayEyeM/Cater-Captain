@@ -77,7 +77,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <ChakraProvider theme={theme}>
-      <NavBar />
+      <NavBar buttonText="Home" buttonLink="/" />
       <h1 color='#F5F5F5'>Dashboard</h1>
       <OutlineLightGreenButton onClick={() => {
         setCurrentEvent({
