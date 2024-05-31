@@ -1,7 +1,7 @@
 import React from 'react';
 import { Stack } from '@chakra-ui/react';
 import { Event } from './Interfaces';
-import { SolidLightGreenButton } from './Buttons';
+import { SolidLightBlueButton } from './Buttons';
 
 //filter events buttons for dashboard
 
@@ -49,9 +49,9 @@ const FilterButtons: React.FC<FilterButtonsProps> = ({ setFilteredEvents, savedE
 
   return (
     <Stack direction="row" spacing={4} mb={4}>
-      <SolidLightGreenButton onClick={handleThisWeek}>This Week</SolidLightGreenButton>
-      <SolidLightGreenButton onClick={handleThisMonth}>This Month</SolidLightGreenButton>
-      <SolidLightGreenButton onClick={handleAllEvents}>All Events</SolidLightGreenButton>
+      <SolidLightBlueButton onClick={handleThisWeek}>This Week</SolidLightBlueButton>
+      <SolidLightBlueButton onClick={handleThisMonth}>This Month</SolidLightBlueButton>
+      <SolidLightBlueButton onClick={handleAllEvents}>All Events</SolidLightBlueButton>
     </Stack>
   );
 };

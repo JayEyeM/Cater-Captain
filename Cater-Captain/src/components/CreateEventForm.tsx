@@ -93,7 +93,7 @@ const CreateEventForm: React.FC<CreateEventProps> = ({ onAddEvent, isCreateEvent
 
   return (
     <Box bg={"#141220"} style={{ position: 'absolute', top: '30%', left: '50%', transform: 'translate(-50%, -50%)', padding: '20px', zIndex: 1000, boxShadow: '0 5px 26px #CBE6AD', borderRadius: '4px'}}>
-      <h1>Create Event Form</h1>
+      <h1 style={{ color: '#F5F5F5', textAlign: 'center' }}>Create Event Form</h1>
       <form onSubmit={handleSubmit}>
         <FormControl color="#CBE6AD">
           <FormLabel>Event Name</FormLabel>
