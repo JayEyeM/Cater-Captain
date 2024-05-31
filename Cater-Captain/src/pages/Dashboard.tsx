@@ -5,7 +5,7 @@ import ViewSavedEvents from '../components/ViewSavedEvents';
 import { EventForm, Event } from '../components/Interfaces';
 import SortEvents from '../components/SortEvents';
 import FilterButtons from '../components/FilterButtons';
-import { OutlineLightGreenButton } from '../components/Buttons';
+import { SolidLightGreenButton } from '../components/Buttons';
 import NavBar from '../components/NavBar';
 
 //set event form initial values
@@ -77,9 +77,9 @@ const Dashboard: React.FC = () => {
 
   return (
     <ChakraProvider theme={theme}>
-      <NavBar />
+      <NavBar buttonText="Home" buttonLink="/" />
       <h1 color='#F5F5F5'>Dashboard</h1>
-      <OutlineLightGreenButton onClick={() => {
+      <SolidLightGreenButton onClick={() => {
         setCurrentEvent({
           EventName: "",
           CustomerFirstName: "",
@@ -98,7 +98,7 @@ const Dashboard: React.FC = () => {
           ingredients: [],
         });
         setIsCreateEventFormVisible(true);
-      }}>Add New Event</OutlineLightGreenButton>
+      }}>Add New Event</SolidLightGreenButton>
       <FilterButtons 
   setFilteredEvents={setFilteredEvents} 
   savedEvents={savedEvents}

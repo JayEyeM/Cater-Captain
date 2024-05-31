@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Text } from '@chakra-ui/react';
 import { Event } from '../components/Interfaces';
-import { generateUniqueId } from './CreateEventForm';
+
 import EventIngredientList from './EventIngredientList';
 import { Ingredient } from '../components/Interfaces';
 import EventMenu from './EventMenu';
@@ -22,11 +22,7 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
 //use effect for storing events in local storage
   useEffect(() => {
     const storedEvents = JSON.parse(localStorage.getItem('events') || '[]');
-    if (storedEvents.length === 0) {
-      setSavedEvents(initialSavedEvents);
-    } else {
-      setSavedEvents(storedEvents);
-    }
+      setSavedEvents([ ...storedEvents, ...initialSavedEvents]);
   }, [setSavedEvents]);
 
   //initial saved events data for testing/examples
@@ -45,7 +41,7 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
       VenueName: "Venue 1",
       VenueStreetAddress: "123 Main Street",
       VenueCity: "New York",
-      id: generateUniqueId([]),
+      id: 1,
       ingredients: [],
     },
     {
@@ -62,7 +58,7 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
       VenueName: "Venue 2",
       VenueStreetAddress: "123 Main Street",
       VenueCity: "New York",
-      id: generateUniqueId([]),
+      id: 2,
       ingredients: [],
     },
     {
@@ -79,7 +75,7 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
       VenueName: "Venue 3",
       VenueStreetAddress: "123 Main Street",
       VenueCity: "New York",
-      id: generateUniqueId([]),
+      id: 3,
       ingredients: [],
     }
   ];
