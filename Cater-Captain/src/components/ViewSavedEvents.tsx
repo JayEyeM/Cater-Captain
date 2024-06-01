@@ -7,25 +7,16 @@ import { Ingredient } from '../components/Interfaces';
 import EventMenu from './EventMenu';
 import { OutlineLightGreenButton, SolidLightGreenButton, OutlineLightRedButton } from './Buttons';
 
-//view saved events props
-
 interface ViewSavedEventsProps {
   savedEvents: Event[];
   setSavedEvents: React.Dispatch<React.SetStateAction<Event[]>>;
   onEditEvent: (event: Event) => void;
 }
 
-//view saved events component that displays saved events and allows user to edit them and delete them.
 const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSavedEvents, onEditEvent }) => {
   const [visibleIngredients, setVisibleIngredients] = useState<{ [key: number]: boolean }>({});
   const [visibleMenu, setVisibleMenu] = useState<{ [key: number]: boolean }>({});
-//use effect for storing events in local storage
-  useEffect(() => {
-    const storedEvents = JSON.parse(localStorage.getItem('events') || '[]');
-      setSavedEvents([ ...storedEvents, ...initialSavedEvents]);
-  }, [setSavedEvents]);
 
-  //initial saved events data for testing/examples
   const initialSavedEvents: Event[] = [
     {
       EventName: "Event 1",
@@ -80,19 +71,42 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
     }
   ];
 
-  //delete event function that removes event from saved events
+  useEffect(() => {
+    // Retrieve events from local storage
+    const storedEvents = JSON.parse(localStorage.getItem('events') || '[]');
+    
+    // Merge initialSavedEvents with storedEvents
+    const mergedEvents = [...initialSavedEvents, ...storedEvents];
+    
+    // Remove duplicates based on event id
+    const uniqueEvents = mergedEvents.reduce((acc: Event[], current) => {
+      if (!acc.find(event => event.id === current.id)) {
+        acc.push(current);
+      }
+      return acc;
+    }, []);
+  
+    // Sort events by id in descending order
+    uniqueEvents.sort((a, b) => b.id - a.id);
+    
+    // Update state with unique events
+    setSavedEvents(uniqueEvents);
+  
+    // Store unique events in local storage
+    localStorage.setItem('events', JSON.stringify(uniqueEvents));
+  }, [setSavedEvents]);
+  
+
   const handleDelete = (id: number) => {
     const updatedEvents = savedEvents.filter(event => event.id !== id);
     setSavedEvents(updatedEvents);
     localStorage.setItem('events', JSON.stringify(updatedEvents));
   };
 
-  //edit event function that allows user to edit event details
   const handleEditEvent = (event: Event) => {
     onEditEvent(event);
   };
 
-  //functionlaity for toggling ingredient list
   const toggleIngredientList = (id: number) => {
     setVisibleIngredients(prev => ({
       ...prev,
@@ -100,7 +114,6 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
     }));
   };
 
-  //functionlity for toggling menu list
   const toggleMenuList = (id: number) => {
     setVisibleMenu(prev => ({
       ...prev,
@@ -108,18 +121,17 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
     }));
   };
 
-  //functionlity for adding ingredient
   const handleAddIngredient = (eventId: number, newIngredient: Ingredient) => {
     setSavedEvents(prevEvents => {
       const updatedEvents = prevEvents.map(event =>
         event.id === eventId ? { ...event, ingredients: [...(event.ingredients || []), newIngredient] } : event
       );
+      updatedEvents.sort((a, b) => b.id - a.id);
       localStorage.setItem('events', JSON.stringify(updatedEvents)); 
       return updatedEvents;
     });
   };
-  
-  //functionlity for deleting ingredient
+
   const handleDeleteIngredient = (eventId: number, index: number) => {
     setSavedEvents(prevEvents => {
       const updatedEvents = prevEvents.map(event =>
@@ -127,12 +139,12 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
           ? { ...event, ingredients: event.ingredients.filter((_, i) => i !== index) }
           : event
       );
+      updatedEvents.sort((a, b) => b.id - a.id);
       localStorage.setItem('events', JSON.stringify(updatedEvents)); 
       return updatedEvents;
     });
   };
-  
-  //functionlity for editing ingredient (on hand / need to order check boxes)
+
   const handleEditIngredient = (eventId: number, index: number, updatedIngredient: Ingredient) => {
     setSavedEvents(prevEvents => {
       const updatedEvents = prevEvents.map(event =>
@@ -145,24 +157,23 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
             }
           : event
       );
+      updatedEvents.sort((a, b) => b.id - a.id);
       localStorage.setItem('events', JSON.stringify(updatedEvents)); 
       return updatedEvents;
     });
   };
 
-  //functionlity for adding menu item
   const handleAddMenuItem = (eventId: number, newMenuItem: string) => {
     setSavedEvents(prevEvents => {
       const updatedEvents = prevEvents.map(event =>
         event.id === eventId ? { ...event, menuItems: [...(event.menuItems || []), newMenuItem] } : event
       );
+      updatedEvents.sort((a, b) => b.id - a.id);
       localStorage.setItem('events', JSON.stringify(updatedEvents)); 
       return updatedEvents;
     });
   };
 
-
-  //functionlity for deleting menu item
   const handleDeleteMenuItem = (eventId: number, index: number) => {
     setSavedEvents(prevEvents => {
       const updatedEvents = prevEvents.map(event =>
@@ -170,12 +181,11 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
           ? { ...event, menuItems: event.menuItems ? event.menuItems.filter((_, i) => i !== index) : [] }
           : event
       );
+      updatedEvents.sort((a, b) => b.id - a.id);
       localStorage.setItem('events', JSON.stringify(updatedEvents)); 
       return updatedEvents;
     });
-};
-
-  
+  };
 
   return (
     <div>
@@ -211,9 +221,7 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
               onAddIngredient={(newIngredient) => handleAddIngredient(event.id, newIngredient)}
               onDeleteIngredient={(index) => handleDeleteIngredient(event.id, index)}
               onEditIngredient={(index, updatedIngredient) => handleEditIngredient(event.id, index, updatedIngredient)}
-              // updateLocalStorage={updateLocalStorage}
             />
-            
             )}
             <SolidLightGreenButton onClick={() => toggleMenuList(event.id)}>
               {visibleMenu[event.id] ? "Hide Menu" : "Show Menu"}
@@ -222,7 +230,7 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
             {visibleMenu[event.id] && (
               <EventMenu
                 menuItems={event.menuItems || []}
-                onAddMenuItem={(newMenuItem) => handleAddMenuItem(event.id, newMenuItem)}
+                onAddMenuItem={(newMenuItem: string) => handleAddMenuItem(event.id, newMenuItem)}
                 onDeleteMenuItem={(index) => handleDeleteMenuItem(event.id, index)}
               />
             )}

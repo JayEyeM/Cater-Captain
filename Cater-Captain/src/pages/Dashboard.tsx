@@ -36,36 +36,7 @@ const Dashboard: React.FC = () => {
     setFilteredEvents(savedEvents);
   }, [savedEvents]);
 
-  //filter functions
-      //current week
-  const handleThisWeek = () => {
-    const now = new Date();
-    const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
-    const endOfWeek = new Date(now.setDate(now.getDate() - now.getDay() + 6));
-    const filteredEvents = savedEvents.filter(event => {
-      const eventDate = new Date(event.EventDate); 
-      return eventDate >= startOfWeek && eventDate <= endOfWeek;
-    });
-    setFilteredEvents(filteredEvents);
-  };
-
-  //current month
-  const handleThisMonth = () => {
-    const now = new Date();
-    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-    const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-    const filteredEvents = savedEvents.filter(event => {
-      const eventDate = new Date(event.EventDate); 
-      return eventDate >= startOfMonth && eventDate <= endOfMonth;
-    });
-    setFilteredEvents(filteredEvents);
-  };
-
-  //all events
-  const handleAllEvents = () => {
-    setFilteredEvents(savedEvents);
-  };
-
+  
   //filter change to set filtered events
   const handleFilterChange = (startDate: string, endDate: string) => {
     const filteredEvents = savedEvents.filter(event => {
@@ -75,36 +46,36 @@ const Dashboard: React.FC = () => {
     setFilteredEvents(filteredEvents);
   };
 
+  const handleCreateEvent = () => {
+    setIsCreateEventFormVisible(true);
+    setCurrentEvent({
+      EventName: "",
+      CustomerFirstName: "",
+      CustomerLastName: "",
+      CustomerPhoneNumber: 0,
+      CustomerEmail: "",
+      EventType: "",
+      NumberOfGuests: 0,
+      EventDate: "",
+      StartTime: "",
+      EndTime: "",
+      VenueName: "",
+      VenueStreetAddress: "",
+      VenueCity: "",
+      id: 0,
+      ingredients: [],
+    })
+  }
+
   return (
     <ChakraProvider theme={theme}>
       <NavBar buttonText="Home" buttonLink="/" />
       <h1 color='#F5F5F5'>Dashboard</h1>
-      <SolidLightGreenButton onClick={() => {
-        setCurrentEvent({
-          EventName: "",
-          CustomerFirstName: "",
-          CustomerLastName: "",
-          CustomerPhoneNumber: 0,
-          CustomerEmail: "",
-          EventType: "",
-          NumberOfGuests: 0,
-          EventDate: "",
-          StartTime: "",
-          EndTime: "",
-          VenueName: "",
-          VenueStreetAddress: "",
-          VenueCity: "",
-          id: 0,
-          ingredients: [],
-        });
-        setIsCreateEventFormVisible(true);
-      }}>Add New Event</SolidLightGreenButton>
+      <SolidLightGreenButton onClick={handleCreateEvent} >Create Event</SolidLightGreenButton>
       <FilterButtons 
   setFilteredEvents={setFilteredEvents} 
   savedEvents={savedEvents}
-  handleThisWeek={handleThisWeek}
-  handleThisMonth={handleThisMonth}
-  handleAllEvents={handleAllEvents}
+  
 />
 
       <CreateEventForm
