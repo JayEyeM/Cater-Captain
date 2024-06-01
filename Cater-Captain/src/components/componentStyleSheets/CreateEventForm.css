@@ -1,0 +1,33 @@
+
+
+#formTitle {
+    font-size: 3rem;
+    font-family: 'Cinzel', serif;
+    color: #CBE6AD;
+    margin: auto;
+}
+
+#formDiv {
+    display: flex;
+    flex-direction: column;
+   padding: 10px;
+    color: #CBE6AD;
+    width: 60vw;
+    height: 90vh;
+    margin: auto auto;
+    font-size: 1.5rem;
+    box-shadow: #CBE6AD 0px 0px 10px;
+    position:fixed;
+    top: 5%;
+    left: 20%;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #141220; /* Fallback for browsers that don't support scrollbar-color */
+    scrollbar-color: #141220 #CBE6AD; /* Chrome, Safari, Opera */
+    -webkit-scrollbar-thumb-color: #CBE6AD; /* Chrome, Safari, Opera */
+    -webkit-scrollbar-track-color: #141220; /* Chrome, Safari, Opera */
+    -moz-scrollbar-thumb-color: #CBE6AD; /* Firefox */
+    -moz-scrollbar-track-color: #141220; /* Firefox */
+    scroll-behavior: smooth;
+    z-index: 1000;
+}

@@ -64,6 +64,16 @@ const FilterButtons: React.FC<FilterButtonsProps> = ({ setFilteredEvents, savedE
     handleFilterChange(nextMonth.start, nextMonth.end);
   };
 
+  //handle all poast events
+  const handlePastEvents = () => {
+    const currentDay = getCurrentDay().format('YYYY-MM-DD');
+    const pastEvents = savedEvents.filter((event) => {
+      const eventDate = dayjs(event.EventDate).format('YYYY-MM-DD');
+      return eventDate < currentDay;
+    });
+    setFilteredEvents(pastEvents);
+  }
+
   const handleAllEvents = () => {
     const startOfAllEvents = '1970-01-01';
     const endOfAllEvents = '2038-01-01';
@@ -80,6 +90,7 @@ const FilterButtons: React.FC<FilterButtonsProps> = ({ setFilteredEvents, savedE
 
   return (
     <Stack direction="row" spacing={4} mb={4}>
+      <SolidLightBlueButton onClick={handlePastEvents}>Past Events</SolidLightBlueButton>
       <SolidLightBlueButton onClick={handleToday}>Today</SolidLightBlueButton>
       <SolidLightBlueButton onClick={handleThisWeek}>This Week</SolidLightBlueButton>
       <SolidLightBlueButton onClick={handleThisMonth}>This Month</SolidLightBlueButton>

@@ -36,7 +36,8 @@ const SortEvents: React.FC<SortEventsProps> = ({ onFilterChange }) => {
 
   return (
     <Box bg="#141220">
-      <h1>Sort Events</h1>
+      <h1>Custom Filter Events</h1>
+      <p>Display events that fall on or between your chosen start and end dates.</p>
       <form onSubmit={handleSubmit}>
         <FormControl id="startDate" color="#CBE6AD">
           <FormLabel>Start Date</FormLabel>
