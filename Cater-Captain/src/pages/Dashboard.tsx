@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { ChakraProvider, theme } from '@chakra-ui/react';
 import CreateEventForm from '../components/CreateEventForm';
 import ViewSavedEvents from '../components/ViewSavedEvents';
 import { EventForm, Event } from '../components/Interfaces';
@@ -8,7 +7,7 @@ import FilterButtons from '../components/FilterButtons';
 import { SolidLightGreenButton } from '../components/Buttons';
 import NavBar from '../components/NavBar';
 
-//set event form initial values
+// set event form initial values
 const Dashboard: React.FC = () => {
   const [isCreateEventFormVisible, setIsCreateEventFormVisible] = useState(false);
   const [currentEvent, setCurrentEvent] = useState<EventForm>({
@@ -36,11 +35,10 @@ const Dashboard: React.FC = () => {
     setFilteredEvents(savedEvents);
   }, [savedEvents]);
 
-  
-  //filter change to set filtered events
+  // filter change to set filtered events
   const handleFilterChange = (startDate: string, endDate: string) => {
     const filteredEvents = savedEvents.filter(event => {
-      const eventDate = new Date(event.EventDate); 
+      const eventDate = new Date(event.EventDate);
       return eventDate >= new Date(startDate) && eventDate <= new Date(endDate);
     });
     setFilteredEvents(filteredEvents);
@@ -68,15 +66,14 @@ const Dashboard: React.FC = () => {
   }
 
   return (
-    <ChakraProvider theme={theme}>
+    <>
       <NavBar buttonText="Home" buttonLink="/" />
       <h1 color='#F5F5F5'>Dashboard</h1>
       <SolidLightGreenButton onClick={handleCreateEvent} >Create Event</SolidLightGreenButton>
-      <FilterButtons 
-  setFilteredEvents={setFilteredEvents} 
-  savedEvents={savedEvents}
-  
-/>
+      <FilterButtons
+        setFilteredEvents={setFilteredEvents}
+        savedEvents={savedEvents}
+      />
 
       <CreateEventForm
         isCreateEventFormVisible={isCreateEventFormVisible}
@@ -103,7 +100,7 @@ const Dashboard: React.FC = () => {
           setIsCreateEventFormVisible(true);
         }}
       />
-    </ChakraProvider>
+    </>
   );
 };
 

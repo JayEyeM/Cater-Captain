@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Text } from '@chakra-ui/react';
 import { Event } from '../components/Interfaces';
-
+import './componentStyleSheets/ViewSavedEvents.css';
 import EventIngredientList from './EventIngredientList';
 import { Ingredient } from '../components/Interfaces';
 import EventMenu from './EventMenu';
@@ -196,18 +196,18 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
           </CardHeader>
           <CardBody>
             <Stack spacing={4}>
-              <Text>{event.CustomerFirstName} {event.CustomerLastName}</Text>
-              <Text>{event.CustomerPhoneNumber}</Text>
-              <Text>{event.CustomerEmail}</Text>
-              <Text>{event.EventType}</Text>
-              <Text>{event.NumberOfGuests}</Text>
-              <Text>{event.EventDate}</Text>
-              <Text>{event.StartTime}</Text>
-              <Text>{event.EndTime}</Text>
-              <Text>{event.VenueName}</Text>
-              <Text>{event.VenueStreetAddress}</Text>
-              <Text>{event.VenueCity}</Text>
-              <Text>Event ID: {event.id}</Text>
+              <Text>Customer Name: <span className="spansClass">{event.CustomerFirstName} {event.CustomerLastName}</span></Text>
+              <Text>Customer Phone Number: <span className="spansClass">{event.CustomerPhoneNumber}</span></Text>
+              <Text>Customer Email: <span className="spansClass">{event.CustomerEmail}</span></Text>
+              <Text>Event Type: <span className="spansClass">{event.EventType}</span></Text>
+              <Text>Number of Guests: <span className="spansClass">{event.NumberOfGuests}</span></Text>
+              <Text>Event Date: <span className="spansClass">{event.EventDate}</span></Text>
+              <Text>Start Time: <span className="spansClass">{event.StartTime}</span></Text>
+              <Text>End Time: <span className="spansClass">{event.EndTime}</span></Text>
+              <Text>Venue Name: <span className="spansClass">{event.VenueName}</span></Text>
+              <Text>Venue Address: <span className="spansClass">{event.VenueStreetAddress}</span></Text>
+              <Text>Venue City: <span className="spansClass">{event.VenueCity}</span></Text>
+              <Text>Event ID: <span className="spansClass">{event.id}</span></Text>
             </Stack>
           </CardBody>
           <CardFooter style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
@@ -242,6 +242,7 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
       ))}
     </div>
   );
+
 }
 
 export default ViewSavedEvents;

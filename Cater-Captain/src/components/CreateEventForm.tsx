@@ -2,6 +2,7 @@ import React, { Dispatch, SetStateAction, useState, useEffect } from 'react';
 import { FormControl, FormLabel, Input, Box } from "@chakra-ui/react";
 import { EventForm, Event } from './Interfaces';
 import { SolidLightGreenButton, OutlineLightRedButton } from './Buttons';
+import './componentStyleSheets/CreateEventForm.css';
 
 //props for create event form component 
 interface CreateEventProps {
@@ -78,7 +79,7 @@ const CreateEventForm: React.FC<CreateEventProps> = ({ onAddEvent, isCreateEvent
     localStorage.setItem('events', JSON.stringify(storedEvents));
 
     // Call the onAddEvent function with the new event data
-    onAddEvent(formData);
+    onAddEvent(newEvent);
 
     // Set the visibility of the create event form to false
     setIsCreateEventFormVisible(false);
@@ -92,8 +93,8 @@ const CreateEventForm: React.FC<CreateEventProps> = ({ onAddEvent, isCreateEvent
   };
 
   return (
-    <Box bg={"#141220"} style={{ position: 'absolute', top: '30%', left: '50%', transform: 'translate(-50%, -50%)', padding: '20px', zIndex: 1000, boxShadow: '0 5px 26px #CBE6AD', borderRadius: '4px'}}>
-      <h1 style={{ color: '#F5F5F5', textAlign: 'center' }}>Create Event Form</h1>
+    <Box bg={"#141220"} id ="formDiv">
+      <h1 id="formTitle">Create New Event</h1>
       <form onSubmit={handleSubmit}>
         <FormControl color="#CBE6AD">
           <FormLabel>Event Name</FormLabel>
