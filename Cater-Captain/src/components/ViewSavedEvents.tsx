@@ -3,8 +3,9 @@ import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Text } from '@c
 import { Event } from '../components/Interfaces';
 import './componentStyleSheets/ViewSavedEvents.css';
 import EventIngredientList from './EventIngredientList';
-import { Ingredient } from '../components/Interfaces';
+import { Ingredient, Notes } from '../components/Interfaces';
 import EventMenu from './EventMenu';
+import EventNotes from './EventNotes';
 import { OutlineLightGreenButton, SolidLightGreenButton, OutlineLightRedButton } from './Buttons';
 
 interface ViewSavedEventsProps {
@@ -16,6 +17,8 @@ interface ViewSavedEventsProps {
 const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSavedEvents, onEditEvent }) => {
   const [visibleIngredients, setVisibleIngredients] = useState<{ [key: number]: boolean }>({});
   const [visibleMenu, setVisibleMenu] = useState<{ [key: number]: boolean }>({});
+  const [visibleNotes, setVisibleNotes] = useState<{ [key: number]: boolean }>({});
+
 
   const initialSavedEvents: Event[] = [
     {
@@ -120,6 +123,13 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
       [id]: !prev[id]
     }));
   };
+  
+  const toggleNotes = (id: number) => {
+    setVisibleNotes(prev => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
+  };
 
   const handleAddIngredient = (eventId: number, newIngredient: Ingredient) => {
     setSavedEvents(prevEvents => {
@@ -187,6 +197,28 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
     });
   };
 
+  const handleSaveNotes = (eventId: number, newNote: Notes) => {
+    setSavedEvents(prevEvents => {
+      const updatedEvents = prevEvents.map(event =>
+        event.id === eventId ? { ...event, notes: [...(event.notes || []), newNote] } : event
+      );
+      localStorage.setItem('events', JSON.stringify(updatedEvents));
+      return updatedEvents;
+    });
+  };
+
+  const handleDeleteNote = (eventId: number, index: number) => {
+    setSavedEvents(prevEvents => {
+      const updatedEvents = prevEvents.map(event =>
+        event.id === eventId
+          ? { ...event, notes: event.notes ? event.notes.filter((_, i) => i !== index) : [] }
+          : event
+      );
+      localStorage.setItem('events', JSON.stringify(updatedEvents));
+      return updatedEvents;
+    });
+  };
+
   return (
     <div>
       {savedEvents.map((event) => (
@@ -232,6 +264,18 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
                 menuItems={event.menuItems || []}
                 onAddMenuItem={(newMenuItem: string) => handleAddMenuItem(event.id, newMenuItem)}
                 onDeleteMenuItem={(index) => handleDeleteMenuItem(event.id, index)}
+              />
+            )}
+
+            <SolidLightGreenButton onClick={() => toggleNotes(event.id)}>
+              {visibleNotes[event.id] ? "Hide Notes" : "Show Notes"}
+            </SolidLightGreenButton>
+
+            {visibleNotes[event.id] && (
+              <EventNotes
+                notes={event.notes || []}
+                onAddNote={(newNote: Notes) => handleSaveNotes(event.id, newNote)}
+                onDeleteNote={(index) => handleDeleteNote(event.id, index)}
               />
             )}
             <OutlineLightGreenButton onClick={() => handleEditEvent(event)}>Edit</OutlineLightGreenButton>
