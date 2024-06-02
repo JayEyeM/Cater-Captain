@@ -93,6 +93,7 @@ const CreateEventForm: React.FC<CreateEventProps> = ({ onAddEvent, isCreateEvent
   };
 
   return (
+    <div id='formContainer'>
     <Box bg={"#141220"} id ="formDiv">
       <h1 id="formTitle">Create New Event</h1>
       <form onSubmit={handleSubmit}>
@@ -233,6 +234,7 @@ const CreateEventForm: React.FC<CreateEventProps> = ({ onAddEvent, isCreateEvent
         
       </form>
     </Box>
+    </div>
   );
 };
 

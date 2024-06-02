@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 import { Notes } from '../components/Interfaces';
 import { SolidLightBlueButton, SolidLightRedButton } from './Buttons';
+import { useThemeColors } from './UseThemeColors';
+import {
+    FormControl,
+    FormLabel,
+    Input,
+    Box,
+    Heading,
+    Text,
+  } from "@chakra-ui/react";
 
 interface EventNotesProps {
   notes: Notes[];
@@ -18,17 +27,20 @@ const EventNotes: React.FC<EventNotesProps> = ({ notes, onAddNote, onDeleteNote 
     }
   };
 
+  const { primary, secondary, accent, backgroundColor, textColor, shadows} = useThemeColors();
+
   return (
-    <div>
-      <div>
-        <input style={{color: 'black'}}
+    <Box bg={shadows} p={0.5} w={"100%"} borderRadius="md">
+    <Box bg={backgroundColor} p={8} w={"100%"} borderRadius="md">
+      <Box display="flex" flexDirection={{ base: 'column', md: 'row' }} gap={4}>
+        <Input bg={backgroundColor} outline={"1px solid"} outlineColor={secondary} color={textColor} w={"100%"} borderRadius="md" 
           type="text"
           value={newNote}
           onChange={(e) => setNewNote(e.target.value)}
           placeholder="Add new note"
         />
         <SolidLightBlueButton onClick={handleAddNote}>Add Note</SolidLightBlueButton>
-      </div>
+      </Box>
       <ul>
         {notes.map((note, index) => (
           <li key={index}>
@@ -37,7 +49,8 @@ const EventNotes: React.FC<EventNotesProps> = ({ notes, onAddNote, onDeleteNote 
           </li>
         ))}
       </ul>
-    </div>
+    </Box>
+    </Box>
   );
 };
 

@@ -6,6 +6,7 @@ import SortEvents from '../components/SortEvents';
 import FilterButtons from '../components/FilterButtons';
 import { SolidLightGreenButton } from '../components/Buttons';
 import NavBar from '../components/NavBar';
+import './pagesStyleSheets/Dashboard.css';
 
 // set event form initial values
 const Dashboard: React.FC = () => {
@@ -66,10 +67,10 @@ const Dashboard: React.FC = () => {
   }
 
   return (
-    <>
+    <div id="dashboardPage">
       <NavBar buttonText="Home" buttonLink="/" />
-      <h1 color='#F5F5F5'>Dashboard</h1>
-      <SolidLightGreenButton onClick={handleCreateEvent} >Create Event</SolidLightGreenButton>
+      <h1>Dashboard</h1>
+      <SolidLightGreenButton id="createEventButton" onClick={handleCreateEvent} >Create Event</SolidLightGreenButton>
       <FilterButtons
         setFilteredEvents={setFilteredEvents}
         savedEvents={savedEvents}
@@ -100,7 +101,7 @@ const Dashboard: React.FC = () => {
           setIsCreateEventFormVisible(true);
         }}
       />
-    </>
+    </div>
   );
 };
 

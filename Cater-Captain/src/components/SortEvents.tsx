@@ -4,8 +4,11 @@ import {
   FormLabel,
   Input,
   Box,
+  Heading,
+  Text,
 } from "@chakra-ui/react";
-import { OutlineLightGreenButton } from './Buttons';
+import { OutlineLightBlueButton } from './Buttons';
+import { useThemeColors } from './UseThemeColors';
 
 
 //props for sort events
@@ -34,32 +37,40 @@ const SortEvents: React.FC<SortEventsProps> = ({ onFilterChange }) => {
     onFilterChange(selectedStartDate ?? '', selectedEndDate ?? '');
   };
 
-  return (
-    <Box bg="#141220">
-      <h1>Custom Filter Events</h1>
-      <p>Display events that fall on or between your chosen start and end dates.</p>
-      <form onSubmit={handleSubmit}>
-        <FormControl id="startDate" color="#CBE6AD">
-          <FormLabel>Start Date</FormLabel>
-          <Input
-            type="date"
-            name="startDate"
-            value={selectedStartDate ?? ''}
-            onChange={handleDateChange}
-          />
-        </FormControl>
+  const { primary, secondary, accent, backgroundColor, textColor } = useThemeColors();
 
-        <FormControl id="endDate" color="#CBE6AD" mt={4}>
-          <FormLabel>End Date</FormLabel>
-          <Input
-            type="date"
-            name="endDate"
-            value={selectedEndDate ?? ''}
-            onChange={handleDateChange}
-          />
-        </FormControl>
-        <OutlineLightGreenButton type="submit" mt={4}> Sort Events </OutlineLightGreenButton>
+  return (
+    <Box bg={backgroundColor} p={4} w={"60%"} borderRadius="md" m={10} outline={"2px solid"} outlineColor={secondary}>
+      <Heading color={primary} size="lg">Custom Filter Events</Heading>
+      <Text color={textColor}>Display events that fall on or between your chosen start and end dates.</Text>
+      <form onSubmit={handleSubmit}>
+        <Box display="flex" flexDirection={{ base: 'column', md: 'row' }} gap={4}>
+          <FormControl id="startDate" flex="1">
+            <FormLabel color={textColor}>Start Date</FormLabel>
+            <Input
+              type="date"
+              name="startDate"
+              value={selectedStartDate ?? ''}
+              onChange={handleDateChange}
+              bg={secondary}
+              color={backgroundColor}
+            />
+          </FormControl>
+
+          <FormControl id="endDate" flex="1">
+            <FormLabel color={textColor}>End Date</FormLabel>
+            <Input
+              type="date"
+              name="endDate"
+              value={selectedEndDate ?? ''}
+              onChange={handleDateChange}
+              bg={secondary}
+              color={backgroundColor}
+            />
+          </FormControl>
+        </Box>
         
+        <OutlineLightBlueButton type="submit" mt={4}>Filter Events</OutlineLightBlueButton>
       </form>
     </Box>
   );

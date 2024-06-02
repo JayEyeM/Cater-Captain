@@ -6,10 +6,12 @@
   .nav-container {
     display: flex;
     align-items: center;
+    /* background-color: #141220; */
   }
   
   .nav-container img {
     margin: 5px 5px;
+   
   }
   
   #navTitle {
