@@ -17,6 +17,7 @@ export interface Event {
     id: number;
     ingredients: Ingredient[];
     menuItems?: string[];
+    notes?: Notes[];
 }
 
 //Create interface for EventForm
@@ -37,6 +38,7 @@ export interface EventForm {
     id: number;
     ingredients: Ingredient[];
     menuItems?: string[];
+    notes?: Notes[];
 }
 
 //Create interface for ViewSavedEvents
@@ -75,4 +77,9 @@ export interface Ingredient {
   quantity: number;
   onHand: boolean;
   needToOrder: boolean;
+}
+
+//create interface for Notes
+export interface Notes {
+  notes: string;
 }

@@ -1,5 +1,9 @@
+@font-face {
+  font-family: 'Cinzel';
+  src: url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
+}
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Cinzel', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -24,14 +28,31 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+ display: block;
+ padding: 0px;
+ color: #CBE6AD;
+ width: 100%;
+ height: auto;
+ margin: auto auto;
+ font-size: 1.25rem;
+ box-shadow: #CBE6AD 0px 0px 10px;
+ position:fixed;
+background-color: #141220;
+ overflow-y: auto;
+ scrollbar-width: thin;
+ scrollbar-color: #141220; /* Fallback for browsers that don't support scrollbar-color */
+ scrollbar-color: #141220 #CBE6AD; /* Chrome, Safari, Opera */
+ -webkit-scrollbar-thumb-color: #CBE6AD; /* Chrome, Safari, Opera */
+ -webkit-scrollbar-track-color: #141220; /* Chrome, Safari, Opera */
+ -moz-scrollbar-thumb-color: #CBE6AD; /* Firefox */
+ -moz-scrollbar-track-color: #141220; /* Firefox */
+ scroll-behavior: smooth;
+  
 }
 
 h1 {
-  font-size: 3.2em;
+  font-family: 'Cinzel', serif;
+  font-size: 2.5em;
   line-height: 1.1;
 }
 
