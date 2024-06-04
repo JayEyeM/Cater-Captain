@@ -8,27 +8,28 @@ import { SolidLightGreenButton } from '../components/Buttons';
 import NavBar from '../components/NavBar';
 import './pagesStyleSheets/Dashboard.css';
 
-// set event form initial values
+// Initial state for event form
+const initialEventFormState: EventForm = {
+  EventName: "",
+  CustomerFirstName: "",
+  CustomerLastName: "",
+  CustomerPhoneNumber: 0,
+  CustomerEmail: "",
+  EventType: "",
+  NumberOfGuests: 0,
+  EventDate: "",
+  StartTime: "",
+  EndTime: "",
+  VenueName: "",
+  VenueStreetAddress: "",
+  VenueCity: "",
+  id: 0,
+  ingredients: [],
+};
+
 const Dashboard: React.FC = () => {
   const [isCreateEventFormVisible, setIsCreateEventFormVisible] = useState(false);
-  const [currentEvent, setCurrentEvent] = useState<EventForm>({
-    EventName: "",
-    CustomerFirstName: "",
-    CustomerLastName: "",
-    CustomerPhoneNumber: 0,
-    CustomerEmail: "",
-    EventType: "",
-    NumberOfGuests: 0,
-    EventDate: "",
-    StartTime: "",
-    EndTime: "",
-    VenueName: "",
-    VenueStreetAddress: "",
-    VenueCity: "",
-    id: 0,
-    ingredients: [],
-  });
-
+  const [currentEvent, setCurrentEvent] = useState<EventForm>(initialEventFormState);
   const [savedEvents, setSavedEvents] = useState<Event[]>([]);
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
 
@@ -36,7 +37,6 @@ const Dashboard: React.FC = () => {
     setFilteredEvents(savedEvents);
   }, [savedEvents]);
 
-  // filter change to set filtered events
   const handleFilterChange = (startDate: string, endDate: string) => {
     const filteredEvents = savedEvents.filter(event => {
       const eventDate = new Date(event.EventDate);
@@ -47,59 +47,57 @@ const Dashboard: React.FC = () => {
 
   const handleCreateEvent = () => {
     setIsCreateEventFormVisible(true);
-    setCurrentEvent({
-      EventName: "",
-      CustomerFirstName: "",
-      CustomerLastName: "",
-      CustomerPhoneNumber: 0,
-      CustomerEmail: "",
-      EventType: "",
-      NumberOfGuests: 0,
-      EventDate: "",
-      StartTime: "",
-      EndTime: "",
-      VenueName: "",
-      VenueStreetAddress: "",
-      VenueCity: "",
-      id: 0,
-      ingredients: [],
-    })
-  }
+    setCurrentEvent(initialEventFormState);
+  };
+
+  const handleAddOrUpdateEvent = (event: EventForm) => {
+    setSavedEvents(prevEvents => {
+      const existingEventIndex = prevEvents.findIndex(e => e.id === event.id);
+      if (existingEventIndex > -1) {
+        const updatedEvents = prevEvents.map((e, index) =>
+          index === existingEventIndex ? { ...e, ...event } : e
+        );
+        localStorage.setItem('events', JSON.stringify(updatedEvents));
+        return updatedEvents;
+      } else {
+        const newEvent = { ...event, id: prevEvents.length + 1 };
+        const updatedEvents = [...prevEvents, newEvent];
+        localStorage.setItem('events', JSON.stringify(updatedEvents));
+        return updatedEvents;
+      }
+    });
+  };
+
+  const handleEditEvent = (event: Event) => {
+    setCurrentEvent(event);
+    setIsCreateEventFormVisible(true);
+  };
 
   return (
     <div id="dashboardPage">
       <NavBar buttonText="Home" buttonLink="/" />
       <h1>Dashboard</h1>
-      <SolidLightGreenButton id="createEventButton" onClick={handleCreateEvent} >Create Event</SolidLightGreenButton>
+      <SolidLightGreenButton id="createEventButton" onClick={handleCreateEvent}>
+        Create Event
+      </SolidLightGreenButton>
       <FilterButtons
         setFilteredEvents={setFilteredEvents}
         savedEvents={savedEvents}
       />
-
       <CreateEventForm
         isCreateEventFormVisible={isCreateEventFormVisible}
         setIsCreateEventFormVisible={setIsCreateEventFormVisible}
         currentEvent={currentEvent}
         setCurrentEvent={setCurrentEvent}
-        onAddEvent={(event: EventForm) => {
-          const existingEventIndex = savedEvents.findIndex(e => e.id === event.id);
-          if (existingEventIndex > -1) {
-            const updatedEvents = savedEvents.map((e, index) => index === existingEventIndex ? event : e);
-            setSavedEvents(updatedEvents);
-          } else {
-            setSavedEvents([...savedEvents, event]);
-          }
-        }}
+        setSavedEvents={setSavedEvents}
+        onAddEvent={handleAddOrUpdateEvent}
         savedEvents={savedEvents}
       />
-      <SortEvents onFilterChange={(startDate, endDate) => handleFilterChange(startDate, endDate)} />
+      <SortEvents onFilterChange={handleFilterChange} />
       <ViewSavedEvents
         savedEvents={filteredEvents}
         setSavedEvents={setSavedEvents}
-        onEditEvent={(event: Event) => {
-          setCurrentEvent(event);
-          setIsCreateEventFormVisible(true);
-        }}
+        onEditEvent={handleEditEvent}
       />
     </div>
   );

@@ -19,8 +19,8 @@ const theme = extendTheme({
       text: "#DCDCDC",
     },
     shadows: {
-      LTShadow: ' #141220a7',  // Example for light mode
-       DTShadow: ' #cbe6ada6', // Example for dark mode
+      LTShadow: ' #141220a7', 
+       DTShadow: ' #cbe6ada6', 
      },
   },
   
