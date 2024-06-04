@@ -7,6 +7,7 @@ import FilterButtons from '../components/FilterButtons';
 import { SolidLightGreenButton } from '../components/Buttons';
 import NavBar from '../components/NavBar';
 import './pagesStyleSheets/Dashboard.css';
+import { Heading } from '@chakra-ui/react';
 
 // Initial state for event form
 const initialEventFormState: EventForm = {
@@ -76,8 +77,9 @@ const Dashboard: React.FC = () => {
   return (
     <div id="dashboardPage">
       <NavBar buttonText="Home" buttonLink="/" />
-      <h1>Dashboard</h1>
-      <SolidLightGreenButton id="createEventButton" onClick={handleCreateEvent}>
+      <Heading id="dashboardHeading" size="lg" ml={12} mb={2} fontFamily={"Cinzel"} >Dashboard</Heading>
+      <Heading id="eventsHeading" size="md" ml={12} mb={2} fontFamily={"Cinzel"}>Events</Heading>
+      <SolidLightGreenButton id="createEventButton" ml={12} mb={0} onClick={handleCreateEvent}>
         Create Event
       </SolidLightGreenButton>
       <FilterButtons

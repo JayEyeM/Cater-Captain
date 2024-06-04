@@ -40,7 +40,7 @@ const SortEvents: React.FC<SortEventsProps> = ({ onFilterChange }) => {
   const { primary, secondary, accent, backgroundColor, textColor } = useThemeColors();
 
   return (
-    <Box bg={backgroundColor} p={4} w={"60%"} borderRadius="md" m={10} outline={"2px solid"} outlineColor={secondary}>
+    <Box bg={backgroundColor} p={4} w={"60%"} borderRadius="md" ml={12} mt={2} mb={0} outline={"2px solid"} outlineColor={secondary}>
       <Heading color={primary} size="lg">Custom Filter Events</Heading>
       <Text color={textColor}>Display events that fall on or between your chosen start and end dates.</Text>
       <form onSubmit={handleSubmit}>
