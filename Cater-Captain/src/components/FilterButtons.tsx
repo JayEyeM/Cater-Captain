@@ -75,9 +75,7 @@ const FilterButtons: React.FC<FilterButtonsProps> = ({ setFilteredEvents, savedE
   }
 
   const handleAllEvents = () => {
-    const startOfAllEvents = '1970-01-01';
-    const endOfAllEvents = '2038-01-01';
-    handleFilterChange(startOfAllEvents, endOfAllEvents);
+    setFilteredEvents(savedEvents);
   };
 
   const handleFilterChange = (startDate: string, endDate: string) => {
