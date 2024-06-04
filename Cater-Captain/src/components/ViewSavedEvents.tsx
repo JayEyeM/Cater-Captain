@@ -229,7 +229,9 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
           outline={"2px solid"}
           outlineColor={primary}
           direction={{ base: 'column', sm: 'row' }}
-          m={12}
+          ml={12}
+          mr={12}
+          mt={6}
         >
           <CardHeader>
             <Heading size="lg">{event.EventName}</Heading>

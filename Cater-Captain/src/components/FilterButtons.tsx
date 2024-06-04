@@ -87,7 +87,7 @@ const FilterButtons: React.FC<FilterButtonsProps> = ({ setFilteredEvents, savedE
   };
 
   return (
-    <Stack direction="row" spacing={4} mb={4}>
+    <Stack direction="row" spacing={0} ml={10} mt={5} mb={0}  >
       <SolidLightBlueButton onClick={handlePastEvents}>Past Events</SolidLightBlueButton>
       <SolidLightBlueButton onClick={handleToday}>Today</SolidLightBlueButton>
       <SolidLightBlueButton onClick={handleThisWeek}>This Week</SolidLightBlueButton>
