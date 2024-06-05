@@ -19,6 +19,12 @@
     font-size: 4rem;
     font-family: 'Cinzel', serif;
     color: #CBE6AD;
+    text-shadow: 
+    1px 0 0 #141220, 
+    0 1px 0 #141220, 
+    0 0 10px #141220, 
+    -1px 0 0 #141220, 
+    0 -1px 0 #141220;
   }
 
   

@@ -8,7 +8,8 @@ import FilterButtons from '../components/FilterButtons';
 import CustomButton from '../components/Buttons';
 import NavBar from '../components/NavBar';
 import './pagesStyleSheets/Dashboard.css';
-import { Heading } from '@chakra-ui/react';
+import { Box, Heading } from '@chakra-ui/react';
+import { useThemeColors } from '../components/UseThemeColors';
 
 // Initial state for event form
 const initialEventFormState: EventForm = {
@@ -75,11 +76,16 @@ const Dashboard: React.FC = () => {
     setIsCreateEventFormVisible(true);
   };
 
+  const { backgroundColor} = useThemeColors();
+
   return (
-    <div id="dashboardPage">
+    <Box bg={backgroundColor} id="dashboardPage">
       <NavBar buttonText="Home" buttonLink="/" />
-      <Heading id="dashboardHeading" size="lg" ml={12} mb={2} fontFamily={"Cinzel"} >Dashboard</Heading>
-      <Heading id="eventsHeading" size="md" ml={12} mb={2} fontFamily={"Cinzel"}>Events</Heading>
+      <Box w={"100%"} display={"flex"} justifyContent={"center"} flexDir={"column"} alignItems={"center"}>
+      <Heading id="dashboardHeading" size="lg" fontFamily={"Cinzel"} >Dashboard</Heading>
+      
+      <Heading id="eventsHeading" size="md" mt={2} fontFamily={"Cinzel"}>Events</Heading>
+      </Box>
       {/* <SolidLightGreenButton id="createEventButton" ml={12} mb={0} onClick={handleCreateEvent}>
         Create Event
       </SolidLightGreenButton> */}
@@ -105,7 +111,7 @@ const Dashboard: React.FC = () => {
         setSavedEvents={setSavedEvents}
         onEditEvent={handleEditEvent}
       />
-    </div>
+    </Box>
   );
 };
 
