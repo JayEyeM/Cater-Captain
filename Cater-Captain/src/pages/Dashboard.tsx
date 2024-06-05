@@ -4,7 +4,8 @@ import ViewSavedEvents from '../components/ViewSavedEvents';
 import { EventForm, Event } from '../components/Interfaces';
 import SortEvents from '../components/SortEvents';
 import FilterButtons from '../components/FilterButtons';
-import { SolidLightGreenButton } from '../components/Buttons';
+// import { SolidLightGreenButton } from '../components/Buttons';
+import CustomButton from '../components/Buttons';
 import NavBar from '../components/NavBar';
 import './pagesStyleSheets/Dashboard.css';
 import { Heading } from '@chakra-ui/react';
@@ -79,9 +80,12 @@ const Dashboard: React.FC = () => {
       <NavBar buttonText="Home" buttonLink="/" />
       <Heading id="dashboardHeading" size="lg" ml={12} mb={2} fontFamily={"Cinzel"} >Dashboard</Heading>
       <Heading id="eventsHeading" size="md" ml={12} mb={2} fontFamily={"Cinzel"}>Events</Heading>
-      <SolidLightGreenButton id="createEventButton" ml={12} mb={0} onClick={handleCreateEvent}>
+      {/* <SolidLightGreenButton id="createEventButton" ml={12} mb={0} onClick={handleCreateEvent}>
         Create Event
-      </SolidLightGreenButton>
+      </SolidLightGreenButton> */}
+      <CustomButton variant="solidGreen" id="createEventButton" ml={12} mb={0} onClick={handleCreateEvent}>
+        Create Event
+      </CustomButton>
       <FilterButtons
         setFilteredEvents={setFilteredEvents}
         savedEvents={savedEvents}
