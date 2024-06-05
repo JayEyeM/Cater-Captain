@@ -7,7 +7,8 @@ import {
   Heading,
   Text,
 } from "@chakra-ui/react";
-import { OutlineLightBlueButton } from './Buttons';
+// import { OutlineLightBlueButton } from './Buttons';
+import CustomButton from './Buttons';
 import { useThemeColors } from './UseThemeColors';
 
 
@@ -37,7 +38,7 @@ const SortEvents: React.FC<SortEventsProps> = ({ onFilterChange }) => {
     onFilterChange(selectedStartDate ?? '', selectedEndDate ?? '');
   };
 
-  const { primary, secondary, accent, backgroundColor, textColor } = useThemeColors();
+  const { primary, secondary, backgroundColor, textColor } = useThemeColors();
 
   return (
     <Box bg={backgroundColor} p={4} w={"60%"} borderRadius="md" ml={12} mt={2} mb={0} outline={"2px solid"} outlineColor={secondary}>
@@ -70,7 +71,8 @@ const SortEvents: React.FC<SortEventsProps> = ({ onFilterChange }) => {
           </FormControl>
         </Box>
         
-        <OutlineLightBlueButton type="submit" mt={4}>Filter Events</OutlineLightBlueButton>
+        {/* <OutlineLightBlueButton type="submit" mt={4}>Filter Events</OutlineLightBlueButton> */}
+        <CustomButton variant="outlineBlue" type="submit" mt={4}>Filter Events</CustomButton>
       </form>
     </Box>
   );

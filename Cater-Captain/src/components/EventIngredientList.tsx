@@ -4,7 +4,8 @@ import {
 } from '@chakra-ui/react';
 
 import { Ingredient } from './Interfaces';
-import { SolidLightBlueButton, SolidLightRedButton } from './Buttons';
+// import { SolidLightBlueButton, SolidLightRedButton } from './Buttons';
+import CustomButton from './Buttons';
 
 //props for event ingredient list
 interface EventIngredientListProps {
@@ -83,7 +84,8 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
         >
           Need to Order
         </Checkbox>
-        <SolidLightBlueButton onClick={handleAddIngredient}>Add Ingredient</SolidLightBlueButton>
+        {/* <SolidLightBlueButton onClick={handleAddIngredient}>Add Ingredient</SolidLightBlueButton> */}
+        <CustomButton variant="solidBlue" onClick={handleAddIngredient}>Add Ingredient</CustomButton>
         
       </Stack>
 
@@ -117,7 +119,8 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
                 />
               </Td>
               <Td>
-                <SolidLightRedButton onClick={() => onDeleteIngredient(index)}>Delete</SolidLightRedButton>
+                {/* <SolidLightRedButton onClick={() => onDeleteIngredient(index)}>Delete</SolidLightRedButton> */}
+                <CustomButton variant="solidRed" onClick={() => onDeleteIngredient(index)}>Delete</CustomButton>
                 
               </Td>
             </Tr>

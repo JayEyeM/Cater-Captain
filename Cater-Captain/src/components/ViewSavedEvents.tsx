@@ -5,7 +5,8 @@ import './componentStyleSheets/ViewSavedEvents.css';
 import EventIngredientList from './EventIngredientList';
 import EventMenu from './EventMenu';
 import EventNotes from './EventNotes';
-import { OutlineLightGreenButton, SolidLightGreenButton, OutlineLightRedButton } from './Buttons';
+// import { OutlineLightGreenButton, SolidLightGreenButton, OutlineLightRedButton } from './Buttons';
+import CustomButton from './Buttons';
 import { useThemeColors } from './UseThemeColors';
 
 interface ViewSavedEventsProps {
@@ -253,9 +254,12 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
             </Stack>
           </CardBody>
           <CardFooter style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-            <SolidLightGreenButton onClick={() => toggleIngredientList(event.id)}>
+            {/* <SolidLightGreenButton onClick={() => toggleIngredientList(event.id)}>
               {visibleIngredients[event.id] ? "Hide Ingredients" : "Show Ingredients"}
-            </SolidLightGreenButton>
+            </SolidLightGreenButton> */}
+            <CustomButton variant="solidGreen" onClick={() => toggleIngredientList(event.id)}>
+              {visibleIngredients[event.id] ? "Hide Ingredients" : "Show Ingredients"}
+            </CustomButton>
 
             {visibleIngredients[event.id] && (
               <EventIngredientList
@@ -266,9 +270,12 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
               />
             )}
 
-            <SolidLightGreenButton onClick={() => toggleMenuList(event.id)}>
+            {/* <SolidLightGreenButton onClick={() => toggleMenuList(event.id)}>
               {visibleMenu[event.id] ? "Hide Menu" : "Show Menu"}
-            </SolidLightGreenButton>
+            </SolidLightGreenButton> */}
+            <CustomButton variant="solidGreen" onClick={() => toggleMenuList(event.id)}>
+              {visibleMenu[event.id] ? "Hide Menu" : "Show Menu"}
+            </CustomButton>
 
             {visibleMenu[event.id] && (
               <EventMenu
@@ -278,9 +285,12 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
               />
             )}
 
-            <SolidLightGreenButton onClick={() => toggleNotes(event.id)}>
+            {/* <SolidLightGreenButton onClick={() => toggleNotes(event.id)}>
               {visibleNotes[event.id] ? "Hide Notes" : "Show Notes"}
-            </SolidLightGreenButton>
+            </SolidLightGreenButton> */}
+            <CustomButton variant="solidGreen" onClick={() => toggleNotes(event.id)}>
+              {visibleNotes[event.id] ? "Hide Notes" : "Show Notes"}
+            </CustomButton>
 
             {visibleNotes[event.id] && (
               <EventNotes
@@ -289,8 +299,10 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
                 onDeleteNote={(index) => handleDeleteNote(event.id, index)}
               />
             )}
-            <OutlineLightGreenButton onClick={() => handleEditEvent(event)}>Edit</OutlineLightGreenButton>
-            <OutlineLightRedButton onClick={() => handleDelete(event.id)}>Delete</OutlineLightRedButton>
+            {/* <OutlineLightGreenButton onClick={() => handleEditEvent(event)}>Edit</OutlineLightGreenButton> */}
+            <CustomButton variant="outlineGreen" onClick={() => handleEditEvent(event)}>Edit</CustomButton>
+            {/* <OutlineLightRedButton onClick={() => handleDelete(event.id)}>Delete</OutlineLightRedButton> */}
+            <CustomButton variant="outlineRed" onClick={() => handleDelete(event.id)}>Delete</CustomButton>
           </CardFooter>
         </Card>
       ))}

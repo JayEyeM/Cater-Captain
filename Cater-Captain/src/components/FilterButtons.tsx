@@ -1,7 +1,8 @@
 import React from 'react';
 import { Stack } from '@chakra-ui/react';
 import { Event } from './Interfaces';
-import { SolidLightBlueButton } from './Buttons';
+// import { SolidLightBlueButton } from './Buttons';
+import CustomButton from './Buttons';
 import dayjs from 'dayjs';
 
 interface FilterButtonsProps {
@@ -88,12 +89,19 @@ const FilterButtons: React.FC<FilterButtonsProps> = ({ setFilteredEvents, savedE
 
   return (
     <Stack direction="row" spacing={0} ml={10} mt={5} mb={0}  >
-      <SolidLightBlueButton onClick={handlePastEvents}>Past Events</SolidLightBlueButton>
+      {/* <SolidLightBlueButton onClick={handlePastEvents}>Past Events</SolidLightBlueButton>
       <SolidLightBlueButton onClick={handleToday}>Today</SolidLightBlueButton>
       <SolidLightBlueButton onClick={handleThisWeek}>This Week</SolidLightBlueButton>
       <SolidLightBlueButton onClick={handleThisMonth}>This Month</SolidLightBlueButton>
       <SolidLightBlueButton onClick={handleNextMonth}>Next Month</SolidLightBlueButton>
-      <SolidLightBlueButton onClick={handleAllEvents}>All Events</SolidLightBlueButton>
+      <SolidLightBlueButton onClick={handleAllEvents}>All Events</SolidLightBlueButton> */}
+
+      <CustomButton variant="solidBlue" onClick={handlePastEvents}>Past Events</CustomButton>
+      <CustomButton variant="solidBlue" onClick={handleToday}>Today</CustomButton>
+      <CustomButton variant="solidBlue" onClick={handleThisWeek}>This Week</CustomButton>
+      <CustomButton variant="solidBlue" onClick={handleThisMonth}>This Month</CustomButton>
+      <CustomButton variant="solidBlue" onClick={handleNextMonth}>Next Month</CustomButton>
+      <CustomButton variant="solidBlue" onClick={handleAllEvents}>All Events</CustomButton>
     </Stack>
   );
 };

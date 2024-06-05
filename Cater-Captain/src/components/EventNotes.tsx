@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Notes } from '../components/Interfaces';
-import { SolidLightBlueButton, SolidLightRedButton } from './Buttons';
+// import { SolidLightBlueButton, SolidLightRedButton } from './Buttons';
+import CustomButton from './Buttons';
 import { useThemeColors } from './UseThemeColors';
 import {
     FormControl,
@@ -39,13 +40,15 @@ const EventNotes: React.FC<EventNotesProps> = ({ notes, onAddNote, onDeleteNote 
           onChange={(e) => setNewNote(e.target.value)}
           placeholder="Add new note"
         />
-        <SolidLightBlueButton onClick={handleAddNote}>Add Note</SolidLightBlueButton>
+        {/* <SolidLightBlueButton onClick={handleAddNote}>Add Note</SolidLightBlueButton> */}
+        <CustomButton variant="solidBlue" onClick={handleAddNote}>Add Note</CustomButton>
       </Box>
       <ul>
         {notes.map((note, index) => (
           <li key={index}>
             {note.notes}
-            <SolidLightRedButton onClick={() => onDeleteNote(index)}>Delete</SolidLightRedButton>
+            {/* <SolidLightRedButton onClick={() => onDeleteNote(index)}>Delete</SolidLightRedButton> */}
+            <CustomButton variant="solidRed" onClick={() => onDeleteNote(index)}>Delete</CustomButton>
           </li>
         ))}
       </ul>

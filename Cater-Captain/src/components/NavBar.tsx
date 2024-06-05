@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import './NavBar.css'; 
-import { OutlineLightBlueButton } from './Buttons';
-import { OutlineLightRedButton } from './Buttons';
+// import { OutlineLightBlueButton } from './Buttons';
+// import { OutlineLightRedButton } from './Buttons';
+import CustomButton from './Buttons';
 import ToggleColorModeButton from './ToggleColorModeButton';
 
 
@@ -13,13 +14,15 @@ export default function NavBar({ buttonText, buttonLink }: { buttonText: string,
             <h1 id="navTitle">Cater-Captain</h1>
             <ToggleColorModeButton />
             <Link to={buttonLink}>
-                <OutlineLightBlueButton>
+                {/* <OutlineLightBlueButton>
                     {buttonText}
-                </OutlineLightBlueButton>
+                </OutlineLightBlueButton> */}
+                <CustomButton variant="outlineBlue" >{buttonText}</CustomButton>
             </Link>
-            <OutlineLightRedButton>
+            {/* <OutlineLightRedButton>
                 Sign Out 
-            </OutlineLightRedButton>
+            </OutlineLightRedButton> */}
+            <CustomButton variant="outlineRed" >Sign Out</CustomButton>
         </div>
     )
 }
