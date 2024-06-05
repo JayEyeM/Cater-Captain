@@ -5,18 +5,18 @@ import { extendTheme } from "@chakra-ui/react";
 const theme = extendTheme({
   colors: {
     light: {
-      primary: "#141220",
-      secondary: "#E2E8F0",
-      accent: "#1A202C",
-      background: "#F9FAFB",
-      text: "#1A202C",
+      primary: "#F5F5F5",
+      secondary: "#E0E0E0",
+      accent: "#BDBDBD",
+      background: "#F5F5F5",
+      text: "#141220",
     },
     dark: {
       primary: "#CBE6AD",
       secondary: "#90B4D6",
       accent: "#D2A4A4",
       background: "#141220",
-      text: "#DCDCDC",
+      text: "#F5F5F5",
     },
     shadows: {
       LTShadow: ' #141220a7', 
