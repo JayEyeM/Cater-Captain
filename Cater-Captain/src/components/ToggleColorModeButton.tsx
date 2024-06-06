@@ -5,7 +5,7 @@ const ToggleColorModeButton: React.FC = () => {
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
-    <IconButton bg={"141220"} aria-label="Toggle Color Mode" icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />} onClick={toggleColorMode}>
+    <IconButton bg={"141220"} borderRadius={0} aria-label="Toggle Color Mode" icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />} onClick={toggleColorMode}>
       {colorMode === "light" ? "Dark Mode" : "Light Mode"}
     </IconButton>
   );
