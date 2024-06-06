@@ -226,6 +226,7 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
         <Card
           key={event.id}
           bg={backgroundColor}
+          borderRadius={0}
           color={textColor}
           outline={"2px solid"}
           outlineColor={primary}

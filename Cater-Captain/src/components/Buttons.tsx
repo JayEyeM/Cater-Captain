@@ -54,6 +54,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({ children, variant, ...props
     <Button
       {...styles}
       margin="5px 5px"
+      borderRadius={0}
       {...props}
     >
       {children}
