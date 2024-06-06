@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@chakra-ui/react';
-
+import { useThemeColors } from './UseThemeColors';
 
 // Props for the customizable button
 interface CustomButtonProps {
@@ -9,17 +9,25 @@ interface CustomButtonProps {
   [key: string]: any;
 }
 
+
+
+// CustomButton component
+const CustomButton: React.FC<CustomButtonProps> = ({ children, variant, ...props }) => {
+ 
+
+  const { bPrimary, bSecondary, bAccent, bBackgroundColor, bTextColor } = useThemeColors();
+
 // variant styles
 const buttonStyles = {
   solidGreen: {
-    bg: "#CBE6AD",
-    color: "#141220",
+    bg: bBackgroundColor,
+    color: bTextColor,
     _hover: { bg: "green.100" },
   },
   outlineGreen: {
     variant: "outline",
-    borderColor: "#CBE6AD",
-    color: "#CBE6AD",
+    borderColor: bBackgroundColor,
+    color: bBackgroundColor,
     _hover: { bg: "green.100", color: "#141220" },
   },
   solidRed: {
@@ -46,9 +54,7 @@ const buttonStyles = {
   },
 };
 
-// CustomButton component
-const CustomButton: React.FC<CustomButtonProps> = ({ children, variant, ...props }) => {
-  const styles = buttonStyles[variant];
+const styles = buttonStyles[variant];
 
   return (
     <Button
