@@ -8,9 +8,17 @@ export const useThemeColors = () => {
   const backgroundColor = useColorModeValue('light.background', 'dark.background');
   const textColor = useColorModeValue('light.text', 'dark.text');
 
+  const bPrimary = useColorModeValue('light.bPrimary', 'dark.bPrimary');
+  const bSecondary = useColorModeValue('light.bSecondary', 'dark.bSecondary');
+  const bAccent = useColorModeValue('light.bAccent', 'dark.bAccent');
+  const bBackgroundColor = useColorModeValue('light.bBackground', 'dark.bBackground');
+  const bTextColor = useColorModeValue('light.bText', 'dark.bText');
+
   const shadows = useColorModeValue('shadows.LTShadow', 'shadows.DTShadow');
 
   
-  return { primary, secondary, accent, backgroundColor, textColor, shadows };
+  return { primary, secondary, accent, backgroundColor, textColor, shadows,
+    bPrimary, bSecondary, bAccent, bBackgroundColor, bTextColor
+   };
 };
 
