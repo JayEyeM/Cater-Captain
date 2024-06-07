@@ -17,7 +17,7 @@ export default function NavBar({ buttonText, buttonLink }: { buttonText: string,
     const { backgroundColor, primary, secondary } = useThemeColors();
     return (
         <Box id="navDiv" display="flex" flexDirection={"row"} alignItems={"center"} w={"100%"} className="nav-container" bg={backgroundColor} >
-            <img src='./src/assets/captainCaterLogoFinal.svg' alt='Cater-Captain Logo' width="120" />
+            <img src='/captainCaterLogoFinal.svg' alt='Cater-Captain Logo' width="120" />
             {/* <h1 id="navTitle">Cater-Captain</h1> */}
             <Heading as="h1" size="3xl" w="100%" textAlign={"center"} fontFamily={'Cinzel'} color={primary} id="navTitle">Cater-Captain</Heading>
             

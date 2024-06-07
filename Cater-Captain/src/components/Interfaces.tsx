@@ -18,6 +18,7 @@ export interface Event {
     ingredients: Ingredient[];
     menuItems?: string[];
     notes?: Notes[];
+    imageUrl?: string;
 }
 
 //Create interface for EventForm

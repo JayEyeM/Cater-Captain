@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Text } from '@chakra-ui/react';
+import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Text, Box, Image } from '@chakra-ui/react';
 import { Event, Ingredient, Notes } from '../components/Interfaces';
 import './componentStyleSheets/ViewSavedEvents.css';
 import EventIngredientList from './EventIngredientList';
@@ -8,6 +8,7 @@ import EventNotes from './EventNotes';
 // import { OutlineLightGreenButton, SolidLightGreenButton, OutlineLightRedButton } from './Buttons';
 import CustomButton from './Buttons';
 import { useThemeColors } from './UseThemeColors';
+import EventImageSelector from './EventImageSelector';
 
 interface ViewSavedEventsProps {
   savedEvents: Event[];
@@ -220,6 +221,28 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
 
   const { backgroundColor, textColor, primary } = useThemeColors();
 
+  const [visibleImages, setVisibleImages] = useState<{ [key: number]: boolean }>({});
+
+const toggleImages = (eventId: number) => {
+  setVisibleImages(prev => ({
+    ...prev,
+    [eventId]: !prev[eventId]
+  }));
+};
+
+  const handleSelectImage = (eventId: number, imageUrl: string) => {
+    setSavedEvents((prevEvents) => {
+      const updatedEvents = prevEvents.map((event) =>
+        event.id === eventId ? { ...event, imageUrl } : event
+      );
+      localStorage.setItem('events', JSON.stringify(updatedEvents));
+      return updatedEvents;
+    });
+  };
+  
+  // const [showImages, setShowImages] = useState(false);
+
+
   return (
     <div>
       {savedEvents.map((event) => (
@@ -254,7 +277,17 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
               <Text>Event ID: <span className="spansClass">{event.id}</span></Text>
             </Stack>
           </CardBody>
+          <Box>
+            <Image src={event.imageUrl} alt={`${event.EventName} Image`} width="400px" height="400px" mr={16} mt={16} />
+          </Box>
           <CardFooter style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+          <Box justifyContent={'center'} display={'flex'} flexDirection={'column'}>
+          <CustomButton variant="solidGreen" onClick={() => toggleImages(event.id)}>
+              {visibleImages[event.id] ? 'Hide Event Images' : 'Choose Event Image'}
+            </CustomButton>
+            {visibleImages[event.id] && <EventImageSelector onSelectImage={(imageUrl) => handleSelectImage(event.id, imageUrl)} />}
+          </Box>
+            
             {/* <SolidLightGreenButton onClick={() => toggleIngredientList(event.id)}>
               {visibleIngredients[event.id] ? "Hide Ingredients" : "Show Ingredients"}
             </SolidLightGreenButton> */}
