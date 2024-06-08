@@ -1,9 +1,10 @@
 import React, { Dispatch, SetStateAction, useState, useEffect } from 'react';
-import { FormControl, FormLabel, Input, Box } from "@chakra-ui/react";
+import { FormControl, FormLabel, Input, Box, Heading } from "@chakra-ui/react";
 import { EventForm, Event } from './Interfaces';
 // import { SolidLightGreenButton, OutlineLightRedButton } from './Buttons';
 import CustomButton from './Buttons';
 import './componentStyleSheets/CreateEventForm.css';
+import { useThemeColors } from './UseThemeColors';
 
 //props for create event form component 
 interface CreateEventProps {
@@ -59,45 +60,51 @@ const CreateEventForm: React.FC<CreateEventProps> = ({ onAddEvent, setSavedEvent
     }));
   };
 
-  //handle submit for create event form which adds event to local storage
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    // Prevent the default form submission behavior
-    event.preventDefault();
+  //handle submit for create event form which adds or updates event in local storage
+const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  // Prevent the default form submission behavior
+  event.preventDefault();
 
-    // Retrieve the stored events from localStorage
-    const storedEvents = JSON.parse(localStorage.getItem('events') || '[]');
+  // Retrieve the stored events from localStorage
+  const storedEvents: EventForm[] = JSON.parse(localStorage.getItem('events') || '[]');
 
-    // Generate a unique ID for the new event
-    const newEvent = { ...formData, id: generateUniqueId(savedEvents, formData.id) };
+  // Check if the event is new or existing
+  const isExistingEvent = formData.id !== 0;
 
-    // If the event ID is 0, it means it's a new event
-    if (formData.id === 0) {
-      // Push the new event into the stored events array
-      storedEvents.unshift(newEvent);
-    } else {
-      // Find the index of the event in the stored events array based on the event ID
-      const eventIndex = storedEvents.findIndex((e: EventForm) => e.id === formData.id);
+  // If it's a new event, generate a new unique ID
+  const eventId = isExistingEvent ? formData.id : generateUniqueId(savedEvents, formData.id);
+  const updatedEvent = { ...formData, id: eventId };
 
-      // Update the event in the stored events array with the new event data
-      storedEvents[eventIndex] = formData;
+  if (isExistingEvent) {
+    // Find the index of the existing event in the stored events array based on the event ID
+    const eventIndex = storedEvents.findIndex((e: EventForm) => e.id === formData.id);
+
+    // Update the event in the stored events array with the updated event data
+    if (eventIndex > -1) {
+      storedEvents[eventIndex] = updatedEvent;
     }
+  } else {
+    // Push the new event into the stored events array
+    storedEvents.unshift(updatedEvent);
+  }
 
-    // Set the updated events array back into localStorage
-    localStorage.setItem('events', JSON.stringify(storedEvents));
+  // Set the updated events array back into localStorage
+  localStorage.setItem('events', JSON.stringify(storedEvents));
 
-    // Update the saved events state and ensure it is sorted
-    setSavedEvents(prevEvents => {
-      const updatedEvents = [newEvent, ...prevEvents.filter(event => event.id !== newEvent.id)];
-      updatedEvents.sort((a, b) => b.id - a.id);
-      return updatedEvents;
-    });
+  // Update the saved events state and ensure it is sorted
+  setSavedEvents(prevEvents => {
+    const updatedEvents = [updatedEvent, ...prevEvents.filter(event => event.id !== updatedEvent.id)];
+    updatedEvents.sort((a, b) => b.id - a.id);
+    return updatedEvents;
+  });
 
-    // Call the onAddEvent function with the new event data
-    onAddEvent(newEvent);
+  // Call the onAddEvent function with the updated event data
+  onAddEvent(updatedEvent);
 
-    // Set the visibility of the create event form to false
-    setIsCreateEventFormVisible(false);
-  };
+  // Set the visibility of the create event form to false
+  setIsCreateEventFormVisible(false);
+};
+
 
   //handle cancel for create event form which hides the form
   const handleCancel = () => {
@@ -105,12 +112,14 @@ const CreateEventForm: React.FC<CreateEventProps> = ({ onAddEvent, setSavedEvent
     setIsCreateEventFormVisible(false);
   };
 
+  const { backgroundColor, textColor, primary } = useThemeColors();
+
   return (
     <div id='formContainer'>
-      <Box bg={"#141220"} id ="formDiv">
-        <h1 id="formTitle">Create New Event</h1>
+      <Box bg={backgroundColor} id ="formDiv">
+        <Heading color={primary} fontFamily={'Cinzel'} fontSize={'4xl'} textAlign={'center'}>Create New Event</Heading>
         <form onSubmit={handleSubmit}>
-          <FormControl color="#CBE6AD">
+          <FormControl color={textColor}>
             <FormLabel>Event Name</FormLabel>
             <Input
               name="EventName"
@@ -120,7 +129,7 @@ const CreateEventForm: React.FC<CreateEventProps> = ({ onAddEvent, setSavedEvent
               onChange={handleChange}
             />
           </FormControl>
-          <FormControl color="#CBE6AD">
+          <FormControl color={textColor}>
             <FormLabel>Customer First Name</FormLabel>
             <Input
               name="CustomerFirstName"
@@ -130,7 +139,7 @@ const CreateEventForm: React.FC<CreateEventProps> = ({ onAddEvent, setSavedEvent
               onChange={handleChange}
             />
           </FormControl>
-          <FormControl color="#CBE6AD">
+          <FormControl color={textColor}>
             <FormLabel>Customer Last Name</FormLabel>
             <Input
               name="CustomerLastName"
@@ -140,7 +149,7 @@ const CreateEventForm: React.FC<CreateEventProps> = ({ onAddEvent, setSavedEvent
               onChange={handleChange}
             />
           </FormControl>
-          <FormControl color="#CBE6AD">
+          <FormControl color={textColor}>
             <FormLabel>Customer Phone Number</FormLabel>
             <Input
               name="CustomerPhoneNumber"
@@ -150,7 +159,7 @@ const CreateEventForm: React.FC<CreateEventProps> = ({ onAddEvent, setSavedEvent
               onChange={handleChange}
             />
           </FormControl>
-          <FormControl color="#CBE6AD">
+          <FormControl color={textColor}>
             <FormLabel>Customer Email</FormLabel>
             <Input
               name="CustomerEmail"
@@ -160,7 +169,7 @@ const CreateEventForm: React.FC<CreateEventProps> = ({ onAddEvent, setSavedEvent
               onChange={handleChange}
             />
           </FormControl>
-          <FormControl color="#CBE6AD">
+          <FormControl color={textColor}>
             <FormLabel>Event Type</FormLabel>
             <Input
               name="EventType"
@@ -170,7 +179,7 @@ const CreateEventForm: React.FC<CreateEventProps> = ({ onAddEvent, setSavedEvent
               onChange={handleChange}
             />
           </FormControl>
-          <FormControl color="#CBE6AD">
+          <FormControl color={textColor}>
             <FormLabel>Number of Guests</FormLabel>
             <Input
               name="NumberOfGuests"
@@ -180,7 +189,7 @@ const CreateEventForm: React.FC<CreateEventProps> = ({ onAddEvent, setSavedEvent
               onChange={handleChange}
             />
           </FormControl>
-          <FormControl color="#CBE6AD">
+          <FormControl color={textColor}>
             <FormLabel>Event Date</FormLabel>
             <Input
               name="EventDate"
@@ -190,7 +199,7 @@ const CreateEventForm: React.FC<CreateEventProps> = ({ onAddEvent, setSavedEvent
               onChange={handleChange}
             />
           </FormControl>
-          <FormControl color="#CBE6AD">
+          <FormControl color={textColor}>
             <FormLabel>Start Time</FormLabel> 
             <Input
               name="StartTime"
@@ -200,7 +209,7 @@ const CreateEventForm: React.FC<CreateEventProps> = ({ onAddEvent, setSavedEvent
               onChange={handleChange}
             />
           </FormControl>
-          <FormControl color="#CBE6AD">
+          <FormControl color={textColor}>
             <FormLabel>End Time</FormLabel>
             <Input
               name="EndTime"
@@ -210,7 +219,7 @@ const CreateEventForm: React.FC<CreateEventProps> = ({ onAddEvent, setSavedEvent
               onChange={handleChange}
             />
           </FormControl>
-          <FormControl color="#CBE6AD">
+          <FormControl color={textColor}>
             <FormLabel>Venue Name</FormLabel> 
             <Input
               name="VenueName"
@@ -220,7 +229,7 @@ const CreateEventForm: React.FC<CreateEventProps> = ({ onAddEvent, setSavedEvent
               onChange={handleChange}
             />
           </FormControl>
-          <FormControl color="#CBE6AD">
+          <FormControl color={textColor}>
             <FormLabel>Venue Street Address</FormLabel>
             <Input
               name="VenueStreetAddress"
@@ -230,7 +239,7 @@ const CreateEventForm: React.FC<CreateEventProps> = ({ onAddEvent, setSavedEvent
               onChange={handleChange}
             />
           </FormControl>
-          <FormControl color="#CBE6AD">
+          <FormControl color={textColor}>
             <FormLabel>Venue City</FormLabel>
             <Input
               name="VenueCity"
