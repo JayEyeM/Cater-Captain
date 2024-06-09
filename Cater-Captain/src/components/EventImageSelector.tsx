@@ -2,17 +2,17 @@ import React from 'react';
 import { Box, Image, SimpleGrid } from '@chakra-ui/react';
 
 const eventTypesImages = [
-  './public/eventTypesImages/BabyShower.svg',
-  './public/eventTypesImages/Birthday.svg',
-  './public/eventTypesImages/Conference.svg',
-  './public/eventTypesImages/Engagement.svg',
-  './public/eventTypesImages/FamilyGathering.svg',
-  './public/eventTypesImages/Meeting.svg',
-  './public/eventTypesImages/WorkParty.svg',
-  './public/eventTypesImages/Fundraiser.svg',
-  './public/eventTypesImages/Retirement.svg',
-  './public/eventTypesImages/Wedding.svg',
-  './public/eventTypesImages/Other.svg',
+  './eventTypesImages/BabyShower.svg',
+  './eventTypesImages/Birthday.svg',
+  './eventTypesImages/Conference.svg',
+  './eventTypesImages/Engagement.svg',
+  './eventTypesImages/FamilyGathering.svg',
+  './eventTypesImages/Meeting.svg',
+  './eventTypesImages/WorkParty.svg',
+  './eventTypesImages/Fundraiser.svg',
+  './eventTypesImages/Retirement.svg',
+  './eventTypesImages/Wedding.svg',
+  './eventTypesImages/Other.svg',
 ];
 
 interface EventImageSelectorProps {

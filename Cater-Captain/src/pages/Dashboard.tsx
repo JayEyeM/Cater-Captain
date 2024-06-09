@@ -11,6 +11,7 @@ import './pagesStyleSheets/Dashboard.css';
 import { Box, Heading } from '@chakra-ui/react';
 import { useThemeColors } from '../components/UseThemeColors';
 
+
 // Initial state for event form
 const initialEventFormState: EventForm = {
   EventName: "",

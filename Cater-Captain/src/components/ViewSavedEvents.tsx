@@ -9,6 +9,8 @@ import EventNotes from './EventNotes';
 import CustomButton from './Buttons';
 import { useThemeColors } from './UseThemeColors';
 import EventImageSelector from './EventImageSelector';
+import { EditIcon, DeleteIcon, ViewIcon, ViewOffIcon, AddIcon } from '@chakra-ui/icons';
+import { IngredientsIcon, MenuIcon, NotesIcon } from './ButtonIcons';
 
 interface ViewSavedEventsProps {
   savedEvents: Event[];
@@ -291,8 +293,9 @@ const toggleImages = (eventId: number) => {
             {/* <SolidLightGreenButton onClick={() => toggleIngredientList(event.id)}>
               {visibleIngredients[event.id] ? "Hide Ingredients" : "Show Ingredients"}
             </SolidLightGreenButton> */}
-            <CustomButton variant="solidGreen" onClick={() => toggleIngredientList(event.id)}>
-              {visibleIngredients[event.id] ? "Hide Ingredients" : "Show Ingredients"}
+            <CustomButton variant="solidGreen" title="Ingredients" onClick={() => toggleIngredientList(event.id)} rightIcon={<IngredientsIcon />}>
+              
+              {visibleIngredients[event.id] ? <ViewIcon /> : <ViewOffIcon />}
             </CustomButton>
 
             {visibleIngredients[event.id] && (
@@ -307,8 +310,8 @@ const toggleImages = (eventId: number) => {
             {/* <SolidLightGreenButton onClick={() => toggleMenuList(event.id)}>
               {visibleMenu[event.id] ? "Hide Menu" : "Show Menu"}
             </SolidLightGreenButton> */}
-            <CustomButton variant="solidGreen" onClick={() => toggleMenuList(event.id)}>
-              {visibleMenu[event.id] ? "Hide Menu" : "Show Menu"}
+            <CustomButton variant="solidGreen" title="Menu" onClick={() => toggleMenuList(event.id)} rightIcon={<MenuIcon />}>
+              {visibleMenu[event.id] ? <ViewIcon /> : <ViewOffIcon />}
             </CustomButton>
 
             {visibleMenu[event.id] && (
@@ -322,8 +325,8 @@ const toggleImages = (eventId: number) => {
             {/* <SolidLightGreenButton onClick={() => toggleNotes(event.id)}>
               {visibleNotes[event.id] ? "Hide Notes" : "Show Notes"}
             </SolidLightGreenButton> */}
-            <CustomButton variant="solidGreen" onClick={() => toggleNotes(event.id)}>
-              {visibleNotes[event.id] ? "Hide Notes" : "Show Notes"}
+            <CustomButton variant="solidGreen" title="Notes" onClick={() => toggleNotes(event.id)} rightIcon={<NotesIcon />}>
+              {visibleNotes[event.id] ? <ViewIcon /> : <ViewOffIcon />}
             </CustomButton>
 
             {visibleNotes[event.id] && (
@@ -334,9 +337,9 @@ const toggleImages = (eventId: number) => {
               />
             )}
             {/* <OutlineLightGreenButton onClick={() => handleEditEvent(event)}>Edit</OutlineLightGreenButton> */}
-            <CustomButton variant="outlineGreen" onClick={() => handleEditEvent(event)}>Edit</CustomButton>
+            <CustomButton variant="outlineGreen" onClick={() => handleEditEvent(event)} alt="Edit Event" label="Edit Event" title="Edit Event"><EditIcon /></CustomButton>
             {/* <OutlineLightRedButton onClick={() => handleDelete(event.id)}>Delete</OutlineLightRedButton> */}
-            <CustomButton variant="outlineRed" onClick={() => handleDelete(event.id)}>Delete</CustomButton>
+            <CustomButton variant="outlineRed" onClick={() => handleDelete(event.id)} alt="Delete Event" label="Delete Event" title="Delete Event"><DeleteIcon /></CustomButton>
           </CardFooter>
         </Card>
       ))}
