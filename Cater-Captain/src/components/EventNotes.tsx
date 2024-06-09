@@ -3,6 +3,7 @@ import { Notes } from '../components/Interfaces';
 // import { SolidLightBlueButton, SolidLightRedButton } from './Buttons';
 import CustomButton from './Buttons';
 import { useThemeColors } from './UseThemeColors';
+import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
 import {
     FormControl,
     FormLabel,
@@ -30,6 +31,26 @@ const EventNotes: React.FC<EventNotesProps> = ({ notes, onAddNote, onDeleteNote 
 
   const { primary, secondary, accent, backgroundColor, textColor, shadows} = useThemeColors();
 
+  interface NoteItemProps {
+    note: { notes: string };
+    index: number;
+    onDeleteNote: (index: number) => void;
+  }
+  
+  const NoteItem = ({ note, index, onDeleteNote }: NoteItemProps) => (
+    <Box as="li" display="flex" justifyContent="space-between">
+      <span>{note.notes}</span>
+      <CustomButton
+        variant="solidRed"
+        title="Delete Note"
+        aria-label="Delete Note"
+        onClick={() => onDeleteNote(index)}
+      >
+        <DeleteIcon />
+      </CustomButton>
+    </Box>
+  );
+
   return (
     <Box bg={shadows} p={0.5} w={"100%"} borderRadius="md">
     <Box bg={backgroundColor} p={8} w={"100%"} borderRadius="md">
@@ -40,16 +61,12 @@ const EventNotes: React.FC<EventNotesProps> = ({ notes, onAddNote, onDeleteNote 
           onChange={(e) => setNewNote(e.target.value)}
           placeholder="Add new note"
         />
-        {/* <SolidLightBlueButton onClick={handleAddNote}>Add Note</SolidLightBlueButton> */}
-        <CustomButton variant="solidBlue" onClick={handleAddNote}>Add Note</CustomButton>
+        
+        <CustomButton variant="solidBlue" title="Add Note" alt="Add Note" onClick={handleAddNote}><AddIcon /></CustomButton>
       </Box>
       <ul>
         {notes.map((note, index) => (
-          <li key={index}>
-            {note.notes}
-            {/* <SolidLightRedButton onClick={() => onDeleteNote(index)}>Delete</SolidLightRedButton> */}
-            <CustomButton variant="solidRed" onClick={() => onDeleteNote(index)}>Delete</CustomButton>
-          </li>
+          <NoteItem key={index} note={note} index={index} onDeleteNote={onDeleteNote} />
         ))}
       </ul>
     </Box>

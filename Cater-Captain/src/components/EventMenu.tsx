@@ -4,6 +4,7 @@ import {
 } from '@chakra-ui/react';
 // import { SolidLightBlueButton, SolidLightRedButton } from './Buttons';
 import CustomButton from './Buttons';
+import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
 
 //props for event menu
 interface EventMenuProps {
@@ -38,7 +39,7 @@ const EventMenu: React.FC<EventMenuProps> = ({
           onChange={(e) => setNewMenuItem(e.target.value)}
         />
         {/* <SolidLightBlueButton onClick={handleAddMenuItem}>Add Menu Item</SolidLightBlueButton> */}
-        <CustomButton variant="solidBlue" onClick={handleAddMenuItem}>Add Menu Item</CustomButton>
+        <CustomButton variant="solidBlue" title="Add Menu Item" alt="Add Menu Item" onClick={handleAddMenuItem}><AddIcon /></CustomButton>
         
       </Stack>
 
@@ -55,7 +56,7 @@ const EventMenu: React.FC<EventMenuProps> = ({
               <Td>{item}</Td>
               <Td>
                 {/* <SolidLightRedButton onClick={() => onDeleteMenuItem(index)}>Delete</SolidLightRedButton> */}
-                <CustomButton variant="solidRed" onClick={() => onDeleteMenuItem(index)}>Delete</CustomButton>
+                <CustomButton variant="solidRed" title="Delete Menu Item" alt="Delete Menu Item" onClick={() => onDeleteMenuItem(index)}><DeleteIcon /></CustomButton>
                 
               </Td>
             </Tr>
