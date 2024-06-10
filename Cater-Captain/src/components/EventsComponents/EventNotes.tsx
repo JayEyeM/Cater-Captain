@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Notes } from '../components/Interfaces';
+import { Notes } from '../Interfaces';
 // import { SolidLightBlueButton, SolidLightRedButton } from './Buttons';
-import CustomButton from './Buttons';
-import { useThemeColors } from './UseThemeColors';
+import CustomButton from '../Buttons';
+import { useThemeColors } from '../UseThemeColors';
 import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
 import {
     FormControl,

@@ -8,8 +8,8 @@ import {
   Text,
 } from "@chakra-ui/react";
 // import { OutlineLightBlueButton } from './Buttons';
-import CustomButton from './Buttons';
-import { useThemeColors } from './UseThemeColors';
+import CustomButton from '../Buttons';
+import { useThemeColors } from '../UseThemeColors';
 
 
 //props for sort events
