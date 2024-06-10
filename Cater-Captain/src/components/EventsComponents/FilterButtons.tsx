@@ -1,8 +1,8 @@
 import React from 'react';
 import { Stack } from '@chakra-ui/react';
-import { Event } from './Interfaces';
+import { Event } from '../Interfaces';
 // import { SolidLightBlueButton } from './Buttons';
-import CustomButton from './Buttons';
+import CustomButton from '../Buttons';
 import dayjs from 'dayjs';
 
 interface FilterButtonsProps {

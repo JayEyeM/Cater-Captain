@@ -3,9 +3,9 @@ import {
   Box, Input, Stack, Table, Tbody, Td, Th, Thead, Tr, Checkbox,
 } from '@chakra-ui/react';
 
-import { Ingredient } from './Interfaces';
+import { Ingredient } from '../Interfaces';
 // import { SolidLightBlueButton, SolidLightRedButton } from './Buttons';
-import CustomButton from './Buttons';
+import CustomButton from '../Buttons';
 import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
 
 //props for event ingredient list

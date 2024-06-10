@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Text, Box, Image } from '@chakra-ui/react';
 import { Event, Ingredient, Notes } from '../components/Interfaces';
 import './componentStyleSheets/ViewSavedEvents.css';
-import EventIngredientList from './EventIngredientList';
-import EventMenu from './EventMenu';
-import EventNotes from './EventNotes';
+import EventIngredientList from './EventsComponents/EventIngredientList';
+import EventMenu from './EventsComponents/EventMenu';
+import EventNotes from './EventsComponents/EventNotes';
 // import { OutlineLightGreenButton, SolidLightGreenButton, OutlineLightRedButton } from './Buttons';
 import CustomButton from './Buttons';
 import { useThemeColors } from './UseThemeColors';
-import EventImageSelector from './EventImageSelector';
+import EventImageSelector from './EventsComponents/EventImageSelector';
 import { EditIcon, DeleteIcon, ViewIcon, ViewOffIcon, AddIcon } from '@chakra-ui/icons';
-import { IngredientsIcon, MenuIcon, NotesIcon } from './ButtonIcons';
+import { IngredientsIcon, MenuIcon, NotesIcon, ImageIcon } from './ButtonIcons';
 
 interface ViewSavedEventsProps {
   savedEvents: Event[];
@@ -284,8 +284,8 @@ const toggleImages = (eventId: number) => {
           </Box>
           <CardFooter style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <Box justifyContent={'center'} display={'flex'} flexDirection={'column'}>
-          <CustomButton variant="solidGreen" onClick={() => toggleImages(event.id)}>
-              {visibleImages[event.id] ? 'Hide Event Images' : 'Choose Event Image'}
+          <CustomButton variant="solidGreen" title="Choose Event Image" onClick={() => toggleImages(event.id)} rightIcon={<ImageIcon />}>
+              {visibleImages[event.id] ? <AddIcon /> : <AddIcon />}
             </CustomButton>
             {visibleImages[event.id] && <EventImageSelector onSelectImage={(imageUrl) => handleSelectImage(event.id, imageUrl)} />}
           </Box>

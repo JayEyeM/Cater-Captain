@@ -13,12 +13,13 @@ export const useThemeColors = () => {
   const bAccent = useColorModeValue('light.bAccent', 'dark.bAccent');
   const bBackgroundColor = useColorModeValue('light.bBackground', 'dark.bBackground');
   const bTextColor = useColorModeValue('light.bText', 'dark.bText');
+  const bHover = useColorModeValue('light.bHover', 'dark.bHover');
 
   const shadows = useColorModeValue('shadows.LTShadow', 'shadows.DTShadow');
 
   
   return { primary, secondary, accent, backgroundColor, textColor, shadows,
-    bPrimary, bSecondary, bAccent, bBackgroundColor, bTextColor
+    bPrimary, bSecondary, bAccent, bBackgroundColor, bTextColor, bHover,
    };
 };
 

@@ -3,7 +3,7 @@ import {
   Box, Input, Stack, Table, Tbody, Td, Th, Thead, Tr,
 } from '@chakra-ui/react';
 // import { SolidLightBlueButton, SolidLightRedButton } from './Buttons';
-import CustomButton from './Buttons';
+import CustomButton from '../Buttons';
 import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
 
 //props for event menu

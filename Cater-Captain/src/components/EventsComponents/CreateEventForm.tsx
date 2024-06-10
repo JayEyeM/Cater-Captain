@@ -1,10 +1,11 @@
 import React, { Dispatch, SetStateAction, useState, useEffect } from 'react';
 import { FormControl, FormLabel, Input, Box, Heading } from "@chakra-ui/react";
-import { EventForm, Event } from './Interfaces';
+import { EventForm, Event } from '../Interfaces';
 // import { SolidLightGreenButton, OutlineLightRedButton } from './Buttons';
-import CustomButton from './Buttons';
-import './componentStyleSheets/CreateEventForm.css';
-import { useThemeColors } from './UseThemeColors';
+import CustomButton from '../Buttons';
+import '../componentStyleSheets/CreateEventForm.css';
+import { useThemeColors } from '../UseThemeColors';
+import { CheckIcon, CloseIcon } from '@chakra-ui/icons';
 
 //props for create event form component 
 interface CreateEventProps {
@@ -251,10 +252,10 @@ const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
           </FormControl>
 
           {/* <SolidLightGreenButton type="submit" mt={4}> Save </SolidLightGreenButton> */}
-          <CustomButton variant="solidGreen" type="submit" mt={4}> Save </CustomButton>
+          <CustomButton variant="solidGreen" type="submit" title="Save" alt="Save" mt={4}> <CheckIcon /> </CustomButton>
           
           {/* <OutlineLightRedButton type="button" mt={4} onClick={handleCancel}> Cancel </OutlineLightRedButton> */}
-          <CustomButton variant="outlineRed" type="button" mt={4} onClick={handleCancel}> Cancel </CustomButton>
+          <CustomButton variant="outlineRed" type="button" title="Cancel" alt="Cancel" mt={4} onClick={handleCancel}> <CloseIcon /> </CustomButton>
           
         </form>
       </Box>

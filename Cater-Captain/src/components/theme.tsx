@@ -16,6 +16,7 @@ const theme = extendTheme({
       bAccent: "#D2A4A4",
       bBackground: "#141220",
       bText: "#CBE6AD",
+      bHover: "#CBE6AD",
     },
     dark: {
       primary: "#CBE6AD",
@@ -29,6 +30,7 @@ const theme = extendTheme({
       bAccent: "#D2A4A4",
       bBackground: "#CBE6AD",
       bText: "#141220",
+      bHover: "#141220",
     },
     shadows: {
       LTShadow: ' #141220a7', 
