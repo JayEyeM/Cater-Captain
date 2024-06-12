@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Text, Box, Image } from '@chakra-ui/react';
-import { Event, Ingredient, Notes } from '../components/Interfaces';
-import './componentStyleSheets/ViewSavedEvents.css';
-import EventIngredientList from './EventsComponents/EventIngredientList';
-import EventMenu from './EventsComponents/EventMenu';
-import EventNotes from './EventsComponents/EventNotes';
+import { Event, Ingredient, Notes } from '../Interfaces';
+import EventIngredientList from './EventIngredientList';
+import EventMenu from './EventMenu';
+import EventNotes from './EventNotes';
 // import { OutlineLightGreenButton, SolidLightGreenButton, OutlineLightRedButton } from './Buttons';
-import CustomButton from './Buttons';
-import { useThemeColors } from './UseThemeColors';
-import EventImageSelector from './EventsComponents/EventImageSelector';
+import CustomButton from '../Buttons';
+import { useThemeColors } from '../UseThemeColors';
+import EventImageSelector from './EventImageSelector';
 import { EditIcon, DeleteIcon, ViewIcon, ViewOffIcon, AddIcon } from '@chakra-ui/icons';
-import { IngredientsIcon, MenuIcon, NotesIcon, ImageIcon } from './ButtonIcons';
+import { IngredientsIcon, MenuIcon, NotesIcon, ImageIcon } from '../ButtonIcons';
 
 interface ViewSavedEventsProps {
   savedEvents: Event[];

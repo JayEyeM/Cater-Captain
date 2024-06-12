@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CreateEventForm from '../components/EventsComponents/CreateEventForm';
-import ViewSavedEvents from '../components/ViewSavedEvents';
+import ViewSavedEvents from '../components/EventsComponents/ViewSavedEvents';
 import { EventForm, Event } from '../components/Interfaces';
 import SortEvents from '../components/EventsComponents/SortEvents';
 import FilterButtons from '../components/EventsComponents/FilterButtons';
