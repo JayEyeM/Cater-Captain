@@ -97,7 +97,7 @@ const ManageEvents: React.FC = () => {
 
   return (
     <Box bg={backgroundColor} id="dashboardPage">
-      <NavBar buttonText="Home" buttonLink="/" />
+      <NavBar />
       <Box w={"100%"} display={"flex"} justifyContent={"center"} flexDir={"column"} alignItems={"center"}>
       
       
@@ -120,14 +120,14 @@ const ManageEvents: React.FC = () => {
         onAddEvent={handleAddOrUpdateEvent}
         savedEvents={savedEvents}
       />
-      <Box id='customFiltering' mt={8} display={"flex"}  flexDir={"column"}>
+      <Box id='customFiltering' mt={2} display={"flex"}  flexDir={"column"}>
         <Box id='filteringDropdown' display={"flex"} flexDir={"row"} alignItems={"center"} >
-      <Heading id="filterHeading" size="md" ml={12} fontFamily={"Cinzel"}>Custom Filter Events</Heading>
-      <CustomButton variant='outlineBlue' id='customFilteringButton' title="Custom Filtering" alt="Custom Filtering" ml={12} mb={0} w="auto" onClick={toggleFilterOptions}>
+      <Heading id="filterHeading" size="md" ml={12} fontFamily={"Cinzel"} p={2}>More Filtering Options:</Heading>
+      <CustomButton variant='outlineBlue' id='customFilteringButton' title="Custom Filtering" alt="Custom Filtering" w="auto" onClick={toggleFilterOptions}>
       {isFilterOptionsVisible ? <ViewIcon /> : <ViewOffIcon />}
       </CustomButton>
       </Box>
-      {isFilterOptionsVisible && ( // Render filter options only if visible
+      {isFilterOptionsVisible && ( 
           <Box id="filterOptions" display={"flex"}>
             <SortEvents onFilterChange={handleFilterChange} />
             <NameSearch onSearch={handleNameSearch} />
