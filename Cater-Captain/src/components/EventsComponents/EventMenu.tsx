@@ -53,7 +53,7 @@ const EventMenu: React.FC<EventMenuProps> = ({
         <Tbody>
           {menuItems.map((item, index) => (
             <Tr key={index}>
-              <Td>{item}</Td>
+              <Td sx={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word', maxWidth: '20ch'}}>{item}</Td>
               <Td>
                 {/* <SolidLightRedButton onClick={() => onDeleteMenuItem(index)}>Delete</SolidLightRedButton> */}
                 <CustomButton variant="solidRed" title="Delete Menu Item" alt="Delete Menu Item" onClick={() => onDeleteMenuItem(index)}><DeleteIcon /></CustomButton>

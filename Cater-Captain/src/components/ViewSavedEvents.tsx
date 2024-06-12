@@ -221,7 +221,7 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
     });
   };
 
-  const { backgroundColor, textColor, primary } = useThemeColors();
+  const { backgroundColor, textColor, primary, accent, secondary } = useThemeColors();
 
   const [visibleImages, setVisibleImages] = useState<{ [key: number]: boolean }>({});
 
@@ -252,7 +252,7 @@ const toggleImages = (eventId: number) => {
           key={event.id}
           bg={backgroundColor}
           borderRadius={0}
-          color={textColor}
+          color={secondary}
           outline={"2px solid"}
           outlineColor={primary}
           direction={{ base: 'column', sm: 'row' }}
@@ -261,22 +261,22 @@ const toggleImages = (eventId: number) => {
           mt={6}
         >
           <CardHeader>
-            <Heading size="lg">{event.EventName}</Heading>
+            <Heading size="lg" color={textColor}>{event.EventName}</Heading>
           </CardHeader>
           <CardBody>
             <Stack spacing={4}>
-              <Text>Customer Name: <span className="spansClass">{event.CustomerFirstName} {event.CustomerLastName}</span></Text>
-              <Text>Customer Phone Number: <span className="spansClass">{event.CustomerPhoneNumber}</span></Text>
-              <Text>Customer Email: <span className="spansClass">{event.CustomerEmail}</span></Text>
-              <Text>Event Type: <span className="spansClass">{event.EventType}</span></Text>
-              <Text>Number of Guests: <span className="spansClass">{event.NumberOfGuests}</span></Text>
-              <Text>Event Date: <span className="spansClass">{event.EventDate}</span></Text>
-              <Text>Start Time: <span className="spansClass">{event.StartTime}</span></Text>
-              <Text>End Time: <span className="spansClass">{event.EndTime}</span></Text>
-              <Text>Venue Name: <span className="spansClass">{event.VenueName}</span></Text>
-              <Text>Venue Address: <span className="spansClass">{event.VenueStreetAddress}</span></Text>
-              <Text>Venue City: <span className="spansClass">{event.VenueCity}</span></Text>
-              <Text>Event ID: <span className="spansClass">{event.id}</span></Text>
+            <Text>Customer Name: <Text as="span" color={textColor}>{event.CustomerFirstName} {event.CustomerLastName}</Text></Text>
+              <Text>Customer Phone Number: <Text as="span" color={textColor}>{event.CustomerPhoneNumber}</Text></Text>
+              <Text>Customer Email: <Text as="span" color={textColor}>{event.CustomerEmail}</Text></Text>
+              <Text>Event Type: <Text as="span" color={textColor}>{event.EventType}</Text></Text>
+              <Text>Number of Guests: <Text as="span" color={textColor}>{event.NumberOfGuests}</Text></Text>
+              <Text>Event Date: <Text as="span" color={textColor}>{event.EventDate}</Text></Text>
+              <Text>Start Time: <Text as="span" color={textColor}>{event.StartTime}</Text></Text>
+              <Text>End Time: <Text as="span" color={textColor}>{event.EndTime}</Text></Text>
+              <Text>Venue Name: <Text as="span" color={textColor}>{event.VenueName}</Text></Text>
+              <Text>Venue Address: <Text as="span" color={textColor}>{event.VenueStreetAddress}</Text></Text>
+              <Text>Venue City: <Text as="span" color={textColor}>{event.VenueCity}</Text></Text>
+              <Text>Event ID: <Text as="span" color={textColor}>{event.id}</Text></Text>
             </Stack>
           </CardBody>
           <Box>
@@ -290,9 +290,7 @@ const toggleImages = (eventId: number) => {
             {visibleImages[event.id] && <EventImageSelector onSelectImage={(imageUrl) => handleSelectImage(event.id, imageUrl)} />}
           </Box>
             
-            {/* <SolidLightGreenButton onClick={() => toggleIngredientList(event.id)}>
-              {visibleIngredients[event.id] ? "Hide Ingredients" : "Show Ingredients"}
-            </SolidLightGreenButton> */}
+            
             <CustomButton variant="solidGreen" title="Ingredients" onClick={() => toggleIngredientList(event.id)} rightIcon={<IngredientsIcon />}>
               
               {visibleIngredients[event.id] ? <ViewIcon /> : <ViewOffIcon />}
@@ -307,9 +305,7 @@ const toggleImages = (eventId: number) => {
               />
             )}
 
-            {/* <SolidLightGreenButton onClick={() => toggleMenuList(event.id)}>
-              {visibleMenu[event.id] ? "Hide Menu" : "Show Menu"}
-            </SolidLightGreenButton> */}
+            
             <CustomButton variant="solidGreen" title="Menu" onClick={() => toggleMenuList(event.id)} rightIcon={<MenuIcon />}>
               {visibleMenu[event.id] ? <ViewIcon /> : <ViewOffIcon />}
             </CustomButton>
@@ -322,9 +318,7 @@ const toggleImages = (eventId: number) => {
               />
             )}
 
-            {/* <SolidLightGreenButton onClick={() => toggleNotes(event.id)}>
-              {visibleNotes[event.id] ? "Hide Notes" : "Show Notes"}
-            </SolidLightGreenButton> */}
+            
             <CustomButton variant="solidGreen" title="Notes" onClick={() => toggleNotes(event.id)} rightIcon={<NotesIcon />}>
               {visibleNotes[event.id] ? <ViewIcon /> : <ViewOffIcon />}
             </CustomButton>
@@ -336,9 +330,9 @@ const toggleImages = (eventId: number) => {
                 onDeleteNote={(index) => handleDeleteNote(event.id, index)}
               />
             )}
-            {/* <OutlineLightGreenButton onClick={() => handleEditEvent(event)}>Edit</OutlineLightGreenButton> */}
+            
             <CustomButton variant="outlineGreen" onClick={() => handleEditEvent(event)} alt="Edit Event" label="Edit Event" title="Edit Event"><EditIcon /></CustomButton>
-            {/* <OutlineLightRedButton onClick={() => handleDelete(event.id)}>Delete</OutlineLightRedButton> */}
+            
             <CustomButton variant="outlineRed" onClick={() => handleDelete(event.id)} alt="Delete Event" label="Delete Event" title="Delete Event"><DeleteIcon /></CustomButton>
           </CardFooter>
         </Card>
