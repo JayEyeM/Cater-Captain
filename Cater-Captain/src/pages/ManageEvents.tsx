@@ -10,7 +10,8 @@ import NavBar from '../components/NavBar';
 import './pagesStyleSheets/Dashboard.css';
 import { Box, Heading } from '@chakra-ui/react';
 import { useThemeColors } from '../components/UseThemeColors';
-import { AddIcon } from '@chakra-ui/icons';
+import { AddIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import NameSearch from '../components/EventsComponents/NameSearch';
 
 
 // Initial state for event form
@@ -32,11 +33,16 @@ const initialEventFormState: EventForm = {
   ingredients: [],
 };
 
-const Dashboard: React.FC = () => {
+const ManageEvents: React.FC = () => {
   const [isCreateEventFormVisible, setIsCreateEventFormVisible] = useState(false);
   const [currentEvent, setCurrentEvent] = useState<EventForm>(initialEventFormState);
   const [savedEvents, setSavedEvents] = useState<Event[]>([]);
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
+  const [isFilterOptionsVisible, setIsFilterOptionsVisible] = useState(false);
+
+  const toggleFilterOptions = () => {
+    setIsFilterOptionsVisible(!isFilterOptionsVisible); // Toggle visibility state
+  };
 
   useEffect(() => {
     setFilteredEvents(savedEvents);
@@ -80,17 +86,24 @@ const Dashboard: React.FC = () => {
 
   const { backgroundColor} = useThemeColors();
 
+  const handleNameSearch = (firstName: string, lastName: string) => {
+    // Filter events based on first name and last name
+    const filteredEvents = savedEvents.filter(event =>
+      event.CustomerFirstName.toLowerCase().includes(firstName.toLowerCase().trim()) &&
+      event.CustomerLastName.toLowerCase().includes(lastName.toLowerCase().trim())
+    );
+    setFilteredEvents(filteredEvents);
+  };
+
   return (
     <Box bg={backgroundColor} id="dashboardPage">
       <NavBar buttonText="Home" buttonLink="/" />
       <Box w={"100%"} display={"flex"} justifyContent={"center"} flexDir={"column"} alignItems={"center"}>
-      <Heading id="dashboardHeading" size="lg" fontFamily={"Cinzel"} >Dashboard</Heading>
       
-      <Heading id="eventsHeading" size="md" mt={2} fontFamily={"Cinzel"}>Events</Heading>
+      
+      <Heading id="eventsHeading" size="lg" mt={2} fontFamily={"Cinzel"}>Events</Heading>
       </Box>
-      {/* <SolidLightGreenButton id="createEventButton" ml={12} mb={0} onClick={handleCreateEvent}>
-        Create Event
-      </SolidLightGreenButton> */}
+      
       <CustomButton variant="solidGreen" id="createEventButton" title="New Event" alt="New Event" ml={12} mb={0} onClick={handleCreateEvent} leftIcon={<AddIcon />}>
         Event
       </CustomButton>
@@ -107,7 +120,20 @@ const Dashboard: React.FC = () => {
         onAddEvent={handleAddOrUpdateEvent}
         savedEvents={savedEvents}
       />
-      <SortEvents onFilterChange={handleFilterChange} />
+      <Box id='customFiltering' mt={8} display={"flex"}  flexDir={"column"}>
+        <Box id='filteringDropdown' display={"flex"} flexDir={"row"} alignItems={"center"} >
+      <Heading id="filterHeading" size="md" ml={12} fontFamily={"Cinzel"}>Custom Filter Events</Heading>
+      <CustomButton variant='outlineBlue' id='customFilteringButton' title="Custom Filtering" alt="Custom Filtering" ml={12} mb={0} w="auto" onClick={toggleFilterOptions}>
+      {isFilterOptionsVisible ? <ViewIcon /> : <ViewOffIcon />}
+      </CustomButton>
+      </Box>
+      {isFilterOptionsVisible && ( // Render filter options only if visible
+          <Box id="filterOptions" display={"flex"}>
+            <SortEvents onFilterChange={handleFilterChange} />
+            <NameSearch onSearch={handleNameSearch} />
+          </Box>
+        )}
+      </Box>
       <ViewSavedEvents
         savedEvents={filteredEvents}
         setSavedEvents={setSavedEvents}
@@ -117,4 +143,4 @@ const Dashboard: React.FC = () => {
   );
 };
 
-export default Dashboard;
+export default ManageEvents;

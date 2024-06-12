@@ -104,7 +104,7 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
         <Tbody>
           {ingredients.map((ingredient, index) => (
             <Tr key={index}>
-              <Td>{ingredient.name}</Td>
+              <Td sx={{ whiteSpace: 'pre-wrap', maxWidth: '12ch' }}>{ingredient.name}</Td>
               <Td>{ingredient.units}</Td>
               <Td>{ingredient.quantity}</Td>
               <Td>

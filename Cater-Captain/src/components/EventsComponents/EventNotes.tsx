@@ -38,7 +38,7 @@ const EventNotes: React.FC<EventNotesProps> = ({ notes, onAddNote, onDeleteNote 
   }
   
   const NoteItem = ({ note, index, onDeleteNote }: NoteItemProps) => (
-    <Box as="li" display="flex" justifyContent="space-between">
+    <Box as="li" display="flex" justifyContent="space-between" sx={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word', maxWidth: '30ch'}}>
       <span>{note.notes}</span>
       <CustomButton
         variant="solidRed"
