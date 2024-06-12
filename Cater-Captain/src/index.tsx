@@ -9,7 +9,7 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
-// import Dashboard from './pages/Dashboard';
+import Dashboard from './pages/Dashboard';
 import ManageEvents from './pages/ManageEvents';
 import './index.css';
 
@@ -23,7 +23,7 @@ const App: React.FC = () => {
             <Route path="/" element={<Home />} />
             <Route path="/Signup" element={<Signup />} />
             <Route path="/Login" element={<Login />} />
-            {/* <Route path="/Dashboard" element={<Dashboard />} /> */}
+            <Route path="/Dashboard" element={<Dashboard />} />
             <Route path="/ManageEvents" element={<ManageEvents />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

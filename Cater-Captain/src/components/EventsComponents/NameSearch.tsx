@@ -48,7 +48,7 @@ const NameSearch: React.FC<NameSearchProps> = ({ onSearch }) => {
             onChange={handleLastNameChange}
           />
         </FormControl>
-        <CustomButton variant='outlineBlue' title="Search" alt="Search" type="submit"> <Search2Icon mr={2} /> </CustomButton>
+        <CustomButton variant='outlineBlue' title="Search" alt="Search" type="submit"> <Search2Icon /> </CustomButton>
       </form>
     </Box>
   );
