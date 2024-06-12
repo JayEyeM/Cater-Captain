@@ -19,6 +19,8 @@ export interface Event {
     menuItems?: string[];
     notes?: Notes[];
     imageUrl?: string;
+    imageAlt?: string;
+    imageTitle?: string;
 }
 
 //Create interface for EventForm

@@ -101,7 +101,7 @@ const ManageEvents: React.FC = () => {
       <Box w={"100%"} display={"flex"} justifyContent={"center"} flexDir={"column"} alignItems={"center"}>
       
       
-      <Heading id="eventsHeading" size="lg" mt={2} fontFamily={"Cinzel"}>Events</Heading>
+      <Heading id="eventsHeading" size="lg" mt={2} fontFamily={"Cinzel"}>Event Management</Heading>
       </Box>
       
       <CustomButton variant="solidGreen" id="createEventButton" title="New Event" alt="New Event" ml={12} mb={0} onClick={handleCreateEvent} leftIcon={<AddIcon />}>
