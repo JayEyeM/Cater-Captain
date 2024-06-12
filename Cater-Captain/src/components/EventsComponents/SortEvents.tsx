@@ -51,6 +51,8 @@ const SortEvents: React.FC<SortEventsProps> = ({ onFilterChange }) => {
             <Input
               type="date"
               name="startDate"
+              title='Start Date'
+              alt='Start Date'
               value={selectedStartDate ?? ''}
               onChange={handleDateChange}
               bg={secondary}
@@ -63,6 +65,8 @@ const SortEvents: React.FC<SortEventsProps> = ({ onFilterChange }) => {
             <Input
               type="date"
               name="endDate"
+              title='End Date'
+              alt='End Date'
               value={selectedEndDate ?? ''}
               onChange={handleDateChange}
               bg={secondary}
@@ -71,8 +75,8 @@ const SortEvents: React.FC<SortEventsProps> = ({ onFilterChange }) => {
           </FormControl>
         </Box>
         
-        {/* <OutlineLightBlueButton type="submit" mt={4}>Filter Events</OutlineLightBlueButton> */}
-        <CustomButton variant="outlineBlue" type="submit" mt={4}>Filter Events</CustomButton>
+        
+        <CustomButton title="Filter Events" alt="Filter Events" variant="outlineBlue" type="submit" mt={4}>Filter Events</CustomButton>
       </form>
     </Box>
   );

@@ -232,10 +232,10 @@ const toggleImages = (eventId: number) => {
   }));
 };
 
-  const handleSelectImage = (eventId: number, imageUrl: string) => {
+  const handleSelectImage = (eventId: number, image: { src: string; alt: string; title: string }) => {
     setSavedEvents((prevEvents) => {
       const updatedEvents = prevEvents.map((event) =>
-        event.id === eventId ? { ...event, imageUrl } : event
+        event.id === eventId ? { ...event, imageUrl: image.src, imageAlt: image.alt, imageTitle: image.title } : event
       );
       localStorage.setItem('events', JSON.stringify(updatedEvents));
       return updatedEvents;
@@ -280,15 +280,15 @@ const toggleImages = (eventId: number) => {
             </Stack>
           </CardBody>
           <Box>
-            <Image src={event.imageUrl} alt={`${event.EventName} Image`} width="400px" height="400px" mr={16} mt={16} />
+          <Image src={event.imageUrl} alt={event.imageAlt || `${event.EventName} Image`} width="400px" height="400px" mr={16} mt={16} />
           </Box>
           <CardFooter style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <Box justifyContent={'center'} display={'flex'} flexDirection={'column'}>
           <CustomButton variant="solidGreen" title="Choose Event Image" onClick={() => toggleImages(event.id)} rightIcon={<ImageIcon />}>
-              {visibleImages[event.id] ? <AddIcon /> : <AddIcon />}
-            </CustomButton>
-            {visibleImages[event.id] && <EventImageSelector onSelectImage={(imageUrl) => handleSelectImage(event.id, imageUrl)} />}
-          </Box>
+                {visibleImages[event.id] ? <ViewIcon /> : <ViewOffIcon />}
+              </CustomButton>
+              {visibleImages[event.id] && <EventImageSelector onSelectImage={(image) => handleSelectImage(event.id, { src: image, alt: image, title: image })} />}
+            </Box>
             
             
             <CustomButton variant="solidGreen" title="Ingredients" onClick={() => toggleIngredientList(event.id)} rightIcon={<IngredientsIcon />}>

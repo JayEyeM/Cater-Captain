@@ -24,7 +24,7 @@ export default function NavBar() {
     };
 
     return (
-        <Box id="navDiv" display="flex" flexDirection={"row"} alignItems={"center"} w={"100%"} className="nav-container" bg={backgroundColor} >
+        <Box id="navDiv" display="flex" flexDirection={"row"} alignItems={"center"} w={"100%"} pl={12} pr={12} pt={2}  className="nav-container" bg={backgroundColor} >
             <img src='/captainCaterLogoFinal.svg' alt='Cater-Captain Logo' width="120" />
             
             <Heading as="h1" size="3xl" w="100%" textAlign={"center"} fontFamily={'Cinzel'} color={primary} id="navTitle">Cater-Captain</Heading>
@@ -34,20 +34,24 @@ export default function NavBar() {
                 <MenuButton
                     as={IconButton}
                     aria-label="Options"
-                    icon={<HamburgerIcon />}
+                    icon={<HamburgerIcon w={5} h={5}  />}
                     variant="outline"
+                    color={primary}
+                    borderColor={primary}
+                    _hover={{ bg: primary, color: backgroundColor }}
+                    borderRadius={0}
                 />
-                <MenuList>
-                    <MenuItem onClick={() => handleNavigation('/')}>
+                <MenuList bg={backgroundColor} outline={"2px solid"} p={2} outlineColor={primary} borderRadius={0}>
+                    <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/')}>
                         Home
                     </MenuItem>
-                    <MenuItem onClick={() => handleNavigation('/Dashboard')}>
+                    <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/Dashboard')}>
                         Dashboard
                     </MenuItem>
-                    <MenuItem onClick={() => handleNavigation('/ManageEvents')}>
-                        Manage Events
+                    <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/ManageEvents')}>
+                        Event Management
                     </MenuItem>
-                    <MenuItem onClick={() => handleNavigation('/sign-out')}>
+                    <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/sign-out')}>
                         Sign Out
                     </MenuItem>
                 </MenuList>
