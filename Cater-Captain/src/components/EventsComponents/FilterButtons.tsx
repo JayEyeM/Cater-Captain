@@ -88,14 +88,21 @@ const FilterButtons: React.FC<FilterButtonsProps> = ({ setFilteredEvents, savedE
   };
 
   return (
-    <Stack direction="row" spacing={0} ml={10} mt={5} mb={0}  >
-      {/* <SolidLightBlueButton onClick={handlePastEvents}>Past Events</SolidLightBlueButton>
-      <SolidLightBlueButton onClick={handleToday}>Today</SolidLightBlueButton>
-      <SolidLightBlueButton onClick={handleThisWeek}>This Week</SolidLightBlueButton>
-      <SolidLightBlueButton onClick={handleThisMonth}>This Month</SolidLightBlueButton>
-      <SolidLightBlueButton onClick={handleNextMonth}>Next Month</SolidLightBlueButton>
-      <SolidLightBlueButton onClick={handleAllEvents}>All Events</SolidLightBlueButton> */}
-
+    <Stack display={"flex"} 
+    direction={{ base: "column", md: "row" }} 
+    spacing={0} mt={5} 
+    ml={{ base: "auto", md: "auto" }} 
+    mr={{ base: "auto", md: "auto" }} 
+    w={{base:"60%", md:"auto"}} 
+    css={{
+      "@media (max-width: 767px)": {
+        display: "grid",
+        gridTemplateColumns: "repeat(2, 1fr)",
+        gridTemplateRows: "repeat(3, 1fr)",
+      },
+    }} 
+    >
+     
       <CustomButton variant="solidBlue" title="Past Events" alt="Past Events" onClick={handlePastEvents}>Past Events</CustomButton>
       <CustomButton variant="solidBlue" title="Today" alt="Today" onClick={handleToday}>Today</CustomButton>
       <CustomButton variant="solidBlue" title="This Week" alt="This Week" onClick={handleThisWeek}>This Week</CustomButton>
