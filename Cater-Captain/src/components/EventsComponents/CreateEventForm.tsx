@@ -116,8 +116,27 @@ const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
   const { backgroundColor, textColor, primary } = useThemeColors();
 
   return (
-    <div id='formContainer'>
-      <Box bg={backgroundColor} id ="formDiv">
+    <Box 
+    bg={'#cbe6adba'}
+    position={'fixed'}
+    p={5}
+    top={0}
+    left={0}
+    w={'100%'}
+    h={'100%'}
+    zIndex={999}
+       >
+      <Box bg={backgroundColor} 
+      
+        position={'relative'}
+        ml={'auto'}
+        mr={'auto'}
+        w={{ base: '90%', md: '60%' }}
+        h={{ base: '100%', md: '100%' }} 
+        overflow={'auto'}
+        scrollBehavior={'smooth'}
+        boxShadow={{ base: 'none', md: 'xl' }}
+        p={{ base: '5', md: '10' }}>
         <Heading color={primary} fontFamily={'Cinzel'} fontSize={'4xl'} textAlign={'center'}>Create New Event</Heading>
         <form onSubmit={handleSubmit}>
           <FormControl color={textColor}>
@@ -251,15 +270,14 @@ const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
             />
           </FormControl>
 
-          {/* <SolidLightGreenButton type="submit" mt={4}> Save </SolidLightGreenButton> */}
-          <CustomButton variant="solidGreen" type="submit" title="Save" alt="Save" mt={4}> <CheckIcon /> </CustomButton>
           
-          {/* <OutlineLightRedButton type="button" mt={4} onClick={handleCancel}> Cancel </OutlineLightRedButton> */}
+          <CustomButton variant="solidGreen" type="submit" title="Save" alt="Save" mt={4}> <CheckIcon /> </CustomButton>
+         
           <CustomButton variant="outlineRed" type="button" title="Cancel" alt="Cancel" mt={4} onClick={handleCancel}> <CloseIcon /> </CustomButton>
           
         </form>
       </Box>
-    </div>
+    </Box>
   );
 };
 

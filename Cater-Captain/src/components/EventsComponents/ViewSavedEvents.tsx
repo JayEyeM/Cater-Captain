@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Text, Box, Image } from '@chakra-ui/react';
+import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Text, Box, Image, Flex, SimpleGrid } from '@chakra-ui/react';
 import { Event, Ingredient, Notes } from '../Interfaces';
 import EventIngredientList from './EventIngredientList';
 import EventMenu from './EventMenu';
@@ -245,7 +245,7 @@ const toggleImages = (eventId: number) => {
 
 
   return (
-    <div>
+    <Box w={"100%"}>
       {savedEvents.map((event) => (
         <Card
           key={event.id}
@@ -254,32 +254,32 @@ const toggleImages = (eventId: number) => {
           color={secondary}
           outline={"2px solid"}
           outlineColor={primary}
-          direction={{ base: 'column', sm: 'row' }}
+          direction={{ base: 'column', md: 'row' }}
           ml={12}
           mr={12}
           mt={6}
         >
           <CardHeader>
-            <Heading size="lg" color={textColor}>{event.EventName}</Heading>
+            <Heading size={{ base: 'lg', md: 'xl' }} color={textColor}>{event.EventName}</Heading>
           </CardHeader>
           <CardBody>
-            <Stack spacing={4}>
+          <SimpleGrid columns={{ base: 2, md: 1 }} spacing={{ base: 2, md: 4 }} >
             <Text>Customer Name: <Text as="span" color={textColor}>{event.CustomerFirstName} {event.CustomerLastName}</Text></Text>
-              <Text>Customer Phone Number: <Text as="span" color={textColor}>{event.CustomerPhoneNumber}</Text></Text>
-              <Text>Customer Email: <Text as="span" color={textColor}>{event.CustomerEmail}</Text></Text>
-              <Text>Event Type: <Text as="span" color={textColor}>{event.EventType}</Text></Text>
-              <Text>Number of Guests: <Text as="span" color={textColor}>{event.NumberOfGuests}</Text></Text>
-              <Text>Event Date: <Text as="span" color={textColor}>{event.EventDate}</Text></Text>
-              <Text>Start Time: <Text as="span" color={textColor}>{event.StartTime}</Text></Text>
-              <Text>End Time: <Text as="span" color={textColor}>{event.EndTime}</Text></Text>
-              <Text>Venue Name: <Text as="span" color={textColor}>{event.VenueName}</Text></Text>
-              <Text>Venue Address: <Text as="span" color={textColor}>{event.VenueStreetAddress}</Text></Text>
-              <Text>Venue City: <Text as="span" color={textColor}>{event.VenueCity}</Text></Text>
-              <Text>Event ID: <Text as="span" color={textColor}>{event.id}</Text></Text>
-            </Stack>
+            <Text>Customer Phone Number: <Text as="span" color={textColor}>{event.CustomerPhoneNumber}</Text></Text>
+            <Text>Customer Email: <Text as="span" color={textColor}>{event.CustomerEmail}</Text></Text>
+            <Text>Event Type: <Text as="span" color={textColor}>{event.EventType}</Text></Text>
+            <Text>Number of Guests: <Text as="span" color={textColor}>{event.NumberOfGuests}</Text></Text>
+            <Text>Event Date: <Text as="span" color={textColor}>{event.EventDate}</Text></Text>
+            <Text>Start Time: <Text as="span" color={textColor}>{event.StartTime}</Text></Text>
+            <Text>End Time: <Text as="span" color={textColor}>{event.EndTime}</Text></Text>
+            <Text>Venue Name: <Text as="span" color={textColor}>{event.VenueName}</Text></Text>
+            <Text>Venue Address: <Text as="span" color={textColor}>{event.VenueStreetAddress}</Text></Text>
+            <Text>Venue City: <Text as="span" color={textColor}>{event.VenueCity}</Text></Text>
+            <Text>Event ID: <Text as="span" color={textColor}>{event.id}</Text></Text>
+        </SimpleGrid>
           </CardBody>
           <Box>
-          <Image src={event.imageUrl} alt={event.imageAlt || `${event.EventName} Image`} width="400px" height="400px" mr={16} mt={16} />
+          <Image src={event.imageUrl} alt={event.imageAlt || `${event.EventName} Image`} w={{ base: '150px', md: '400px' }} mr={{ base: 0, md: 16 }} mx={{ base: 'auto', md: 0 }} mt={{ base: 0, md: 16 }} />
           </Box>
           <CardFooter style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <Box justifyContent={'center'} display={'flex'} flexDirection={'column'}>
@@ -336,7 +336,7 @@ const toggleImages = (eventId: number) => {
           </CardFooter>
         </Card>
       ))}
-    </div>
+    </Box>
   );
 };
 

@@ -1,5 +1,7 @@
 import React from 'react';
 import { Box, Image, SimpleGrid } from '@chakra-ui/react';
+import { useThemeColors } from '../UseThemeColors';
+
 
 const eventTypesImages = [
   { src: './eventTypesImages/BabyShower.svg', alt: 'Baby Shower', title: 'Baby Shower' },
@@ -20,14 +22,26 @@ interface EventImageSelectorProps {
 }
 
 const EventImageSelector: React.FC<EventImageSelectorProps> = ({ onSelectImage }) => {
+
+  const { backgroundColor, primary } = useThemeColors();
+
   return (
-    <SimpleGrid columns={3} spacing={5}>
+    <Box bg={backgroundColor}
+    outline={"2px solid"}
+    outlineColor={primary}
+    p={2}
+    w={"50%"} h={"80%"} 
+    overflowY={"scroll"} 
+     position={"fixed"} left={'25%'} zIndex={999}>
+    <SimpleGrid 
+    columns={3} spacing={5}>
       {eventTypesImages.map((image, index) => (
         <Box key={index} onClick={() => onSelectImage(image.src)} cursor="pointer">
           <Image src={image.src} alt={image.alt} title={image.title} />
         </Box>
       ))}
     </SimpleGrid>
+    </Box>
   );
 };
 
