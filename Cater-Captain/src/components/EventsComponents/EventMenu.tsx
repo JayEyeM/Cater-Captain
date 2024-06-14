@@ -5,6 +5,8 @@ import {
 // import { SolidLightBlueButton, SolidLightRedButton } from './Buttons';
 import CustomButton from '../Buttons';
 import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
+import ClosableBox from '../GeneralUtilities/ClosableBox';
+import { useThemeColors } from '../UseThemeColors';
 
 //props for event menu
 interface EventMenuProps {
@@ -30,8 +32,21 @@ const EventMenu: React.FC<EventMenuProps> = ({
     setNewMenuItem('');
   };
 
+  const { primary, backgroundColor } = useThemeColors();
+
   return (
-    <Box>
+    <ClosableBox
+    bg={backgroundColor}
+    outline={"2px solid"}
+    outlineColor={primary}
+    p={2}
+    w={"50%"} h={"80%"} 
+    overflowY={"scroll"} 
+     position={"fixed"} 
+     left={'25%'} 
+     top={'10%'} 
+     zIndex={999}
+    >
       <Stack spacing={3}>
         <Input
           placeholder="Menu Item"
@@ -63,7 +78,7 @@ const EventMenu: React.FC<EventMenuProps> = ({
           ))}
         </Tbody>
       </Table>
-    </Box>
+    </ClosableBox>
   );
 };
 

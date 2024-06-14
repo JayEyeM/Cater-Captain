@@ -12,6 +12,7 @@ import {
     Heading,
     Text,
   } from "@chakra-ui/react";
+  import ClosableBox from '../GeneralUtilities/ClosableBox';
 
 interface EventNotesProps {
   notes: Notes[];
@@ -38,13 +39,14 @@ const EventNotes: React.FC<EventNotesProps> = ({ notes, onAddNote, onDeleteNote 
   }
   
   const NoteItem = ({ note, index, onDeleteNote }: NoteItemProps) => (
-    <Box as="li" display="flex" justifyContent="space-between" sx={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word', maxWidth: '30ch'}}>
+    <Box as="li" display="flex" justifyContent="space-between" sx={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word', maxWidth: '46ch'}}>
       <span>{note.notes}</span>
       <CustomButton
         variant="solidRed"
         title="Delete Note"
         aria-label="Delete Note"
         onClick={() => onDeleteNote(index)}
+        w={'40px'}
       >
         <DeleteIcon />
       </CustomButton>
@@ -52,8 +54,20 @@ const EventNotes: React.FC<EventNotesProps> = ({ notes, onAddNote, onDeleteNote 
   );
 
   return (
-    <Box bg={shadows} p={0.5} w={"100%"} borderRadius="md">
-    <Box bg={backgroundColor} p={8} w={"100%"} borderRadius="md">
+    <ClosableBox
+    bg={backgroundColor}
+    outline={"2px solid"}
+    outlineColor={primary}
+    p={2}
+    w={"50%"} h={"80%"} 
+    overflowY={"scroll"} 
+     position={"fixed"} 
+     left={'25%'} 
+     top={'10%'} 
+     zIndex={999}
+    >
+   
+    <Box bg={backgroundColor} p={8} w={"100%"}>
       <Box display="flex" flexDirection={{ base: 'column', md: 'row' }} gap={4}>
         <Input bg={backgroundColor} outline={"1px solid"} outlineColor={secondary} color={textColor} w={"100%"} borderRadius="md" 
           type="text"
@@ -70,7 +84,8 @@ const EventNotes: React.FC<EventNotesProps> = ({ notes, onAddNote, onDeleteNote 
         ))}
       </ul>
     </Box>
-    </Box>
+    
+    </ClosableBox>
   );
 };
 

@@ -7,6 +7,8 @@ import { Ingredient } from '../Interfaces';
 // import { SolidLightBlueButton, SolidLightRedButton } from './Buttons';
 import CustomButton from '../Buttons';
 import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
+import ClosableBox from '../GeneralUtilities/ClosableBox';
+import { useThemeColors } from '../UseThemeColors';
 
 //props for event ingredient list
 interface EventIngredientListProps {
@@ -47,10 +49,18 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
     setNewIngredient({ name: '', units: '', quantity: 0, onHand: false, needToOrder: false });
   };
 
- 
+ const { primary, secondary, backgroundColor } = useThemeColors();
 
   return (
-    <Box>
+    <ClosableBox
+    bg={backgroundColor}
+    outline={"2px solid"}
+    outlineColor={primary}
+    p={2}
+    w={"50%"} h={"80%"} 
+    overflowY={"scroll"} 
+     position={"fixed"} left={'25%'} top={'10%'} zIndex={999}
+    >
       <Stack spacing={3}>
         <Input
           placeholder="Ingredient Name"
@@ -120,7 +130,7 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
                 />
               </Td>
               <Td>
-                {/* <SolidLightRedButton onClick={() => onDeleteIngredient(index)}>Delete</SolidLightRedButton> */}
+                
                 <CustomButton variant="solidRed" title="Delete Ingredient" alt="Delete Ingredient" onClick={() => onDeleteIngredient(index)}><DeleteIcon /></CustomButton>
                 
               </Td>
@@ -128,7 +138,7 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
           ))}
         </Tbody>
       </Table>
-    </Box>
+    </ClosableBox>
   );
 };
 

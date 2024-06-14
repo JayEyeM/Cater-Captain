@@ -3,7 +3,7 @@ import { FormControl, FormLabel, Input, Box, Heading } from "@chakra-ui/react";
 import { EventForm, Event } from '../Interfaces';
 // import { SolidLightGreenButton, OutlineLightRedButton } from './Buttons';
 import CustomButton from '../Buttons';
-import '../componentStyleSheets/CreateEventForm.css';
+
 import { useThemeColors } from '../UseThemeColors';
 import { CheckIcon, CloseIcon } from '@chakra-ui/icons';
 
