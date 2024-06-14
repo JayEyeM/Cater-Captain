@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Image, SimpleGrid } from '@chakra-ui/react';
 import { useThemeColors } from '../UseThemeColors';
+import ClosableBox from '../GeneralUtilities/ClosableBox';
 
 
 const eventTypesImages = [
@@ -26,13 +27,17 @@ const EventImageSelector: React.FC<EventImageSelectorProps> = ({ onSelectImage }
   const { backgroundColor, primary } = useThemeColors();
 
   return (
-    <Box bg={backgroundColor}
+    <ClosableBox 
+    bg={backgroundColor}
     outline={"2px solid"}
     outlineColor={primary}
     p={2}
     w={"50%"} h={"80%"} 
     overflowY={"scroll"} 
-     position={"fixed"} left={'25%'} zIndex={999}>
+     position={"fixed"} 
+     left={'25%'} 
+     top={'10%'} 
+     zIndex={999}>
     <SimpleGrid 
     columns={3} spacing={5}>
       {eventTypesImages.map((image, index) => (
@@ -41,7 +46,7 @@ const EventImageSelector: React.FC<EventImageSelectorProps> = ({ onSelectImage }
         </Box>
       ))}
     </SimpleGrid>
-    </Box>
+    </ClosableBox>
   );
 };
 

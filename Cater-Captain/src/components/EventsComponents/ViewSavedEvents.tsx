@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Text, Box, Image, Flex, SimpleGrid } from '@chakra-ui/react';
+import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Text, Box, Image, Flex, SimpleGrid, Spacer } from '@chakra-ui/react';
 import { Event, Ingredient, Notes } from '../Interfaces';
 import EventIngredientList from './EventIngredientList';
 import EventMenu from './EventMenu';
@@ -8,8 +8,9 @@ import EventNotes from './EventNotes';
 import CustomButton from '../Buttons';
 import { useThemeColors } from '../UseThemeColors';
 import EventImageSelector from './EventImageSelector';
-import { EditIcon, DeleteIcon, ViewIcon, ViewOffIcon, AddIcon } from '@chakra-ui/icons';
+import { EditIcon, DeleteIcon, ViewIcon, ViewOffIcon, AddIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
 import { IngredientsIcon, MenuIcon, NotesIcon, ImageIcon } from '../ButtonIcons';
+import ClosableBox from '../GeneralUtilities/ClosableBox';
 
 interface ViewSavedEventsProps {
   savedEvents: Event[];
@@ -243,6 +244,13 @@ const toggleImages = (eventId: number) => {
   
   // const [showImages, setShowImages] = useState(false);
 
+  
+    const [isBoxVisible, setIsBoxVisible] = useState(false);
+  
+    const toggleBoxVisibility = () => {
+      setIsBoxVisible(!isBoxVisible);
+    };
+
 
   return (
     <Box w={"100%"}>
@@ -254,16 +262,36 @@ const toggleImages = (eventId: number) => {
           color={secondary}
           outline={"2px solid"}
           outlineColor={primary}
-          direction={{ base: 'column', md: 'row' }}
+          direction={{ base: 'column', md: 'column' }}
           ml={12}
           mr={12}
           mt={6}
         >
-          <CardHeader>
+          <CardHeader display={{ base: 'flex', md: 'flex' }} flexDirection={{ base: 'column', md: 'row' }} alignItems={"center"}>
+          <Box>
+          <Image src={event.imageUrl} alt={event.imageAlt || `${event.EventName} Image`} w={{ base: '150px', md: '200px' }}  />
+          </Box>
+          <Box display={'flex'} flexDirection={'column'} alignItems={{ base: 'center', md: 'flex-start' }} ml={{ base: 0, md: 6 }}>
             <Heading size={{ base: 'lg', md: 'xl' }} color={textColor}>{event.EventName}</Heading>
+            <Text mt={6}>Customer Name: <Text as="span" color={textColor}>{event.CustomerFirstName} {event.CustomerLastName}</Text></Text>
+            <Text mt={2}>Event Date: <Text as="span" color={textColor}>{event.EventDate}</Text></Text>
+          </Box>
+            <CustomButton
+              variant='outlineGreen'
+              title="View More Details"
+              alt="View More Details"
+              ml={{ base: 0, md: 'auto' }}
+              mr={{ base: 0, md: 12 }}
+              onClick={toggleBoxVisibility}
+            >
+              {isBoxVisible ? <ChevronUpIcon /> : <ChevronDownIcon />}
+              More Details
+            </CustomButton>
           </CardHeader>
+          {isBoxVisible && (
+          <Box w={{ base: '100%', md: '100%' }} m="auto" display={{ base: 'flex', md: 'flex' }} flexDirection={{ base: 'column', md: 'row' }}>
           <CardBody>
-          <SimpleGrid columns={{ base: 2, md: 1 }} spacing={{ base: 2, md: 4 }} >
+          <SimpleGrid columns={{ base: 2, md: 2 }} spacing={{ base: 2, md: 4 }} >
             <Text>Customer Name: <Text as="span" color={textColor}>{event.CustomerFirstName} {event.CustomerLastName}</Text></Text>
             <Text>Customer Phone Number: <Text as="span" color={textColor}>{event.CustomerPhoneNumber}</Text></Text>
             <Text>Customer Email: <Text as="span" color={textColor}>{event.CustomerEmail}</Text></Text>
@@ -278,16 +306,14 @@ const toggleImages = (eventId: number) => {
             <Text>Event ID: <Text as="span" color={textColor}>{event.id}</Text></Text>
         </SimpleGrid>
           </CardBody>
-          <Box>
-          <Image src={event.imageUrl} alt={event.imageAlt || `${event.EventName} Image`} w={{ base: '150px', md: '400px' }} mr={{ base: 0, md: 16 }} mx={{ base: 'auto', md: 0 }} mt={{ base: 0, md: 16 }} />
-          </Box>
-          <CardFooter style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-          <Box justifyContent={'center'} display={'flex'} flexDirection={'column'}>
+          
+          <CardFooter display={{ base: 'flex', md: 'flex' }} flexDirection={{ base: 'column', md: 'column' }}>
+          
           <CustomButton variant="solidGreen" title="Choose Event Image" onClick={() => toggleImages(event.id)} rightIcon={<ImageIcon />}>
                 {visibleImages[event.id] ? <ViewIcon /> : <ViewOffIcon />}
               </CustomButton>
               {visibleImages[event.id] && <EventImageSelector onSelectImage={(image) => handleSelectImage(event.id, { src: image, alt: image, title: image })} />}
-            </Box>
+            
             
             
             <CustomButton variant="solidGreen" title="Ingredients" onClick={() => toggleIngredientList(event.id)} rightIcon={<IngredientsIcon />}>
@@ -334,6 +360,8 @@ const toggleImages = (eventId: number) => {
             
             <CustomButton variant="outlineRed" onClick={() => handleDelete(event.id)} alt="Delete Event" label="Delete Event" title="Delete Event"><DeleteIcon /></CustomButton>
           </CardFooter>
+          </Box>
+          )}
         </Card>
       ))}
     </Box>
