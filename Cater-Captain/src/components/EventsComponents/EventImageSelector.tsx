@@ -27,16 +27,17 @@ const EventImageSelector: React.FC<EventImageSelectorProps> = ({ onSelectImage }
   const { backgroundColor, primary } = useThemeColors();
 
   return (
-    <ClosableBox 
+    <Box 
     bg={backgroundColor}
     outline={"2px solid"}
     outlineColor={primary}
     p={2}
-    w={"50%"} h={"80%"} 
+    w={"80%"} h={"100%"} 
     overflowY={"scroll"} 
-     position={"fixed"} 
-     left={'25%'} 
-     top={'10%'} 
+     position={"relative"} 
+     mx={'auto'}
+     mb={"10px"}
+     mt={"10px"}
      zIndex={999}>
     <SimpleGrid 
     columns={3} spacing={5}>
@@ -46,7 +47,7 @@ const EventImageSelector: React.FC<EventImageSelectorProps> = ({ onSelectImage }
         </Box>
       ))}
     </SimpleGrid>
-    </ClosableBox>
+    </Box>
   );
 };
 
