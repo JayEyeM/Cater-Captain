@@ -22,6 +22,8 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
   const [visibleIngredients, setVisibleIngredients] = useState<{ [key: number]: boolean }>({});
   const [visibleMenu, setVisibleMenu] = useState<{ [key: number]: boolean }>({});
   const [visibleNotes, setVisibleNotes] = useState<{ [key: number]: boolean }>({});
+  const [visibleDetails, setVisibleDetails] = useState<{ [key: number]: boolean }>({});
+  
 
   const initialSavedEvents: Event[] = [
     {
@@ -128,6 +130,13 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
 
   const toggleNotes = (id: number) => {
     setVisibleNotes(prev => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
+  };
+
+  const toggleDetails = (id: number) => {
+    setVisibleDetails(prev => ({
       ...prev,
       [id]: !prev[id]
     }));
@@ -245,11 +254,11 @@ const toggleImages = (eventId: number) => {
   // const [showImages, setShowImages] = useState(false);
 
   
-    const [isBoxVisible, setIsBoxVisible] = useState(false);
+    // const [isBoxVisible, setIsBoxVisible] = useState(false);
   
-    const toggleBoxVisibility = () => {
-      setIsBoxVisible(!isBoxVisible);
-    };
+    // const toggleBoxVisibility = () => {
+    //   setIsBoxVisible(!isBoxVisible);
+    // };
 
 
   return (
@@ -276,7 +285,20 @@ const toggleImages = (eventId: number) => {
             <Text mt={6}>Customer Name: <Text as="span" color={textColor}>{event.CustomerFirstName} {event.CustomerLastName}</Text></Text>
             <Text mt={2}>Event Date: <Text as="span" color={textColor}>{event.EventDate}</Text></Text>
           </Box>
-            <CustomButton
+          <CustomButton
+          variant='outlineGreen'
+          title="View More Details"
+          alt="View More Details"
+          ml={{ base: 0, md: 'auto' }}
+          mr={{ base: 0, md: 12 }}
+                  leftIcon={visibleDetails[event.id] ? <ViewOffIcon /> : <ViewIcon />}
+                 
+                  onClick={() => toggleDetails(event.id)}
+                  colorScheme="teal"
+          >
+            {visibleDetails[event.id] ? 'Hide Details' : 'View More Details'}
+          </CustomButton>
+            {/* <CustomButton
               variant='outlineGreen'
               title="View More Details"
               alt="View More Details"
@@ -286,9 +308,9 @@ const toggleImages = (eventId: number) => {
             >
               {isBoxVisible ? <ChevronUpIcon /> : <ChevronDownIcon />}
               More Details
-            </CustomButton>
+            </CustomButton> */}
           </CardHeader>
-          {isBoxVisible && (
+          {visibleDetails[event.id] && (
           <Box w={{ base: '100%', md: '100%' }} m="auto" display={{ base: 'flex', md: 'flex' }} flexDirection={{ base: 'column', md: 'row' }}>
           <CardBody>
           <SimpleGrid columns={{ base: 2, md: 2 }} spacing={{ base: 2, md: 4 }} >
@@ -308,11 +330,16 @@ const toggleImages = (eventId: number) => {
           </CardBody>
           
           <CardFooter display={{ base: 'flex', md: 'flex' }} flexDirection={{ base: 'column', md: 'column' }}>
+          <CustomButton variant="outlineGreen" onClick={() => handleEditEvent(event)} alt="Edit Event" label="Edit Event" title="Edit Event"><EditIcon /></CustomButton>
+            
+            <CustomButton variant="outlineRed" onClick={() => handleDelete(event.id)} alt="Delete Event" label="Delete Event" title="Delete Event"><DeleteIcon /></CustomButton>
           
+          <ClosableBox bg={backgroundColor} outline={"2px solid"} outlineColor={primary} p={4} w={"90%"} h={"90%"} overflowY={"scroll"} position={"fixed"} left={'5%'} top={'5%'} zIndex={999}>
+          <Box>
           <CustomButton variant="solidGreen" title="Choose Event Image" onClick={() => toggleImages(event.id)} rightIcon={<ImageIcon />}>
                 {visibleImages[event.id] ? <ViewIcon /> : <ViewOffIcon />}
               </CustomButton>
-              {visibleImages[event.id] && <EventImageSelector onSelectImage={(image) => handleSelectImage(event.id, { src: image, alt: image, title: image })} />}
+              
             
             
             
@@ -321,6 +348,23 @@ const toggleImages = (eventId: number) => {
               {visibleIngredients[event.id] ? <ViewIcon /> : <ViewOffIcon />}
             </CustomButton>
 
+            
+
+            
+            <CustomButton variant="solidGreen" title="Menu" onClick={() => toggleMenuList(event.id)} rightIcon={<MenuIcon />}>
+              {visibleMenu[event.id] ? <ViewIcon /> : <ViewOffIcon />}
+            </CustomButton>
+
+           
+
+            
+            <CustomButton variant="solidGreen" title="Notes" onClick={() => toggleNotes(event.id)} rightIcon={<NotesIcon />}>
+              {visibleNotes[event.id] ? <ViewIcon /> : <ViewOffIcon />}
+            </CustomButton>
+
+            
+            </Box>
+            {visibleImages[event.id] && <EventImageSelector onSelectImage={(image) => handleSelectImage(event.id, { src: image, alt: image, title: image })} />}
             {visibleIngredients[event.id] && (
               <EventIngredientList
                 ingredients={event.ingredients || []}
@@ -330,11 +374,6 @@ const toggleImages = (eventId: number) => {
               />
             )}
 
-            
-            <CustomButton variant="solidGreen" title="Menu" onClick={() => toggleMenuList(event.id)} rightIcon={<MenuIcon />}>
-              {visibleMenu[event.id] ? <ViewIcon /> : <ViewOffIcon />}
-            </CustomButton>
-
             {visibleMenu[event.id] && (
               <EventMenu
                 menuItems={event.menuItems || []}
@@ -342,11 +381,6 @@ const toggleImages = (eventId: number) => {
                 onDeleteMenuItem={(index) => handleDeleteMenuItem(event.id, index)}
               />
             )}
-
-            
-            <CustomButton variant="solidGreen" title="Notes" onClick={() => toggleNotes(event.id)} rightIcon={<NotesIcon />}>
-              {visibleNotes[event.id] ? <ViewIcon /> : <ViewOffIcon />}
-            </CustomButton>
 
             {visibleNotes[event.id] && (
               <EventNotes
@@ -356,9 +390,8 @@ const toggleImages = (eventId: number) => {
               />
             )}
             
-            <CustomButton variant="outlineGreen" onClick={() => handleEditEvent(event)} alt="Edit Event" label="Edit Event" title="Edit Event"><EditIcon /></CustomButton>
             
-            <CustomButton variant="outlineRed" onClick={() => handleDelete(event.id)} alt="Delete Event" label="Delete Event" title="Delete Event"><DeleteIcon /></CustomButton>
+            </ClosableBox>
           </CardFooter>
           </Box>
           )}

@@ -49,17 +49,20 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
     setNewIngredient({ name: '', units: '', quantity: 0, onHand: false, needToOrder: false });
   };
 
- const { primary, secondary, backgroundColor } = useThemeColors();
+ const { primary, secondary, backgroundColor, textColor } = useThemeColors();
 
   return (
-    <ClosableBox
+    <Box
     bg={backgroundColor}
     outline={"2px solid"}
     outlineColor={primary}
-    p={2}
-    w={"50%"} h={"80%"} 
+    p={4}
+    w={"80%"} h={"100%"} 
     overflowY={"scroll"} 
-     position={"fixed"} left={'25%'} top={'10%'} zIndex={999}
+     position={"relative"} m={"auto"}
+     mb={"10px"}
+     zIndex={999}
+     color={textColor}
     >
       <Stack spacing={3}>
         <Input
@@ -138,7 +141,7 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
           ))}
         </Tbody>
       </Table>
-    </ClosableBox>
+    </Box>
   );
 };
 

@@ -32,20 +32,21 @@ const EventMenu: React.FC<EventMenuProps> = ({
     setNewMenuItem('');
   };
 
-  const { primary, backgroundColor } = useThemeColors();
+  const { primary, backgroundColor, textColor } = useThemeColors();
 
   return (
-    <ClosableBox
+    <Box
     bg={backgroundColor}
     outline={"2px solid"}
     outlineColor={primary}
     p={2}
-    w={"50%"} h={"80%"} 
+    w={"80%"} h={"100%"} 
     overflowY={"scroll"} 
-     position={"fixed"} 
-     left={'25%'} 
-     top={'10%'} 
+     position={"relative"} 
+     mx={"auto"}
+     mb={"10px"}
      zIndex={999}
+     color={textColor}
     >
       <Stack spacing={3}>
         <Input
@@ -78,7 +79,7 @@ const EventMenu: React.FC<EventMenuProps> = ({
           ))}
         </Tbody>
       </Table>
-    </ClosableBox>
+    </Box>
   );
 };
 
