@@ -5,14 +5,12 @@ import CustomButton from '../Buttons';
 import { useThemeColors } from '../UseThemeColors';
 import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
 import {
-    FormControl,
-    FormLabel,
+    
     Input,
     Box,
-    Heading,
-    Text,
+    
   } from "@chakra-ui/react";
-  import ClosableBox from '../GeneralUtilities/ClosableBox';
+  
 
 interface EventNotesProps {
   notes: Notes[];
@@ -30,7 +28,7 @@ const EventNotes: React.FC<EventNotesProps> = ({ notes, onAddNote, onDeleteNote 
     }
   };
 
-  const { primary, secondary, accent, backgroundColor, textColor, shadows} = useThemeColors();
+  const { primary, secondary, backgroundColor, textColor} = useThemeColors();
 
   interface NoteItemProps {
     note: { notes: string };

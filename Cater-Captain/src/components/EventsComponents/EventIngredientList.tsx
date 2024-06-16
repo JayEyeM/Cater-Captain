@@ -7,7 +7,7 @@ import { Ingredient } from '../Interfaces';
 // import { SolidLightBlueButton, SolidLightRedButton } from './Buttons';
 import CustomButton from '../Buttons';
 import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
-import ClosableBox from '../GeneralUtilities/ClosableBox';
+
 import { useThemeColors } from '../UseThemeColors';
 
 //props for event ingredient list
@@ -49,7 +49,7 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
     setNewIngredient({ name: '', units: '', quantity: 0, onHand: false, needToOrder: false });
   };
 
- const { primary, secondary, backgroundColor, textColor } = useThemeColors();
+ const { primary, backgroundColor, textColor } = useThemeColors();
 
   return (
     <Box

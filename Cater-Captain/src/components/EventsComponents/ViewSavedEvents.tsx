@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Text, Box, Image, Flex, SimpleGrid, Spacer, Tooltip } from '@chakra-ui/react';
+import { Card, CardHeader, CardBody, CardFooter, Heading, Text, Box, Image, SimpleGrid } from '@chakra-ui/react';
 import { Event, Ingredient, Notes } from '../Interfaces';
 import EventIngredientList from './EventIngredientList';
 import EventMenu from './EventMenu';
@@ -246,7 +246,7 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
     });
   };
 
-  const { backgroundColor, textColor, primary, accent, secondary } = useThemeColors();
+  const { backgroundColor, textColor, primary, secondary } = useThemeColors();
 
   const [visibleImages, setVisibleImages] = useState<{ [key: number]: boolean }>({});
 
