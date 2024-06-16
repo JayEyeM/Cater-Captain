@@ -1,34 +1,41 @@
-import React, { useState, ReactNode } from 'react';
+import React, { useState, ReactNode, useEffect } from 'react';
 import { Box, IconButton, BoxProps } from '@chakra-ui/react';
 import { CloseIcon } from '@chakra-ui/icons';
 
 interface ClosableBoxProps extends BoxProps {
   children: ReactNode;
+  isOpen?: boolean; 
+  onClose: () => void;
 }
 
-const ClosableBox: React.FC<ClosableBoxProps> = ({ children, ...boxProps }) => {
-  const [isVisible, setIsVisible] = useState(true);
+const ClosableBox: React.FC<ClosableBoxProps> = ({ children, isOpen = true, onClose, ...boxProps }) => {
+  const [isVisible, setIsVisible] = useState(isOpen);
+
+  useEffect(() => {
+    setIsVisible(isOpen); 
+  }, [isOpen]);
 
   const handleClose = () => {
-    setIsVisible(false);
+    setIsVisible(false); 
+    onClose();
   };
 
+  if (!isVisible) return null; 
+
   return (
-    isVisible && (
-      <Box borderWidth="1px" borderRadius="lg" overflow="hidden" p={4} position="relative" {...boxProps}>
-        <IconButton
-          icon={<CloseIcon />}
-          onClick={handleClose}
-          aria-label="Close"
-          variant="ghost"
-          size="md"
-          position="relative"
-          float="right"
-          m={2}
-        />
-        {children}
-      </Box>
-    )
+    <Box borderWidth="1px"  overflow="hidden" p={4} position="relative" {...boxProps}>
+      <IconButton
+        icon={<CloseIcon />}
+        onClick={handleClose}
+        aria-label="Close"
+        variant="ghost"
+        size="md"
+        position="absolute"
+        top={2}
+        right={2}
+      />
+      {children}
+    </Box>
   );
 };
 

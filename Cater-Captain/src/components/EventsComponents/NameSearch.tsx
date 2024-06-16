@@ -27,7 +27,7 @@ const NameSearch: React.FC<NameSearchProps> = ({ onSearch }) => {
   const { secondary, backgroundColor, textColor } = useThemeColors();
 
   return (
-    <Box bg={backgroundColor} p={4} w={"60%"} borderRadius="0" mr={12} mt={2} mb={0} outline={"2px solid"} outlineColor={secondary}>
+    <Box bg={backgroundColor} p={4} w={{ base: '90%', md: '60%' }} borderRadius="0" mr={{ base: 0, md: 12 }} mt={2} mb={0} mx={{ base: 'auto', md: 0 }} outline={"2px solid"} outlineColor={secondary}>
       <Text color={textColor}>Display events that match a customer's first and/or last name.</Text><hr />
       <form onSubmit={(e) => { e.preventDefault(); handleSearch(); }}>
         <FormControl id="firstName" flex="1">

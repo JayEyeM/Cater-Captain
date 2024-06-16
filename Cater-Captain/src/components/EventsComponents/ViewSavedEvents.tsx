@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Text, Box, Image, Flex, SimpleGrid, Spacer } from '@chakra-ui/react';
+import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Text, Box, Image, Flex, SimpleGrid, Spacer, Tooltip } from '@chakra-ui/react';
 import { Event, Ingredient, Notes } from '../Interfaces';
 import EventIngredientList from './EventIngredientList';
 import EventMenu from './EventMenu';
@@ -8,7 +8,7 @@ import EventNotes from './EventNotes';
 import CustomButton from '../Buttons';
 import { useThemeColors } from '../UseThemeColors';
 import EventImageSelector from './EventImageSelector';
-import { EditIcon, DeleteIcon, ViewIcon, ViewOffIcon, AddIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
+import { EditIcon, DeleteIcon, ViewIcon, ViewOffIcon, SettingsIcon } from '@chakra-ui/icons';
 import { IngredientsIcon, MenuIcon, NotesIcon, ImageIcon } from '../ButtonIcons';
 import ClosableBox from '../GeneralUtilities/ClosableBox';
 
@@ -23,6 +23,7 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
   const [visibleMenu, setVisibleMenu] = useState<{ [key: number]: boolean }>({});
   const [visibleNotes, setVisibleNotes] = useState<{ [key: number]: boolean }>({});
   const [visibleDetails, setVisibleDetails] = useState<{ [key: number]: boolean }>({});
+  const [visibleToolKit, setVisibleToolKit] = useState<{ [key: number]: boolean }>({});
   
 
   const initialSavedEvents: Event[] = [
@@ -218,6 +219,21 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
     });
   };
 
+
+  const toggleToolKit = (id: number) => {
+    setVisibleToolKit(prev => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
+  };
+
+  const handleToolKitClose = (id: number) => {
+    setVisibleToolKit(prev => ({
+      ...prev,
+      [id]: false 
+    }));
+  };
+
   const handleDeleteNote = (eventId: number, index: number) => {
     setSavedEvents(prevEvents => {
       const updatedEvents = prevEvents.map(event =>
@@ -291,7 +307,7 @@ const toggleImages = (eventId: number) => {
           alt="View More Details"
           ml={{ base: 0, md: 'auto' }}
           mr={{ base: 0, md: 12 }}
-                  leftIcon={visibleDetails[event.id] ? <ViewOffIcon /> : <ViewIcon />}
+                  leftIcon={visibleDetails[event.id] ? <ViewIcon /> : <ViewOffIcon />}
                  
                   onClick={() => toggleDetails(event.id)}
                   colorScheme="teal"
@@ -330,11 +346,15 @@ const toggleImages = (eventId: number) => {
           </CardBody>
           
           <CardFooter display={{ base: 'flex', md: 'flex' }} flexDirection={{ base: 'column', md: 'column' }}>
+          
+          <CustomButton variant='outlineGreen' title="Tool Kit" alt="Tool Kit"  onClick={() =>{ toggleToolKit(event.id)}}><SettingsIcon /></CustomButton>
           <CustomButton variant="outlineGreen" onClick={() => handleEditEvent(event)} alt="Edit Event" label="Edit Event" title="Edit Event"><EditIcon /></CustomButton>
             
             <CustomButton variant="outlineRed" onClick={() => handleDelete(event.id)} alt="Delete Event" label="Delete Event" title="Delete Event"><DeleteIcon /></CustomButton>
           
-          <ClosableBox bg={backgroundColor} outline={"2px solid"} outlineColor={primary} p={4} w={"90%"} h={"90%"} overflowY={"scroll"} position={"fixed"} left={'5%'} top={'5%'} zIndex={999}>
+          {visibleToolKit[event.id] && (
+          <ClosableBox bg={backgroundColor} outline={"2px solid"} outlineColor={primary} p={4} w={"90%"} h={"90%"} overflowY={"scroll"} position={"fixed"} left={'5%'} top={'5%'} zIndex={999}
+          isOpen={visibleToolKit[event.id]} onClose={() => handleToolKitClose(event.id)}>
           <Box>
           <CustomButton variant="solidGreen" title="Choose Event Image" onClick={() => toggleImages(event.id)} rightIcon={<ImageIcon />}>
                 {visibleImages[event.id] ? <ViewIcon /> : <ViewOffIcon />}
@@ -392,6 +412,7 @@ const toggleImages = (eventId: number) => {
             
             
             </ClosableBox>
+          )}
           </CardFooter>
           </Box>
           )}

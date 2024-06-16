@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@chakra-ui/react';
+import { Button, Tooltip } from '@chakra-ui/react';
 import { useThemeColors } from './UseThemeColors';
 
 // Props for the customizable button
@@ -7,12 +7,13 @@ interface CustomButtonProps {
   children: React.ReactNode;
   variant: 'solidGreen' | 'outlineGreen' | 'solidRed' | 'outlineRed' | 'solidBlue' | 'outlineBlue';
   [key: string]: any;
+  title: string;
 }
 
 
 
 // CustomButton component
-const CustomButton: React.FC<CustomButtonProps> = ({ children, variant, ...props }) => {
+const CustomButton: React.FC<CustomButtonProps> = ({ children, variant, title, ...props }) => {
  
 
   const { bPrimary, bSecondary, bAccent, bBackgroundColor, bTextColor } = useThemeColors();
@@ -58,6 +59,7 @@ const buttonStyles = {
 const styles = buttonStyles[variant];
 
   return (
+    <Tooltip label={title} hasArrow placement='top' bg={bBackgroundColor} fontFamily={"Cinzel"} fontSize={"16px"} fontWeight={"bold"}>
     <Button
       {...styles}
       margin="5px 5px"
@@ -68,6 +70,7 @@ const styles = buttonStyles[variant];
     >
       {children}
     </Button>
+    </Tooltip>
   );
 };
 

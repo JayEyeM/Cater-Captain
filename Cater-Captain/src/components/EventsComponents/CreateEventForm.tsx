@@ -129,9 +129,9 @@ const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
       <Box bg={backgroundColor} 
       
         position={'relative'}
-        ml={'auto'}
-        mr={'auto'}
-        w={{ base: '90%', md: '60%' }}
+        ml={{ base: 'auto', md: 'auto' }}
+        mr={{ base: 'auto', md: 'auto' }}
+        w={{ base: '100%', md: '60%' }}
         h={{ base: '100%', md: '100%' }} 
         overflow={'auto'}
         scrollBehavior={'smooth'}
