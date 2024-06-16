@@ -132,7 +132,7 @@ const ManageEvents: React.FC = () => {
       </CustomButton>
       </Box>
       {isFilterOptionsVisible && ( 
-          <Box id="filterOptions" display={"flex"}>
+          <Box id="filterOptions" display={"flex"} flexDir={{ base: "column", md: "row" }}>
             <SortEvents onFilterChange={handleFilterChange} />
             <NameSearch onSearch={handleNameSearch} />
           </Box>
