@@ -4,7 +4,6 @@ import ViewSavedEvents from '../components/EventsComponents/ViewSavedEvents';
 import { EventForm, Event } from '../components/Interfaces';
 import SortEvents from '../components/EventsComponents/SortEvents';
 import FilterButtons from '../components/EventsComponents/FilterButtons';
-// import { SolidLightGreenButton } from '../components/Buttons';
 import CustomButton from '../components/Buttons';
 import NavBar from '../components/NavBar';
 import './pagesStyleSheets/Dashboard.css';

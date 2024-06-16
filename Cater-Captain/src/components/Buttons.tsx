@@ -16,7 +16,7 @@ interface CustomButtonProps {
 const CustomButton: React.FC<CustomButtonProps> = ({ children, variant, title, ...props }) => {
  
 
-  const { bPrimary, bSecondary, bAccent, bBackgroundColor, bTextColor } = useThemeColors();
+  const { bBackgroundColor, bTextColor } = useThemeColors();
 
 // variant styles
 const buttonStyles = {

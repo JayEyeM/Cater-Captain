@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Image, SimpleGrid } from '@chakra-ui/react';
 import { useThemeColors } from '../UseThemeColors';
-import ClosableBox from '../GeneralUtilities/ClosableBox';
+
 
 
 const eventTypesImages = [
