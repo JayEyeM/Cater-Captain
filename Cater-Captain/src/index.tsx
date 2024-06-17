@@ -11,6 +11,7 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import ManageEvents from './pages/ManageEvents';
+import Inventory from './pages/Inventory';
 import './index.css';
 
 const App: React.FC = () => {
@@ -25,6 +26,7 @@ const App: React.FC = () => {
             <Route path="/Login" element={<Login />} />
             <Route path="/Dashboard" element={<Dashboard />} />
             <Route path="/ManageEvents" element={<ManageEvents />} />
+            <Route path="/Inventory" element={<Inventory />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router> 
