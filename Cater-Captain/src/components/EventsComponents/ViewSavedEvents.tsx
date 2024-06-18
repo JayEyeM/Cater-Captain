@@ -278,7 +278,7 @@ const toggleImages = (eventId: number) => {
 
 
   return (
-    <Box w={"100%"}>
+    <Box w={"100%"} pb={12}>
       {savedEvents.map((event) => (
         <Card
           key={event.id}
@@ -314,17 +314,7 @@ const toggleImages = (eventId: number) => {
           >
             {visibleDetails[event.id] ? 'Hide Details' : 'View More Details'}
           </CustomButton>
-            {/* <CustomButton
-              variant='outlineGreen'
-              title="View More Details"
-              alt="View More Details"
-              ml={{ base: 0, md: 'auto' }}
-              mr={{ base: 0, md: 12 }}
-              onClick={toggleBoxVisibility}
-            >
-              {isBoxVisible ? <ChevronUpIcon /> : <ChevronDownIcon />}
-              More Details
-            </CustomButton> */}
+            
           </CardHeader>
           {visibleDetails[event.id] && (
           <Box w={{ base: '100%', md: '100%' }} m="auto" display={{ base: 'flex', md: 'flex' }} flexDirection={{ base: 'column', md: 'row' }}>

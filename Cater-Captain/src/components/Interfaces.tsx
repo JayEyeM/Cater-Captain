@@ -86,3 +86,15 @@ export interface Ingredient {
 export interface Notes {
   notes: string;
 }
+
+//create interface for InventoryItem
+export interface InventoryItem {
+    id: string;
+    name: string;
+    amountPerUnit: number;
+    unit: string;
+    quantity: number;
+    whenToOrder: number;
+    sku: string;
+    packageType: string;
+  }
