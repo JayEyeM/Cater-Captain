@@ -35,16 +35,16 @@ const Inventory: React.FC = () => {
   const [currentItem, setCurrentItem] = useState<InventoryItem | null>(null);
   const [itemName, setItemName] = useState("");
   const [amountPerUnit, setAmountPerUnit] = useState("");
-  const [itemUnit, setItemUnit] = useState("kg");
+  const [itemUnit, setItemUnit] = useState("select");
   const [itemQuantity, setItemQuantity] = useState("");
   const [whenToOrder, setWhenToOrder] = useState("");
   const [itemSku, setItemSku] = useState("");
-  const [packageType, setPackageType] = useState("box");
+  const [packageType, setPackageType] = useState("select");
 
   const [visibleDetails, setVisibleDetails] = useState<{ [key: string]: boolean }>({});
 
   useEffect(() => {
-    const savedItems = JSON.parse(localStorage.getItem("inventoryItems") || "[]");
+    const savedItems = JSON.parse(localStorage.getItem("inventoryItems") ?? "[]");
     setItems(savedItems);
   }, []);
 
@@ -55,7 +55,7 @@ const Inventory: React.FC = () => {
   const addItem = () => {
     const parsedAmountPerUnit = parseFloat(amountPerUnit);
     if (isNaN(parsedAmountPerUnit)) {
-      // Handle the case when the input is not a valid number
+      alert("Please enter a valid amount per unit.");
       return;
     }
 
@@ -171,7 +171,7 @@ const Inventory: React.FC = () => {
           </Heading>
         </Box>
 
-        <Box
+        {/* <Box
           w={{ base: "90%", md: "100%" }}
           h="auto"
           mx="auto"
@@ -339,7 +339,7 @@ const Inventory: React.FC = () => {
           >
             Add Item
           </CustomButton>
-        </Box>
+        </Box> */}
 
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="inventory">
