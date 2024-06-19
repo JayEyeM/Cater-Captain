@@ -27,6 +27,7 @@ import CustomButton from "../components/Buttons";
 import { InventoryItem } from "../components/Interfaces";
 
 
+
 const Inventory: React.FC = () => {
   const { backgroundColor, primary, textColor, accent, secondary } = useThemeColors();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -170,8 +171,8 @@ const Inventory: React.FC = () => {
             Inventory
           </Heading>
         </Box>
-
-        {/* <Box
+      
+        <Box
           w={{ base: "90%", md: "100%" }}
           h="auto"
           mx="auto"
@@ -339,7 +340,7 @@ const Inventory: React.FC = () => {
           >
             Add Item
           </CustomButton>
-        </Box> */}
+        </Box>
 
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="inventory">
