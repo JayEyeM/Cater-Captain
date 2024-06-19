@@ -4,7 +4,7 @@ import { Event, Ingredient, Notes } from '../Interfaces';
 import EventIngredientList from './EventIngredientList';
 import EventMenu from './EventMenu';
 import EventNotes from './EventNotes';
-// import { OutlineLightGreenButton, SolidLightGreenButton, OutlineLightRedButton } from './Buttons';
+
 import CustomButton from '../Buttons';
 import { useThemeColors } from '../UseThemeColors';
 import EventImageSelector from './EventImageSelector';
@@ -82,7 +82,7 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
 
   useEffect(() => {
     // Retrieve events from local storage
-    const storedEvents = JSON.parse(localStorage.getItem('events') || '[]');
+    const storedEvents = JSON.parse(localStorage.getItem('events') ?? '[]');
 
     // Merge initialSavedEvents with storedEvents
     const mergedEvents = [...initialSavedEvents, ...storedEvents];
@@ -267,14 +267,7 @@ const toggleImages = (eventId: number) => {
     });
   };
   
-  // const [showImages, setShowImages] = useState(false);
-
   
-    // const [isBoxVisible, setIsBoxVisible] = useState(false);
-  
-    // const toggleBoxVisibility = () => {
-    //   setIsBoxVisible(!isBoxVisible);
-    // };
 
 
   return (
@@ -294,7 +287,7 @@ const toggleImages = (eventId: number) => {
         >
           <CardHeader display={{ base: 'flex', md: 'flex' }} flexDirection={{ base: 'column', md: 'row' }} alignItems={"center"}>
           <Box>
-          <Image src={event.imageUrl} alt={event.imageAlt || `${event.EventName} Image`} w={{ base: '150px', md: '200px' }}  />
+          <Image src={event.imageUrl} alt={event.imageAlt ?? `${event.EventName} Image`} w={{ base: '150px', md: '200px' }}  />
           </Box>
           <Box display={'flex'} flexDirection={'column'} alignItems={{ base: 'center', md: 'flex-start' }} ml={{ base: 0, md: 6 }}>
             <Heading size={{ base: 'lg', md: 'xl' }} color={textColor}>{event.EventName}</Heading>
