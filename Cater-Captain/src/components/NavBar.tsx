@@ -66,6 +66,9 @@ export default function NavBar() {
                     <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/Inventory')}>
                         Inventory
                     </MenuItem>
+                    <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/EmployeeManagement')}>
+                        Employee Management
+                    </MenuItem>
                     <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/sign-out')}>
                         Sign Out
                     </MenuItem>
