@@ -173,7 +173,7 @@ const Inventory: React.FC = () => {
         </Box>
       
         <Box
-          w={{ base: "90%", md: "100%" }}
+          w={{ base: "90%", md: "80%" }}
           h="auto"
           mx="auto"
           outline="2px solid"
@@ -341,11 +341,12 @@ const Inventory: React.FC = () => {
             Add Item
           </CustomButton>
         </Box>
-
+      <Box outline={"2px solid"} outlineColor={primary} w={{ base: "100%", md: "80%" }}
+              mx={"auto"} mt={"2%"} p={2}>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="inventory">
             {(provided) => (
-              <Box {...provided.droppableProps} ref={provided.innerRef}>
+              <Box {...provided.droppableProps} ref={provided.innerRef} >
                 {items.map((item, index) => (
                   <Draggable key={item.id} draggableId={item.id} index={index}>
                     {(provided) => (
@@ -358,8 +359,8 @@ const Inventory: React.FC = () => {
                         outlineColor={item.quantity <= item.whenToOrder ? "red" : primary}
                         color={textColor}
                         p={4}
-                        m={2}
-
+                        mt={2}
+                        mb={4}
                         
                         borderRadius="0"
                         borderColor={primary}
@@ -417,6 +418,7 @@ const Inventory: React.FC = () => {
             )}
           </Droppable>
         </DragDropContext>
+      </Box>
       </Box>
 
       <Modal isOpen={isOpen} onClose={onClose}>

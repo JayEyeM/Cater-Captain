@@ -1,11 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import './NavBar.css'; 
-import { Box, Heading, Menu, MenuButton, MenuList, MenuItem, IconButton, Image } from '@chakra-ui/react';
+import { Box, Heading, Menu, MenuButton, MenuList, MenuItem, Image } from '@chakra-ui/react';
 
 
 import ToggleColorModeButton from './ToggleColorModeButton';
 import { useThemeColors } from './UseThemeColors';
 import { HamburgerIcon } from '@chakra-ui/icons';
+import CustomButton from './Buttons';
 
 
 
@@ -31,7 +32,18 @@ export default function NavBar() {
             
             <ToggleColorModeButton />
             <Menu>
-                <MenuButton
+                <CustomButton 
+                as={MenuButton}
+                variant="outlineGreen" 
+                title="Menu"
+                alt="Menu"
+                _hover={{ bg: primary, color: backgroundColor }}
+                >
+                    <HamburgerIcon w={5} h={5}/>
+                </CustomButton>
+
+
+                {/* <MenuButton
                     as={IconButton}
                     aria-label="Options"
                     icon={<HamburgerIcon w={5} h={5}  />}
@@ -40,7 +52,7 @@ export default function NavBar() {
                     borderColor={primary}
                     _hover={{ bg: primary, color: backgroundColor }}
                     borderRadius={0}
-                />
+                /> */}
                 <MenuList bg={backgroundColor} outline={"2px solid"} p={2} outlineColor={primary} borderRadius={0}>
                     <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/')}>
                         Home
