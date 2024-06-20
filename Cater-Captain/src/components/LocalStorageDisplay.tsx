@@ -29,7 +29,7 @@ const LocalStorageDisplay: React.FC = () => {
   // Keys to display
   const keysToDisplay = ['inventoryItems', 'events'];
 
-  // Initialize data and visibility state
+  // Initializing the data and visibility state
   useEffect(() => {
     const storedData: LocalStorageData = {};
     const initialVisibility: { [key: string]: boolean } = {};
@@ -42,7 +42,7 @@ const LocalStorageDisplay: React.FC = () => {
           // if the stored data is not valid JSON, treat it as a string
           storedData[key] = item;
         }
-        // Initialize visibility state to false
+        // make the visibility state false by default
         initialVisibility[key] = false;
       }
     }

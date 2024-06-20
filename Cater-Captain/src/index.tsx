@@ -12,6 +12,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import ManageEvents from './pages/ManageEvents';
 import Inventory from './pages/Inventory';
+import EmployeeManagement from './pages/EmployeeManagement';
 import './index.css';
 
 const App: React.FC = () => {
@@ -27,6 +28,7 @@ const App: React.FC = () => {
             <Route path="/Dashboard" element={<Dashboard />} />
             <Route path="/ManageEvents" element={<ManageEvents />} />
             <Route path="/Inventory" element={<Inventory />} />
+            <Route path="/EmployeeManagement" element={<EmployeeManagement />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router> 
