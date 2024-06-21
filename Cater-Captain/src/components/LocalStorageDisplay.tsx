@@ -27,7 +27,7 @@ const LocalStorageDisplay: React.FC = () => {
   const { backgroundColor, primary, textColor } = useThemeColors(); 
 
   // Keys to display
-  const keysToDisplay = ['inventoryItems', 'events'];
+  const keysToDisplay = ['inventoryItems', 'events', 'employees', 'suppliers'];
 
   // Initializing the data and visibility state
   useEffect(() => {

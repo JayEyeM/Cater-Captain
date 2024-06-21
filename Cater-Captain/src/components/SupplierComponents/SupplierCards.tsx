@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useThemeColors } from '../UseThemeColors';
 import { Card, CardHeader, CardBody, CardFooter, Heading, Text, Box, Stack } from '@chakra-ui/react';
 import CustomButton from '../Buttons';
@@ -57,6 +57,18 @@ const SupplierCards: React.FC = () => {
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const { backgroundColor } = useThemeColors();
 
+  useEffect(() => {
+    const storedSuppliers = localStorage.getItem('suppliers');
+    if (storedSuppliers) {
+      setSuppliers(JSON.parse(storedSuppliers));
+    }
+  }, []);
+
+  
+  useEffect(() => {
+    localStorage.setItem('suppliers', JSON.stringify(suppliers));
+  }, [suppliers]);
+
   const handleFormSubmit = (supplierData: SupplierData) => {
     if (editingIndex !== null) {
       const updatedSuppliers = [...suppliers];
@@ -73,7 +85,8 @@ const SupplierCards: React.FC = () => {
   };
 
   const handleDelete = (index: number) => {
-    setSuppliers(suppliers.filter((_, i) => i !== index));
+    const updatedSuppliers = suppliers.filter((_, i) => i !== index);
+    setSuppliers(updatedSuppliers);
   };
 
   const handleCancel = () => {
