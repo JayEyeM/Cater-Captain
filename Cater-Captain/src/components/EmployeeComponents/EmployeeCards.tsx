@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useThemeColors } from '../UseThemeColors';
 import { Card, CardHeader, CardBody, CardFooter, Heading, Text, Box, Stack } from '@chakra-ui/react';
 import CustomButton from '../Buttons';
@@ -59,6 +59,18 @@ const EmployeeCards: React.FC = () => {
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const { backgroundColor } = useThemeColors();
 
+  useEffect(() => {
+    const storedEmployees = localStorage.getItem('employees');
+    if (storedEmployees) {
+      setEmployees(JSON.parse(storedEmployees));
+    }
+  }, []);
+
+  
+  useEffect(() => {
+    localStorage.setItem('employees', JSON.stringify(employees));
+  }, [employees]);
+
   const handleFormSubmit = (employeeData: EmployeeData) => {
     if (editingIndex !== null) {
       const updatedEmployees = [...employees];
@@ -75,7 +87,8 @@ const EmployeeCards: React.FC = () => {
   };
 
   const handleDelete = (index: number) => {
-    setEmployees(employees.filter((_, i) => i !== index));
+    const updatedEmployees = employees.filter((_, i) => i !== index);
+    setEmployees(updatedEmployees);
   };
 
   const handleCancel = () => {
