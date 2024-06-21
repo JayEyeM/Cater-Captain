@@ -9,6 +9,8 @@ const NotesIconDark = './buttonIcons/NotesIconDark.svg';
 const NotesIconLight = './buttonIcons/NotesIconLight.svg';
 const ImageIconDark = './buttonIcons/ImageIconDark.svg';
 const ImageIconLight = './buttonIcons/ImageIconLight.svg';
+const PriceIconDark = './buttonIcons/PriceIconDark.svg';
+const PriceIconLight = './buttonIcons/PriceIconLight.svg';
 
 const iconStyles = {
     height: "100%", 
@@ -42,4 +44,11 @@ export const ImageIcon: React.FC = () => {
     const iconSrc = colorMode === 'light' ? ImageIconLight : ImageIconDark;
 
     return <Image src={iconSrc} alt="Image Icon" {...iconStyles} />;
+};
+
+export const PriceIcon: React.FC = () => {
+    const { colorMode } = useColorMode();
+    const iconSrc = colorMode === 'light' ? PriceIconLight : PriceIconDark;
+
+    return <Image src={iconSrc} alt="Price Icon" {...iconStyles} />;
 };
