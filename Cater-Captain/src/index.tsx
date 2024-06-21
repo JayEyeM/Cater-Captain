@@ -13,6 +13,7 @@ import Dashboard from './pages/Dashboard';
 import ManageEvents from './pages/ManageEvents';
 import Inventory from './pages/Inventory';
 import EmployeeManagement from './pages/EmployeeManagement';
+import SupplierManagement from './pages/SupplierManagement';
 import './index.css';
 
 const App: React.FC = () => {
@@ -29,6 +30,7 @@ const App: React.FC = () => {
             <Route path="/ManageEvents" element={<ManageEvents />} />
             <Route path="/Inventory" element={<Inventory />} />
             <Route path="/EmployeeManagement" element={<EmployeeManagement />} />
+            <Route path="/SupplierManagement" element={<SupplierManagement />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router> 

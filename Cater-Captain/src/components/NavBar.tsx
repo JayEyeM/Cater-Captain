@@ -38,8 +38,10 @@ export default function NavBar() {
                 title="Menu"
                 alt="Menu"
                 _hover={{ bg: primary, color: backgroundColor }}
+                
                 >
-                    <HamburgerIcon w={5} h={5}/>
+                    <HamburgerIcon w={5} h={5} mx="auto" />
+                    
                 </CustomButton>
 
 
@@ -68,6 +70,9 @@ export default function NavBar() {
                     </MenuItem>
                     <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/EmployeeManagement')}>
                         Employee Management
+                    </MenuItem>
+                    <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/SupplierManagement')}>
+                        Supplier Management
                     </MenuItem>
                     <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/sign-out')}>
                         Sign Out
