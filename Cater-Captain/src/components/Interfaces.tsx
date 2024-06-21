@@ -18,6 +18,7 @@ export interface Event {
     ingredients: Ingredient[];
     menuItems?: string[];
     notes?: Notes[];
+    pricing?: Pricing[];
     imageUrl?: string;
     imageAlt?: string;
     imageTitle?: string;
@@ -85,6 +86,12 @@ export interface Ingredient {
 //create interface for Notes
 export interface Notes {
   notes: string;
+}
+
+export interface Pricing {
+  name: string;
+  price: number;
+  currency: string;
 }
 
 //create interface for InventoryItem

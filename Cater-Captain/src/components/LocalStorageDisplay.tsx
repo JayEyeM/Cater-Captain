@@ -8,12 +8,12 @@ import {
   Thead,
   Tr,
   Heading,
-  Button,
   useToast,
   useColorMode,
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon, DownloadIcon, AddIcon } from '@chakra-ui/icons';
 import { useThemeColors } from './UseThemeColors';
+import CustomButton from './Buttons';
 
 interface LocalStorageData {
   [key: string]: any;
@@ -111,47 +111,61 @@ const LocalStorageDisplay: React.FC = () => {
   const handlePrint = async () => {
     await toggleCategory('inventoryItems');
     await toggleCategory('events');
+    await toggleCategory('employees');
+    await toggleCategory('suppliers');
     window.print();
   };
 
   const renderTable = (title: string, data: any) => (
-    <Box my={4} p={4} borderWidth={2} borderColor={primary} borderRadius="lg">
+    <Box my={4} p={4} borderWidth={2} borderColor={primary}>
       <Heading size="md" mb={2} color={primary}>
         View Your {title}
       </Heading>
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Button
-          leftIcon={visibility[title] ? <ViewOffIcon /> : <ViewIcon />}
+        <CustomButton
+          variant='outlineGreen'
+          title={visibility[title] ? 'Hide' : 'Show'}
+          alt={visibility[title] ? 'Hide' : 'Show'}
           onClick={() => toggleCategory(title)}
           colorScheme={colorMode === 'dark' ? 'gray' : 'green'}
         >
-          {visibility[title] ? 'Hide' : 'Show'}
-        </Button>
+          {visibility[title] ? <ViewIcon /> : <ViewOffIcon />}
+          {/* {visibility[title] ? 'Hide' : 'Show'} */}
+        </CustomButton>
         <Box>
-          <Button
+          <CustomButton
+            variant='solidBlue'
+            title="Export JSON"
+            alt="Export JSON"
             leftIcon={<DownloadIcon />}
             ml={2}
             onClick={() => handleExport(title, 'json')}
             colorScheme={colorMode === 'dark' ? 'gray' : 'blue'}
           >
             Export JSON
-          </Button>
-          <Button
+          </CustomButton>
+          <CustomButton
+            variant='solidBlue'
+            title="Export CSV"
+            alt="Export CSV"
             leftIcon={<DownloadIcon />}
             ml={2}
             onClick={() => handleExport(title, 'csv')}
             colorScheme={colorMode === 'dark' ? 'gray' : 'blue'}
           >
             Export CSV
-          </Button>
-          <Button
+          </CustomButton>
+          <CustomButton
+            variant='solidBlue'
+            title="Print"
+            alt="Print"
             leftIcon={<AddIcon />}
             ml={2}
             onClick={handlePrint}
             colorScheme={colorMode === 'dark' ? 'gray' : 'teal'}
           >
             Print
-          </Button>
+          </CustomButton>
         </Box>
       </Box>
       <Box my={4} p={4} borderWidth={1} borderRadius="lg" display={visibility[title] ? 'block' : 'none'}>

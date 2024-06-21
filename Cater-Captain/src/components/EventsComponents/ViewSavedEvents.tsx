@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardHeader, CardBody, CardFooter, Heading, Text, Box, Image, SimpleGrid } from '@chakra-ui/react';
-import { Event, Ingredient, Notes } from '../Interfaces';
+import { Event, Ingredient, Notes, Pricing } from '../Interfaces';
 import EventIngredientList from './EventIngredientList';
 import EventMenu from './EventMenu';
 import EventNotes from './EventNotes';
+import EventPricing from './EventPricing';
 
 import CustomButton from '../Buttons';
 import { useThemeColors } from '../UseThemeColors';
 import EventImageSelector from './EventImageSelector';
-import { EditIcon, DeleteIcon, ViewIcon, ViewOffIcon, SettingsIcon } from '@chakra-ui/icons';
-import { IngredientsIcon, MenuIcon, NotesIcon, ImageIcon } from '../ButtonIcons';
+import { EditIcon, DeleteIcon, ViewIcon, ViewOffIcon, SettingsIcon} from '@chakra-ui/icons';
+import { IngredientsIcon, MenuIcon, NotesIcon, ImageIcon, PriceIcon } from '../ButtonIcons';
 import ClosableBox from '../GeneralUtilities/ClosableBox';
 
 interface ViewSavedEventsProps {
@@ -22,6 +23,7 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
   const [visibleIngredients, setVisibleIngredients] = useState<{ [key: number]: boolean }>({});
   const [visibleMenu, setVisibleMenu] = useState<{ [key: number]: boolean }>({});
   const [visibleNotes, setVisibleNotes] = useState<{ [key: number]: boolean }>({});
+  const [visiblePricing, setVisiblePricing] = useState<{ [key: number]: boolean }>({});
   const [visibleDetails, setVisibleDetails] = useState<{ [key: number]: boolean }>({});
   const [visibleToolKit, setVisibleToolKit] = useState<{ [key: number]: boolean }>({});
   
@@ -131,6 +133,13 @@ const ViewSavedEvents: React.FC<ViewSavedEventsProps> = ({ savedEvents, setSaved
 
   const toggleNotes = (id: number) => {
     setVisibleNotes(prev => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
+  };
+
+  const togglePricing = (id: number) => {
+    setVisiblePricing(prev => ({
       ...prev,
       [id]: !prev[id]
     }));
@@ -267,6 +276,51 @@ const toggleImages = (eventId: number) => {
     });
   };
   
+  const handleAddPricing = (eventId: number, newPricing: Pricing) => {
+    setSavedEvents(prevEvents => {
+      const updatedEvents = prevEvents.map(event =>
+        event.id === eventId ? { ...event, pricing: [...(event.pricing || []), newPricing] } : event
+      );
+      updatedEvents.sort((a, b) => b.id - a.id);
+      localStorage.setItem('events', JSON.stringify(updatedEvents));
+      return updatedEvents;
+    });
+  };
+
+  const handleDeletePricing = (eventId: number, index: number) => {
+    setSavedEvents(prevEvents => {
+      const updatedEvents = prevEvents.map(event => {
+        if (event.id === eventId && event.pricing) {
+          return {
+            ...event,
+            pricing: event.pricing.filter((_, i) => i !== index)
+          };
+        } else {
+          return event;
+        }
+      });
+      updatedEvents.sort((a, b) => b.id - a.id);
+      localStorage.setItem('events', JSON.stringify(updatedEvents));
+      return updatedEvents;
+    });
+  };
+
+  const handleEditPricing = (eventId: number, index: number, updatedPricing: Pricing) => {
+    setSavedEvents(prevEvents => {
+      const updatedEvents = prevEvents.map(event =>
+        event.id === eventId
+          ? {
+              ...event,
+              pricing: event.pricing ? event.pricing.map((pricing, i) => (i === index ? updatedPricing : pricing)) : []
+              
+            }
+          : event
+      );
+      updatedEvents.sort((a, b) => b.id - a.id);
+      localStorage.setItem('events', JSON.stringify(updatedEvents));
+      return updatedEvents;
+    });
+  };
   
 
 
@@ -365,9 +419,14 @@ const toggleImages = (eventId: number) => {
               {visibleNotes[event.id] ? <ViewIcon /> : <ViewOffIcon />}
             </CustomButton>
 
+            <CustomButton variant='solidGreen' title="Pricing" onClick={() => togglePricing(event.id)} rightIcon={<PriceIcon />}>
+              {visiblePricing[event.id] ? <ViewIcon /> : <ViewOffIcon />}
+            </CustomButton>
+
             
             </Box>
             {visibleImages[event.id] && <EventImageSelector onSelectImage={(image) => handleSelectImage(event.id, { src: image, alt: image, title: image })} />}
+            
             {visibleIngredients[event.id] && (
               <EventIngredientList
                 ingredients={event.ingredients || []}
@@ -390,6 +449,15 @@ const toggleImages = (eventId: number) => {
                 notes={event.notes || []}
                 onAddNote={(newNote: Notes) => handleSaveNotes(event.id, newNote)}
                 onDeleteNote={(index) => handleDeleteNote(event.id, index)}
+              />
+            )}
+
+            {visiblePricing[event.id] && (
+              <EventPricing
+                pricing={event.pricing || []}
+                onAddPricing={(newPricing: Pricing) => handleAddPricing(event.id, newPricing)}
+                onDeletePricing={(index) => handleDeletePricing(event.id, index)}
+                onEditPricing={(index, updatedPricing) => handleEditPricing(event.id, index, updatedPricing)}
               />
             )}
             

@@ -5,7 +5,7 @@ import {
 // import { SolidLightBlueButton, SolidLightRedButton } from './Buttons';
 import CustomButton from '../Buttons';
 import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
-import ClosableBox from '../GeneralUtilities/ClosableBox';
+
 import { useThemeColors } from '../UseThemeColors';
 
 //props for event menu
