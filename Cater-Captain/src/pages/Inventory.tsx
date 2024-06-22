@@ -37,6 +37,7 @@ const Inventory: React.FC = () => {
   const [itemName, setItemName] = useState("");
   const [amountPerUnit, setAmountPerUnit] = useState("");
   const [itemUnit, setItemUnit] = useState("select");
+  const [costPerUnit, setCostPerUnit] = useState<number | string>("");
   const [itemQuantity, setItemQuantity] = useState("");
   const [whenToOrder, setWhenToOrder] = useState("");
   const [itemSku, setItemSku] = useState("");
@@ -55,8 +56,10 @@ const Inventory: React.FC = () => {
 
   const addItem = () => {
     const parsedAmountPerUnit = parseFloat(amountPerUnit);
-    if (isNaN(parsedAmountPerUnit)) {
-      alert("Please enter a valid amount per unit.");
+    const parsedCostPerUnit = typeof costPerUnit === 'string' ? parseFloat(costPerUnit) : costPerUnit;
+
+    if (isNaN(parsedAmountPerUnit) || isNaN(parsedCostPerUnit)) {
+      alert("Please enter valid numerical values.");
       return;
     }
 
@@ -64,12 +67,13 @@ const Inventory: React.FC = () => {
     const orderThreshold = parseInt(whenToOrder);
 
     if (!isNaN(quantity) && !isNaN(orderThreshold) && itemSku) {
-      const newItem = {
+      const newItem: InventoryItem = {
         id: new Date().getTime().toString(),
         name: itemName,
         amountPerUnit: parsedAmountPerUnit,
         unit: itemUnit,
         quantity,
+        costPerUnit: parsedCostPerUnit,
         whenToOrder: orderThreshold,
         sku: itemSku,
         packageType
@@ -79,6 +83,7 @@ const Inventory: React.FC = () => {
       setAmountPerUnit("");
       setItemUnit("kg");
       setItemQuantity("");
+      setCostPerUnit("");
       setWhenToOrder("");
       setItemSku("");
       setPackageType("box");
@@ -91,6 +96,7 @@ const Inventory: React.FC = () => {
     setAmountPerUnit(item.amountPerUnit.toString());
     setItemUnit(item.unit);
     setItemQuantity(item.quantity.toString());
+    setCostPerUnit(item.costPerUnit);
     setWhenToOrder(item.whenToOrder.toString());
     setItemSku(item.sku);
     setPackageType(item.packageType);
@@ -100,8 +106,9 @@ const Inventory: React.FC = () => {
   const saveItem = () => {
     const quantity = parseInt(itemQuantity);
     const orderThreshold = parseInt(whenToOrder);
+    const parsedCostPerUnit = typeof costPerUnit === 'string' ? parseFloat(costPerUnit) : costPerUnit;
 
-    if (!isNaN(quantity) && !isNaN(orderThreshold) && currentItem) {
+    if (!isNaN(quantity) && !isNaN(orderThreshold) && !isNaN(parsedCostPerUnit) && currentItem) {
       const parsedAmountPerUnit = parseFloat(amountPerUnit);
       if (isNaN(parsedAmountPerUnit)) {
         return;
@@ -112,6 +119,7 @@ const Inventory: React.FC = () => {
         amountPerUnit: parsedAmountPerUnit,
         unit: itemUnit,
         quantity,
+        costPerUnit: parsedCostPerUnit,
         whenToOrder: orderThreshold,
         sku: itemSku,
         packageType
@@ -298,6 +306,24 @@ const Inventory: React.FC = () => {
               </Menu>
             </Box>
             <Box>
+              <FormLabel htmlFor="costPerUnit">Cost per Unit</FormLabel>
+              <Input
+                id="costPerUnit"
+                aria-label="Cost per Unit"
+                placeholder="Cost per Unit"
+                type="number"
+                value={costPerUnit}
+                onChange={(e) => setCostPerUnit(parseFloat(e.target.value))}
+                bg={backgroundColor}
+                outlineColor={primary}
+                color={textColor}
+                mb={2}
+                borderRadius="0"
+              />
+            </Box>
+
+
+            <Box>
               <FormLabel htmlFor="itemQuantity"> On-hand Quantity</FormLabel>
               <Input
                 id="itemQuantity"
@@ -388,12 +414,14 @@ const Inventory: React.FC = () => {
                         </Box>
                         {visibleDetails[item.id] && (
                           <Box mt={4} display={"flex"} flexDirection={{ base: 'column', md: 'row' }} justifyContent={{base: 'flex-start', md: 'space-between'}}>
-                          <Box mt={2} display={"flex"} flexDirection={"row"} justifyContent={"space-between"} w={"90%"}>
+                          <Box mt={2} display={"grid"} gridTemplateColumns={{ base: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' }} gridTemplateRows={{ base: 'repeat(2, 1fr)', md: 'repeat(2, 1fr)' }} w={"90%"}>
+                          
                             <Text color={secondary}>SKU:<Text color={textColor}>{item.sku}</Text></Text>
                             <Text color={secondary}>Name:<Text color={textColor}>{item.name}</Text></Text>
                             <Text color={secondary}>Amount Per Unit:<Text color={textColor}>{item.amountPerUnit}</Text></Text>
                             <Text color={secondary}>Unit Measurment:<Text color={textColor}>{item.unit}</Text></Text>
                             <Text color={secondary}>Package Type:<Text color={textColor}>{item.packageType}</Text></Text>
+                            <Text color={secondary}>Cost Per Unit:<Text color={textColor}>{item.costPerUnit}</Text></Text>
                             <Text color={item.quantity <= item.whenToOrder ? "red" : secondary}>Quantity:<Text color={item.quantity <= item.whenToOrder ? "red" : textColor}
                             fontSize={item.quantity <= item.whenToOrder ? "2xl" : ""} fontWeight={item.quantity <= item.whenToOrder ? "bold" : ""}>{item.quantity}</Text></Text>
                             <Text color={item.quantity <= item.whenToOrder ? "red" : secondary}>Re-order:<Text color={item.quantity <= item.whenToOrder ? "red" : textColor}

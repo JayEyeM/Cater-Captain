@@ -102,6 +102,7 @@ export interface InventoryItem {
     unit: string;
     quantity: number;
     whenToOrder: number;
+    costPerUnit: number;
     sku: string;
     packageType: string;
   }
