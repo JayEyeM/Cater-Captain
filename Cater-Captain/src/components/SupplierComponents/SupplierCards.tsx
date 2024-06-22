@@ -20,7 +20,7 @@ const SupplierCard: React.FC<SupplierCardProps> = ({ supplierID, supplierName, e
   return (
     <Card>
       <CardHeader>
-        <Heading size='md'>{`${supplierName} ${contractStatus}`}</Heading>
+        <Heading size='md'>{`${supplierName} - ${contractStatus}`}</Heading>
       </CardHeader>
       <CardBody>
         <Text>Supplier ID: {supplierID}</Text>
