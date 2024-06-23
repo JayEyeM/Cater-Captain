@@ -24,6 +24,7 @@ const SupplierCard: React.FC<SupplierCardProps> = ({ supplierID, supplierName, e
       </CardHeader>
       <CardBody>
         <Text>Supplier ID: {supplierID}</Text>
+        <Text>Supplier Name: {supplierName}</Text>
         <Text>Email: {email}</Text>
         <Text>Phone: {phone}</Text>
         <Text>Contract Status: {contractStatus}</Text>

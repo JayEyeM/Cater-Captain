@@ -105,4 +105,5 @@ export interface InventoryItem {
     costPerUnit: number;
     sku: string;
     packageType: string;
+    supplierName: string;
   }
