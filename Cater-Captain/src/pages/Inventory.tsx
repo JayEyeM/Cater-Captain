@@ -28,6 +28,7 @@ import { InventoryItem } from "../components/Interfaces";
 
 
 
+
 const Inventory: React.FC = () => {
   const { backgroundColor, primary, textColor, accent, secondary } = useThemeColors();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -45,6 +46,8 @@ const Inventory: React.FC = () => {
 
   const [visibleDetails, setVisibleDetails] = useState<{ [key: string]: boolean }>({});
 
+  const [supplierNames, setSupplierNames] = useState<string[]>([]);
+
   useEffect(() => {
     const savedItems = JSON.parse(localStorage.getItem("inventoryItems") ?? "[]");
     setItems(savedItems);
@@ -53,6 +56,20 @@ const Inventory: React.FC = () => {
   useEffect(() => {
     localStorage.setItem("inventoryItems", JSON.stringify(items));
   }, [items]);
+
+  useEffect(() => {
+    const storedSuppliers = JSON.parse(localStorage.getItem('suppliers') ?? '[]');
+    const names = storedSuppliers.map((supplier: any) => supplier.supplierName);
+    setSupplierNames(names);
+  }, []);
+
+  const [selectedSupplier, setSelectedSupplier] = useState<string | null>(null);
+
+
+  const handleSupplierSelection = (supplierName: string) => {
+    setSelectedSupplier(supplierName);
+  };
+  
 
   const addItem = () => {
     const parsedAmountPerUnit = parseFloat(amountPerUnit);
@@ -76,7 +93,9 @@ const Inventory: React.FC = () => {
         costPerUnit: parsedCostPerUnit,
         whenToOrder: orderThreshold,
         sku: itemSku,
-        packageType
+        packageType,
+        supplierName: selectedSupplier || supplierNames[0] || "",
+        
       };
       setItems([...items, newItem]);
       setItemName("");
@@ -87,6 +106,8 @@ const Inventory: React.FC = () => {
       setWhenToOrder("");
       setItemSku("");
       setPackageType("box");
+      setSelectedSupplier(newItem.supplierName || supplierNames[0] || "");
+      
     }
   };
 
@@ -100,6 +121,7 @@ const Inventory: React.FC = () => {
     setWhenToOrder(item.whenToOrder.toString());
     setItemSku(item.sku);
     setPackageType(item.packageType);
+    setSelectedSupplier(item.supplierName || supplierNames[0] || "");
     onOpen();
   };
 
@@ -122,7 +144,8 @@ const Inventory: React.FC = () => {
         costPerUnit: parsedCostPerUnit,
         whenToOrder: orderThreshold,
         sku: itemSku,
-        packageType
+        packageType,
+        supplierName: selectedSupplier || "",
       };
       const newItems = items.map((item) =>
         item.id === currentItem.id ? updatedItem : item
@@ -356,6 +379,26 @@ const Inventory: React.FC = () => {
               />
             </Box>
           </Box>
+          <Box>
+            <FormLabel>Supplier Name</FormLabel>
+            <Menu>
+              <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                {selectedSupplier || "Select a Supplier"}
+              </MenuButton>
+              <MenuList>
+                
+                <MenuItem onClick={() => handleSupplierSelection("")}>Select a Supplier</MenuItem>
+                
+                {supplierNames.map((name) => (
+                  <MenuItem key={name} onClick={() => handleSupplierSelection(name)}>
+                    {name}
+                  </MenuItem>
+                ))}
+              </MenuList>
+            </Menu>
+          </Box>
+
+
 
           <CustomButton
           title="Add Item"
@@ -414,7 +457,8 @@ const Inventory: React.FC = () => {
                         </Box>
                         {visibleDetails[item.id] && (
                           <Box mt={4} display={"flex"} flexDirection={{ base: 'column', md: 'row' }} justifyContent={{base: 'flex-start', md: 'space-between'}}>
-                          <Box mt={2} display={"grid"} gridTemplateColumns={{ base: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' }} gridTemplateRows={{ base: 'repeat(2, 1fr)', md: 'repeat(2, 1fr)' }} w={"90%"}>
+                          <Box mt={2} display={"grid"} gridTemplateColumns={{ base: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' }} gridTemplateRows={{ base: 'repeat(2, 1fr)', md: 'repeat(2, 1fr)' }} w={"90%"}
+                          >
                           
                             <Text color={secondary}>SKU:<Text color={textColor}>{item.sku}</Text></Text>
                             <Text color={secondary}>Name:<Text color={textColor}>{item.name}</Text></Text>
@@ -422,10 +466,11 @@ const Inventory: React.FC = () => {
                             <Text color={secondary}>Unit Measurment:<Text color={textColor}>{item.unit}</Text></Text>
                             <Text color={secondary}>Package Type:<Text color={textColor}>{item.packageType}</Text></Text>
                             <Text color={secondary}>Cost Per Unit:<Text color={textColor}>{item.costPerUnit}</Text></Text>
-                            <Text color={item.quantity <= item.whenToOrder ? "red" : secondary}>Quantity:<Text color={item.quantity <= item.whenToOrder ? "red" : textColor}
+                            <Text color={item.quantity <= item.whenToOrder ? "red" : secondary}>On-hand Qty:<Text color={item.quantity <= item.whenToOrder ? "red" : textColor}
                             fontSize={item.quantity <= item.whenToOrder ? "2xl" : ""} fontWeight={item.quantity <= item.whenToOrder ? "bold" : ""}>{item.quantity}</Text></Text>
-                            <Text color={item.quantity <= item.whenToOrder ? "red" : secondary}>Re-order:<Text color={item.quantity <= item.whenToOrder ? "red" : textColor}
+                            <Text color={item.quantity <= item.whenToOrder ? "red" : secondary}>Re-order Qty:<Text color={item.quantity <= item.whenToOrder ? "red" : textColor}
                             fontSize={item.quantity <= item.whenToOrder ? "2xl" : ""} fontWeight={item.quantity <= item.whenToOrder ? "bold" : ""}>{item.whenToOrder}</Text></Text>
+                            <Text color={secondary}>Supplier Name:<Text color={textColor}>{item.supplierName}</Text></Text>
                           </Box>
                           <Box mt={2} display={"flex"} flexDirection={"column"}>
                             <CustomButton variant='outlineGreen' title="Edit Item" alt="Edit Item"  onClick={() => editItem(item)}>
@@ -577,6 +622,25 @@ const Inventory: React.FC = () => {
               mb={2}
               borderRadius="0"
             />
+            <FormLabel htmlFor="selectSupplier">Select Supplier</FormLabel>
+            <Box>
+            <FormLabel>Supplier Name</FormLabel>
+            <Menu>
+              <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                {selectedSupplier || "Select a Supplier"}
+              </MenuButton>
+              <MenuList>
+                
+                <MenuItem onClick={() => handleSupplierSelection("")}>Select a Supplier</MenuItem>
+                
+                {supplierNames.map((name) => (
+                  <MenuItem key={name} onClick={() => handleSupplierSelection(name)}>
+                    {name}
+                  </MenuItem>
+                ))}
+              </MenuList>
+            </Menu>
+          </Box>
           </ModalBody>
           <ModalFooter>
             <Button
