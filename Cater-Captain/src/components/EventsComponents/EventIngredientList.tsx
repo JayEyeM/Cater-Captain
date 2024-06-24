@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Box, Input, Stack, Table, Tbody, Td, Th, Thead, Tr, Checkbox,
+  Heading,
 } from '@chakra-ui/react';
 
 import { Ingredient } from '../Interfaces';
@@ -9,6 +10,7 @@ import CustomButton from '../Buttons';
 import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
 
 import { useThemeColors } from '../UseThemeColors';
+import EventInventoryIngredients from './EventInventoryIngredients';
 
 //props for event ingredient list
 interface EventIngredientListProps {
@@ -63,7 +65,47 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
      mb={"10px"}
      zIndex={999}
      color={textColor}
+     display={"flex"} 
+     flexDirection={"row"}
     >
+
+      <Box
+      bg={backgroundColor}
+      outline={"2px solid"}
+      outlineColor={primary}
+      p={4}
+      w={"80%"} h={"100%"} 
+      overflowY={"scroll"} 
+       position={"relative"} m={"auto"}
+       mb={"10px"}
+       zIndex={999}
+       color={textColor}
+      >
+        <Heading as="h2" size="lg" mb={4}>
+          Add Items from Inventory.
+        </Heading>
+
+    <EventInventoryIngredients
+        
+      />
+
+    </Box>
+
+    <Box
+    bg={backgroundColor}
+    outline={"2px solid"}
+    outlineColor={primary}
+    p={4}
+    w={"80%"} h={"100%"} 
+    overflowY={"scroll"} 
+     position={"relative"} m={"auto"}
+     mb={"10px"}
+     zIndex={999}
+     color={textColor}
+    >
+      <Heading as="h2" size="lg" mb={4}>
+          Add Specialty Ingredients.
+        </Heading>
       <Stack spacing={3}>
         <Input
           placeholder="Ingredient Name"
@@ -103,6 +145,8 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
         
       </Stack>
 
+      
+
       <Table variant="simple" mt={5}>
         <Thead>
           <Tr>
@@ -141,6 +185,8 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
           ))}
         </Tbody>
       </Table>
+    </Box>
+
     </Box>
   );
 };
