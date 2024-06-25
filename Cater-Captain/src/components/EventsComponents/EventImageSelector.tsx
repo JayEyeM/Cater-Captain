@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Image, SimpleGrid } from '@chakra-ui/react';
+import { Box, Image, SimpleGrid, Heading } from '@chakra-ui/react';
 import { useThemeColors } from '../UseThemeColors';
 
 
@@ -24,7 +24,7 @@ interface EventImageSelectorProps {
 
 const EventImageSelector: React.FC<EventImageSelectorProps> = ({ onSelectImage }) => {
 
-  const { backgroundColor, primary } = useThemeColors();
+  const { backgroundColor, primary, textColor } = useThemeColors();
 
   return (
     <Box 
@@ -32,15 +32,18 @@ const EventImageSelector: React.FC<EventImageSelectorProps> = ({ onSelectImage }
     outline={"2px solid"}
     outlineColor={primary}
     p={2}
-    w={"80%"} h={"100%"} 
+    w={{ base: "100%", md: "80%" }} h={"100%"} 
     overflowY={"scroll"} 
      position={"relative"} 
      mx={'auto'}
      mb={"10px"}
      mt={"10px"}
      zIndex={999}>
+
+    <Heading mb={4} color={textColor} size="lg" textAlign={"center"}>Event Images</Heading>
+
     <SimpleGrid 
-    columns={3} spacing={5}>
+    columns={{base:2 , md: 3}} spacing={5}>
       {eventTypesImages.map((image, index) => (
         <Box key={index} onClick={() => onSelectImage(image.src)} cursor="pointer">
           <Image src={image.src} alt={image.alt} title={image.title} />

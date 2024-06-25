@@ -28,6 +28,27 @@ import { InventoryItem } from "../components/Interfaces";
 
 
 
+export const useInventoryData = (): [InventoryItem[], React.Dispatch<React.SetStateAction<InventoryItem[]>>] => {
+  const [inventoryData, setInventoryData] = useState<InventoryItem[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const storedData = localStorage.getItem('inventoryItems');
+        if (storedData) {
+          const data = JSON.parse(storedData);
+          setInventoryData(data);
+        }
+      } catch (error) {
+        console.error('Error fetching inventory data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return [inventoryData, setInventoryData];
+};
 
 const Inventory: React.FC = () => {
   const { backgroundColor, primary, textColor, accent, secondary } = useThemeColors();

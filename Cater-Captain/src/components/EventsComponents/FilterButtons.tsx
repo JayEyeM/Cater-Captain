@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack } from '@chakra-ui/react';
+import { SimpleGrid } from '@chakra-ui/react';
 import { Event } from '../Interfaces';
 // import { SolidLightBlueButton } from './Buttons';
 import CustomButton from '../Buttons';
@@ -88,20 +88,12 @@ const FilterButtons: React.FC<FilterButtonsProps> = ({ setFilteredEvents, savedE
   };
 
   return (
-    <Stack display={"flex"} 
-    direction={{ base: "column", md: "row" }} 
-    spacing={0} mt={5} 
-    ml={{ base: "auto", md: "auto" }} 
-    mr={{ base: "auto", md: "auto" }} 
-    w={{base:"60%", md:"auto"}} 
-    css={{
-      "@media (max-width: 767px)": {
-        display: "grid",
-        gridTemplateColumns: "repeat(2, 1fr)",
-        gridTemplateRows: "repeat(3, 1fr)",
-      },
-    }} 
-    >
+    <SimpleGrid columns={{ base: 2, md: 3 }}
+  spacing={0} mt={5} 
+  ml={{ base: "auto", md: "auto" }} 
+  mr={{ base: "auto", md: "auto" }} 
+  w={{base:"auto", md:"auto"}} 
+>
      
       <CustomButton variant="solidBlue" title="Past Events" alt="Past Events" onClick={handlePastEvents}>Past Events</CustomButton>
       <CustomButton variant="solidBlue" title="Today" alt="Today" onClick={handleToday}>Today</CustomButton>
@@ -109,7 +101,7 @@ const FilterButtons: React.FC<FilterButtonsProps> = ({ setFilteredEvents, savedE
       <CustomButton variant="solidBlue" title="This Month" alt="This Month" onClick={handleThisMonth}>This Month</CustomButton>
       <CustomButton variant="solidBlue" title="Next Month" alt="Next Month" onClick={handleNextMonth}>Next Month</CustomButton>
       <CustomButton variant="solidBlue" title="All Events" alt="All Events" onClick={handleAllEvents}>All Events</CustomButton>
-    </Stack>
+    </SimpleGrid>
   );
 };
 

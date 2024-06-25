@@ -58,15 +58,16 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
     <Box
     bg={backgroundColor}
     
+    
     p={4}
-    w={"80%"} h={"100%"} 
+    w={{ base: "100%", md: "80%" }} h={"100%"} 
     
      position={"relative"} m={"auto"}
      mb={"10px"}
      zIndex={999}
      color={textColor}
      display={"flex"} 
-     flexDirection={"row"}
+     flexDirection={{base:"column", md:"row"}}
     >
 
       <Box
@@ -74,7 +75,7 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
       outline={"2px solid"}
       outlineColor={primary}
       p={4}
-      w={"80%"} h={"100%"} 
+      w={{ base: "100%", md: "80%" }} h={"100%"} 
       overflowY={"scroll"} 
        position={"relative"} m={"auto"}
        mb={"10px"}
@@ -96,7 +97,7 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
     outline={"2px solid"}
     outlineColor={primary}
     p={4}
-    w={"80%"} h={"100%"} 
+    w={{ base: "100%", md: "80%" }} h={"100%"} 
     overflowY={"scroll"} 
      position={"relative"} m={"auto"}
      mb={"10px"}
