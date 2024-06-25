@@ -36,6 +36,7 @@ const Inventory: React.FC = () => {
   const [items, setItems] = useState<InventoryItem[]>([]);
   const [currentItem, setCurrentItem] = useState<InventoryItem | null>(null);
   const [itemName, setItemName] = useState("");
+  const [category, setCategory] = useState("");
   const [amountPerUnit, setAmountPerUnit] = useState("");
   const [itemUnit, setItemUnit] = useState("select");
   const [costPerUnit, setCostPerUnit] = useState<number | string>("");
@@ -87,6 +88,7 @@ const Inventory: React.FC = () => {
       const newItem: InventoryItem = {
         id: new Date().getTime().toString(),
         name: itemName,
+        category: category,
         amountPerUnit: parsedAmountPerUnit,
         unit: itemUnit,
         quantity,
@@ -99,6 +101,7 @@ const Inventory: React.FC = () => {
       };
       setItems([...items, newItem]);
       setItemName("");
+      setCategory("");
       setAmountPerUnit("");
       setItemUnit("kg");
       setItemQuantity("");
@@ -114,6 +117,7 @@ const Inventory: React.FC = () => {
   const editItem = (item: InventoryItem) => {
     setCurrentItem(item);
     setItemName(item.name);
+    setCategory(item.category);
     setAmountPerUnit(item.amountPerUnit.toString());
     setItemUnit(item.unit);
     setItemQuantity(item.quantity.toString());
@@ -138,6 +142,7 @@ const Inventory: React.FC = () => {
       const updatedItem = {
         ...currentItem,
         name: itemName,
+        category: category,
         amountPerUnit: parsedAmountPerUnit,
         unit: itemUnit,
         quantity,
@@ -253,8 +258,45 @@ const Inventory: React.FC = () => {
                 borderRadius="0"
               />
             </Box>
+
             <Box>
-              <FormLabel htmlFor="amountPerUnit">Unit Amount</FormLabel>
+              <FormLabel htmlFor="unit">Category</FormLabel>
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  rightIcon={<ChevronDownIcon />}
+                  bg={backgroundColor}
+                  color={textColor}
+                  mb={2}
+                  borderRadius="0"
+                >
+                  {category}
+                </MenuButton>
+                <MenuList bg={backgroundColor} borderRadius={0} outline={"2px solid"} outlineColor={primary}
+                maxH={"200px"} overflow={"auto"} scrollBehavior={"auto"}
+                >
+                <MenuItem onClick={() => setCategory("Cool Storage")}>Cool Storage</MenuItem>
+                <MenuItem onClick={() => setCategory("Freezer")}>Freezer</MenuItem>
+                <MenuItem onClick={() => setCategory("Dry Storage")}>Dry Storage</MenuItem>
+                <MenuItem onClick={() => setCategory("Produce")}>Produce</MenuItem>
+                <MenuItem onClick={() => setCategory("Fruits")}>Fruits</MenuItem>
+                <MenuItem onClick={() => setCategory("Vegetables")}>Vegetables</MenuItem>
+                <MenuItem onClick={() => setCategory("Meat")}>Meat</MenuItem>
+                <MenuItem onClick={() => setCategory("Seafood")}>Seafood</MenuItem>
+                <MenuItem onClick={() => setCategory("Dairy")}>Dairy</MenuItem>
+                <MenuItem onClick={() => setCategory("Frozen")}>Frozen</MenuItem>
+                <MenuItem onClick={() => setCategory("Canned")}>Canned</MenuItem>
+                <MenuItem onClick={() => setCategory("Wine Cellar")}>Wine Cellar</MenuItem>
+                <MenuItem onClick={() => setCategory("Other")}>Other</MenuItem>
+                
+                </MenuList>
+              </Menu>
+            </Box>
+
+
+
+            <Box>
+              <FormLabel htmlFor="amountPerUnit">Amount per Unit</FormLabel>
               <Input
                 id="amountPerUnit"
                 aria-label="Amount per Unit"
@@ -462,6 +504,7 @@ const Inventory: React.FC = () => {
                           
                             <Text color={secondary}>SKU:<Text color={textColor}>{item.sku}</Text></Text>
                             <Text color={secondary}>Name:<Text color={textColor}>{item.name}</Text></Text>
+                            <Text color={secondary}>Category:<Text color={textColor}>{item.category}</Text></Text>
                             <Text color={secondary}>Amount Per Unit:<Text color={textColor}>{item.amountPerUnit}</Text></Text>
                             <Text color={secondary}>Unit Measurment:<Text color={textColor}>{item.unit}</Text></Text>
                             <Text color={secondary}>Package Type:<Text color={textColor}>{item.packageType}</Text></Text>
@@ -526,6 +569,42 @@ const Inventory: React.FC = () => {
               mb={2}
               borderRadius="0"
             />
+
+
+              <FormLabel htmlFor="unit">Category</FormLabel>
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  rightIcon={<ChevronDownIcon />}
+                  bg={backgroundColor}
+                  color={textColor}
+                  mb={2}
+                  borderRadius="0"
+                >
+                  {category}
+                </MenuButton>
+                <MenuList bg={backgroundColor} borderRadius={0} outline={"2px solid"} outlineColor={primary}
+                maxH={"200px"} overflow={"auto"} scrollBehavior={"auto"}
+                >
+                <MenuItem onClick={() => setCategory("Cool Storage")}>Cool Storage</MenuItem>
+                <MenuItem onClick={() => setCategory("Freezer")}>Freezer</MenuItem>
+                <MenuItem onClick={() => setCategory("Dry Storage")}>Dry Storage</MenuItem>
+                <MenuItem onClick={() => setCategory("Produce")}>Produce</MenuItem>
+                <MenuItem onClick={() => setCategory("Fruits")}>Fruits</MenuItem>
+                <MenuItem onClick={() => setCategory("Vegetables")}>Vegetables</MenuItem>
+                <MenuItem onClick={() => setCategory("Meat")}>Meat</MenuItem>
+                <MenuItem onClick={() => setCategory("Seafood")}>Seafood</MenuItem>
+                <MenuItem onClick={() => setCategory("Dairy")}>Dairy</MenuItem>
+                <MenuItem onClick={() => setCategory("Frozen")}>Frozen</MenuItem>
+                <MenuItem onClick={() => setCategory("Canned")}>Canned</MenuItem>
+                <MenuItem onClick={() => setCategory("Wine Cellar")}>Wine Cellar</MenuItem>
+                <MenuItem onClick={() => setCategory("Other")}>Other</MenuItem>
+                
+                </MenuList>
+              </Menu>
+            
+
+
             <FormLabel htmlFor="amountPerUnitEdit">Unit Amount</FormLabel>
             <Input
               id="amountPerUnitEdit"
