@@ -78,9 +78,10 @@ export interface SortEvents {
 export interface Ingredient {
   name: string;
   units: string;
-  quantity: number;
+  quantity: string;
   onHand: boolean;
   needToOrder: boolean;
+  costPerUnit: string;
 }
 
 //create interface for Notes
@@ -98,6 +99,7 @@ export interface Pricing {
 export interface InventoryItem {
     id: string;
     name: string;
+    category: string;
     amountPerUnit: number;
     unit: string;
     quantity: number;

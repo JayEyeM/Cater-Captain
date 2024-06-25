@@ -11,16 +11,24 @@ import {
   InputLeftElement,
   IconButton,
   Spacer,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
 } from '@chakra-ui/react';
-import { SearchIcon, EditIcon, DeleteIcon } from '@chakra-ui/icons';
+import { ChevronDownIcon, EditIcon, DeleteIcon } from '@chakra-ui/icons';
 import { InventoryItem } from '../Interfaces';
+import { useThemeColors } from '../UseThemeColors';
+import CustomButton from '../Buttons';
 
 const EventInventoryIngredients: React.FC = () => {
   const [inventory, setInventory] = useState<InventoryItem[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedItem, setSelectedItem] = useState<InventoryItem | null>(null);
   const [quantity, setQuantity] = useState('');
   const [ingredientList, setIngredientList] = useState<{ item: InventoryItem; quantity: number }[]>([]);
+
+  const { backgroundColor, primary, textColor, accent, secondary } = useThemeColors();
 
   // Fetch inventory items from localStorage on component mount
   useEffect(() => {
@@ -77,25 +85,44 @@ const EventInventoryIngredients: React.FC = () => {
     setIngredientList(updatedList);
   };
 
+  // List of categories
+  const categories = [
+    "Cool Storage",
+    "Freezer",
+    "Dry Storage",
+    "Produce",
+    "Fruits",
+    "Vegetables",
+    "Meat",
+    "Seafood",
+    "Dairy",
+    "Frozen",
+    "Canned",
+    "Wine Cellar",
+    "Other"
+  ];
+
   return (
     <Box p={4}>
-      {/* Search input */}
-      <InputGroup mb={4}>
-        <InputLeftElement pointerEvents="none">
-          <SearchIcon color="gray.300" />
-        </InputLeftElement>
-        <Input
-          type="text"
-          placeholder="Search by name or supplier..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </InputGroup>
+      {/* Category dropdown */}
+      <Menu>
+        <MenuButton bg={backgroundColor} color={textColor} outlineColor={primary} as={Button} rightIcon={<ChevronDownIcon />} mb={4}
+         w={"65%"} borderRadius="0" >
+          {selectedCategory || "Select Category"}
+        </MenuButton>
+        <MenuList bg={backgroundColor} borderColor={primary} color={textColor} borderRadius={0} outline={"2px solid"} outlineColor={primary}
+        h={"200px"} overflow={"auto"} scrollBehavior={"auto"}>
+          {categories.map((category) => (
+            <MenuItem bg={backgroundColor} key={category} onClick={() => setSelectedCategory(category)}>
+              {category}
+            </MenuItem>
+          ))}
+        </MenuList>
+      </Menu>
 
       {/* Dropdown to select inventory item */}
       <Select
-      title='Select item'
-      
+        title='Select item'
         mb={4}
         placeholder="Select item"
         value={selectedItem ? selectedItem.id.toString() : ''}
@@ -108,7 +135,7 @@ const EventInventoryIngredients: React.FC = () => {
         }}
       >
         {inventory
-          .filter((item) => item.name.toLowerCase().includes(searchTerm.toLowerCase()))
+          .filter((item) => item.category === selectedCategory)
           .map((item) => (
             <option key={item.id} value={item.id}>
               {item.name} ({item.supplierName})
@@ -119,9 +146,10 @@ const EventInventoryIngredients: React.FC = () => {
       {/* Display unit measurement and package type */}
       {selectedItem && (
         <Box mb={4}>
-          <Text fontSize="sm">Unit: {selectedItem.unit}</Text>
-          <Text fontSize="sm">Package Type: {selectedItem.packageType}</Text>
-        </Box>
+          <Text fontSize="sm" color={textColor}>This item costs <Text fontSize={"md"} as={"span"} color={primary}>${selectedItem.costPerUnit}</Text></Text>
+          <Text fontSize="sm" color={textColor}>per <Text fontSize={"md"} as={"span"} color={primary}>{selectedItem.amountPerUnit} {selectedItem.unit} {selectedItem.packageType}</Text> </Text>
+          
+          </Box>
       )}
 
       {/* Input for quantity */}
@@ -144,13 +172,15 @@ const EventInventoryIngredients: React.FC = () => {
         {ingredientList.map((ingredient, index) => (
           <ListItem key={index} borderBottom="1px solid #ddd" py={2}>
             <Box>
-              <Text>{ingredient.item.name}</Text>
-              <Text fontSize="sm">Supplier: {ingredient.item.supplierName}</Text>
-              <Text fontSize="sm">
-                Quantity: {ingredient.quantity} {ingredient.item.unit}
+              <Text color={textColor}>{ingredient.item.name}</Text>
+              <Text fontSize="sm" color={secondary}>Supplier: <Text as={"span"} color={textColor}>{ingredient.item.supplierName} </Text></Text>
+              <Text fontSize="sm" color={secondary}>
+                Quantity Needed: 
+                <Text as={"span"} color={textColor}> {ingredient.quantity} ({ingredient.item.amountPerUnit} {ingredient.item.unit} {ingredient.item.packageType}) </Text>
               </Text>
-              <Text fontSize="sm">
-                Cost: ${calculateCost(ingredient.item, ingredient.quantity).toFixed(2)}
+              <Text fontSize="sm" color={secondary}>
+                Cost:  
+                <Text as={"span"} color={textColor}> ${calculateCost(ingredient.item, ingredient.quantity).toFixed(2)} </Text>
               </Text>
             </Box>
             <Spacer />
@@ -178,7 +208,7 @@ const EventInventoryIngredients: React.FC = () => {
 
       {/* Total cost */}
       <Box mt={4}>
-        <Text fontWeight="bold">Total Cost: ${calculateTotalCost().toFixed(2)}</Text>
+        <Text fontWeight="bold" color={accent}>Total Cost: <Text as={"span"} color={textColor}> ${calculateTotalCost().toFixed(2)} </Text></Text>
       </Box>
     </Box>
   );

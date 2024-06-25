@@ -31,9 +31,10 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
   const [newIngredient, setNewIngredient] = React.useState<Ingredient>({
     name: '',
     units: '',
-    quantity: 0,
+    quantity: '',
     onHand: false,
     needToOrder: false,
+    costPerUnit: "",
   });
 
   //handle input change for event ingredient list
@@ -48,7 +49,7 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
   //handle add ingredient for event ingredient list
   const handleAddIngredient = () => {
     onAddIngredient(newIngredient);
-    setNewIngredient({ name: '', units: '', quantity: 0, onHand: false, needToOrder: false });
+    setNewIngredient({ name: '', units: '', quantity: '', onHand: false, needToOrder: false, costPerUnit: "" });
   };
 
  const { primary, backgroundColor, textColor } = useThemeColors();
@@ -56,11 +57,10 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
   return (
     <Box
     bg={backgroundColor}
-    outline={"2px solid"}
-    outlineColor={primary}
+    
     p={4}
     w={"80%"} h={"100%"} 
-    overflowY={"scroll"} 
+    
      position={"relative"} m={"auto"}
      mb={"10px"}
      zIndex={999}
@@ -140,6 +140,13 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
         >
           Need to Order
         </Checkbox>
+        <Input
+          placeholder="Cost Per Unit (00.00)"
+          name="costPerUnit"
+          type="number"
+          value={newIngredient.costPerUnit}
+          onChange={handleInputChange}
+        />
         
         <CustomButton variant="solidBlue" title="Add Ingredient" alt="Add Ingredient" onClick={handleAddIngredient}><AddIcon /></CustomButton>
         
