@@ -1,7 +1,7 @@
 import React from "react";
 import { useThemeColors } from "../UseThemeColors";
 import CustomButton from "../Buttons";
-import { Box, Input, Stack, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import { Box, Heading, Input, Stack, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import { AddIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { Pricing } from "../Interfaces";
 
@@ -62,7 +62,7 @@ const EventPricing: React.FC<PricingProps> = ({
       outline={"2px solid"}
       outlineColor={primary}
       p={4}
-      w={"80%"}
+      w={{ base: "100%", md: "80%" }}
       h={"100%"}
       overflowY={"scroll"}
       position={"relative"}
@@ -71,6 +71,7 @@ const EventPricing: React.FC<PricingProps> = ({
       zIndex={999}
       color={textColor}
     >
+      <Heading mb={4} color={textColor} size="lg" textAlign={"center"}>Pricing</Heading>
       <Stack spacing={3}>
         <Input
           placeholder="Pricing Name"

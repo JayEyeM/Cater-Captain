@@ -8,35 +8,29 @@ import {
   List,
   ListItem,
   InputGroup,
-  InputLeftElement,
-  IconButton,
   Spacer,
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
 } from '@chakra-ui/react';
-import { ChevronDownIcon, EditIcon, DeleteIcon } from '@chakra-ui/icons';
+import { ChevronDownIcon, EditIcon, DeleteIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { InventoryItem } from '../Interfaces';
 import { useThemeColors } from '../UseThemeColors';
 import CustomButton from '../Buttons';
+import ClosableBox from '../GeneralUtilities/ClosableBox';
+import { useInventoryData } from '../../pages/Inventory';
 
 const EventInventoryIngredients: React.FC = () => {
-  const [inventory, setInventory] = useState<InventoryItem[]>([]);
+  const [inventory] = useInventoryData();
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedItem, setSelectedItem] = useState<InventoryItem | null>(null);
   const [quantity, setQuantity] = useState('');
   const [ingredientList, setIngredientList] = useState<{ item: InventoryItem; quantity: number }[]>([]);
 
-  const { backgroundColor, primary, textColor, accent, secondary } = useThemeColors();
+  const [visibleDetails, setVisibleDetails] = useState<{ [key: string]: boolean }>({});
 
-  // Fetch inventory items from localStorage on component mount
-  useEffect(() => {
-    const storedInventory = localStorage.getItem('inventoryItems');
-    if (storedInventory) {
-      setInventory(JSON.parse(storedInventory));
-    }
-  }, []);
+  const { backgroundColor, primary, textColor, accent, secondary } = useThemeColors();
 
   // Load ingredientList from localStorage on component mount
   useEffect(() => {
@@ -85,6 +79,13 @@ const EventInventoryIngredients: React.FC = () => {
     setIngredientList(updatedList);
   };
 
+  const toggleDetails = (itemId: string) => {
+    setVisibleDetails(prevState => ({
+      ...prevState,
+      [itemId]: !prevState[itemId]
+    }));
+  };
+
   // List of categories
   const categories = [
     "Cool Storage",
@@ -102,16 +103,20 @@ const EventInventoryIngredients: React.FC = () => {
     "Other"
   ];
 
+  
+  useEffect(() => {
+    console.log("Inventory Data: ", inventory);
+    console.log("Selected Category: ", selectedCategory);
+  }, [inventory, selectedCategory]);
+
   return (
     <Box p={4}>
       {/* Category dropdown */}
       <Menu>
-        <MenuButton bg={backgroundColor} color={textColor} outlineColor={primary} as={Button} rightIcon={<ChevronDownIcon />} mb={4}
-         w={"65%"} borderRadius="0" >
+        <MenuButton bg={backgroundColor} color={textColor} outlineColor={primary} as={Button} rightIcon={<ChevronDownIcon />} mb={4} w={"65%"} borderRadius="0" >
           {selectedCategory || "Select Category"}
         </MenuButton>
-        <MenuList bg={backgroundColor} borderColor={primary} color={textColor} borderRadius={0} outline={"2px solid"} outlineColor={primary}
-        h={"200px"} overflow={"auto"} scrollBehavior={"auto"}>
+        <MenuList bg={backgroundColor} borderColor={primary} color={textColor} borderRadius={0} outline={"2px solid"} outlineColor={primary} h={"200px"} overflow={"auto"} scrollBehavior={"auto"}>
           {categories.map((category) => (
             <MenuItem bg={backgroundColor} key={category} onClick={() => setSelectedCategory(category)}>
               {category}
@@ -123,6 +128,7 @@ const EventInventoryIngredients: React.FC = () => {
       {/* Dropdown to select inventory item */}
       <Select
         title='Select item'
+        aria-label='Select item'
         mb={4}
         placeholder="Select item"
         value={selectedItem ? selectedItem.id.toString() : ''}
@@ -148,8 +154,7 @@ const EventInventoryIngredients: React.FC = () => {
         <Box mb={4}>
           <Text fontSize="sm" color={textColor}>This item costs <Text fontSize={"md"} as={"span"} color={primary}>${selectedItem.costPerUnit}</Text></Text>
           <Text fontSize="sm" color={textColor}>per <Text fontSize={"md"} as={"span"} color={primary}>{selectedItem.amountPerUnit} {selectedItem.unit} {selectedItem.packageType}</Text> </Text>
-          
-          </Box>
+        </Box>
       )}
 
       {/* Input for quantity */}
@@ -163,45 +168,56 @@ const EventInventoryIngredients: React.FC = () => {
       </InputGroup>
 
       {/* Button to add ingredient */}
-      <Button colorScheme="blue" mb={4} onClick={handleAddIngredient}>
+      <CustomButton variant='solidGreen' title='Add Ingredient' alt='Add Ingredient' mb={4} onClick={handleAddIngredient}>
         Add Ingredient
-      </Button>
+      </CustomButton>
 
       {/* List of ingredients */}
       <List spacing={3}>
         {ingredientList.map((ingredient, index) => (
           <ListItem key={index} borderBottom="1px solid #ddd" py={2}>
-            <Box>
+            <Box display={"flex"} justifyContent={"space-between"}>
               <Text color={textColor}>{ingredient.item.name}</Text>
-              <Text fontSize="sm" color={secondary}>Supplier: <Text as={"span"} color={textColor}>{ingredient.item.supplierName} </Text></Text>
-              <Text fontSize="sm" color={secondary}>
-                Quantity Needed: 
-                <Text as={"span"} color={textColor}> {ingredient.quantity} ({ingredient.item.amountPerUnit} {ingredient.item.unit} {ingredient.item.packageType}) </Text>
-              </Text>
-              <Text fontSize="sm" color={secondary}>
-                Cost:  
-                <Text as={"span"} color={textColor}> ${calculateCost(ingredient.item, ingredient.quantity).toFixed(2)} </Text>
-              </Text>
+              <Text color={textColor}> {ingredient.quantity * ingredient.item.amountPerUnit} {ingredient.item.unit}</Text>
+
+              <CustomButton
+                variant="outlineGreen"
+                title="View Details"
+                alt="View Details"
+                onClick={() => toggleDetails(ingredient.item.id.toString())}
+              >
+                {visibleDetails[ingredient.item.id.toString()] ? <ViewIcon /> : <ViewOffIcon />}
+              </CustomButton>
             </Box>
-            <Spacer />
-            <Box>
-              <IconButton
-                icon={<EditIcon />}
-                aria-label="Edit"
-                onClick={() => {
+
+            <ClosableBox isOpen={visibleDetails[ingredient.item.id.toString()] || false} onClose={() => toggleDetails(ingredient.item.id.toString())}>
+              <Box>
+                <Text fontSize="sm" color={secondary}>Supplier: <Text as={"span"} color={textColor}>{ingredient.item.supplierName} </Text></Text>
+                <Text fontSize="sm" color={secondary}>
+                  Quantity Needed: 
+                  <Text as={"span"} color={textColor}> {ingredient.quantity} ({ingredient.item.amountPerUnit} {ingredient.item.unit} {ingredient.item.packageType}) = {ingredient.quantity * ingredient.item.amountPerUnit} {ingredient.item.unit} </Text>
+                </Text>
+                <Text fontSize="sm" color={secondary}>
+                  Cost:  
+                  <Text as={"span"} color={textColor}> ${calculateCost(ingredient.item, ingredient.quantity).toFixed(2)} </Text>
+                </Text>
+              </Box>
+              <Spacer />
+              <Box>
+                <CustomButton variant='outlineGreen' title='Edit Quantity' alt='Edit Quantity' onClick={() => {
                   const newQty = prompt('Enter new quantity', ingredient.quantity.toString());
                   if (newQty !== null && newQty !== '') {
                     handleEditQuantity(index, parseFloat(newQty));
                   }
-                }}
-                mr={2}
-              />
-              <IconButton
-                icon={<DeleteIcon />}
-                aria-label="Delete"
-                onClick={() => handleDeleteIngredient(index)}
-              />
-            </Box>
+                }}>
+                  <EditIcon />
+                </CustomButton>
+
+                <CustomButton variant='outlineRed' title='Delete Ingredient' alt='Delete Ingredient' onClick={() => handleDeleteIngredient(index)}>
+                  <DeleteIcon />
+                </CustomButton>
+              </Box>
+            </ClosableBox>
           </ListItem>
         ))}
       </List>

@@ -8,6 +8,7 @@ import {
     
     Input,
     Box,
+    Heading,
     
   } from "@chakra-ui/react";
   
@@ -57,14 +58,14 @@ const EventNotes: React.FC<EventNotesProps> = ({ notes, onAddNote, onDeleteNote 
     outline={"2px solid"}
     outlineColor={primary}
     p={6}
-    w={"80%"} h={"100%"} 
+    w={{ base: "100%", md: "80%" }} h={"100%"} 
     overflowY={"scroll"} 
      position={"relative"} 
      mx={'auto'}
      mb={"10px"}
      zIndex={999}
     >
-   
+   <Heading mb={4} color={textColor} size="lg" textAlign={"center"}>Notes</Heading>
    
       <Box display="flex" flexDirection={{ base: 'column', md: 'row' }} gap={4}>
         <Input bg={backgroundColor} outline={"1px solid"} outlineColor={secondary} color={textColor} w={"100%"} borderRadius="md" 

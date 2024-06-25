@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Box, Input, Stack, Table, Tbody, Td, Th, Thead, Tr,
+  Box, Heading, Input, Stack, Table, Tbody, Td, Th, Thead, Tr,
 } from '@chakra-ui/react';
 // import { SolidLightBlueButton, SolidLightRedButton } from './Buttons';
 import CustomButton from '../Buttons';
@@ -40,7 +40,7 @@ const EventMenu: React.FC<EventMenuProps> = ({
     outline={"2px solid"}
     outlineColor={primary}
     p={2}
-    w={"80%"} h={"100%"} 
+    w={{ base: '100%', md: '80%'}} h={"100%"} 
     overflowY={"scroll"} 
      position={"relative"} 
      mx={"auto"}
@@ -48,6 +48,7 @@ const EventMenu: React.FC<EventMenuProps> = ({
      zIndex={999}
      color={textColor}
     >
+      <Heading mb={4} color={textColor} size="lg" textAlign={"center"}>Menu</Heading>
       <Stack spacing={3}>
         <Input
           placeholder="Menu Item"
