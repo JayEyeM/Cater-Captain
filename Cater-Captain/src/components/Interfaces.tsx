@@ -108,4 +108,5 @@ export interface InventoryItem {
     sku: string;
     packageType: string;
     supplierName: string;
+    
   }
