@@ -109,7 +109,7 @@ const Inventory: React.FC = () => {
       const newItem: InventoryItem = {
         id: new Date().getTime().toString(),
         name: itemName,
-        category: category,
+        
         amountPerUnit: parsedAmountPerUnit,
         unit: itemUnit,
         quantity,
@@ -118,11 +118,12 @@ const Inventory: React.FC = () => {
         sku: itemSku,
         packageType,
         supplierName: selectedSupplier || supplierNames[0] || "",
+        category: category,
         
       };
       setItems([...items, newItem]);
       setItemName("");
-      setCategory("");
+      
       setAmountPerUnit("");
       setItemUnit("kg");
       setItemQuantity("");
@@ -131,6 +132,7 @@ const Inventory: React.FC = () => {
       setItemSku("");
       setPackageType("box");
       setSelectedSupplier(newItem.supplierName || supplierNames[0] || "");
+      setCategory("");
       
     }
   };
@@ -138,7 +140,7 @@ const Inventory: React.FC = () => {
   const editItem = (item: InventoryItem) => {
     setCurrentItem(item);
     setItemName(item.name);
-    setCategory(item.category);
+    
     setAmountPerUnit(item.amountPerUnit.toString());
     setItemUnit(item.unit);
     setItemQuantity(item.quantity.toString());
@@ -147,6 +149,7 @@ const Inventory: React.FC = () => {
     setItemSku(item.sku);
     setPackageType(item.packageType);
     setSelectedSupplier(item.supplierName || supplierNames[0] || "");
+    setCategory(item.category);
     onOpen();
   };
 
@@ -163,7 +166,7 @@ const Inventory: React.FC = () => {
       const updatedItem = {
         ...currentItem,
         name: itemName,
-        category: category,
+        
         amountPerUnit: parsedAmountPerUnit,
         unit: itemUnit,
         quantity,
@@ -172,6 +175,7 @@ const Inventory: React.FC = () => {
         sku: itemSku,
         packageType,
         supplierName: selectedSupplier || "",
+        category: category,
       };
       const newItems = items.map((item) =>
         item.id === currentItem.id ? updatedItem : item
