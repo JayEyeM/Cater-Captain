@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import './NavBar.css'; 
-import { Box, Heading, Menu, MenuButton, MenuList, MenuItem, Image } from '@chakra-ui/react';
+import { Box, Heading, Menu, MenuButton, MenuList, MenuItem, Image, SimpleGrid } from '@chakra-ui/react';
 
 
 import ToggleColorModeButton from './ToggleColorModeButton';
@@ -38,9 +38,9 @@ export default function NavBar() {
                 title="Menu"
                 alt="Menu"
                 _hover={{ bg: primary, color: backgroundColor }}
-                
+                style={{ display: "grid", placeItems: "center" }}
                 >
-                    <HamburgerIcon w={5} h={5} mx="auto" />
+                    <HamburgerIcon w={5} h={5}  />
                     
                 </CustomButton>
 
@@ -56,6 +56,7 @@ export default function NavBar() {
                     borderRadius={0}
                 /> */}
                 <MenuList bg={backgroundColor} outline={"2px solid"} p={2} outlineColor={primary} borderRadius={0}>
+                    <SimpleGrid columns={{ base: 1, md: 2 }} spacing={3} p={4} ml={{ base: "auto", md: "auto" }} mr={{ base: "auto", md: "auto" }} w={{ base: "auto", md: "auto" }} h={"auto"}  overflow={"auto"} scrollBehavior={"auto"}>
                     <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/')}>
                         Home
                     </MenuItem>
@@ -74,9 +75,12 @@ export default function NavBar() {
                     <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/SupplierManagement')}>
                         Supplier Management
                     </MenuItem>
-                    <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/sign-out')}>
+                    
+                    <MenuItem bg={backgroundColor} borderRadius={0}  gridColumn="2"
+                    gridRow="4" onClick={() => handleNavigation('/sign-out')}>
                         Sign Out
                     </MenuItem>
+                    </SimpleGrid>
                 </MenuList>
             </Menu>
         </Box>

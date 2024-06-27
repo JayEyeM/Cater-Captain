@@ -392,7 +392,7 @@ const toggleImages = (eventId: number) => {
           {visibleToolKit[event.id] && (
           <ClosableBox bg={backgroundColor} outline={"2px solid"} outlineColor={primary} p={4} w={{ base: '80%', md: '90%' }} h={"90%"} overflowY={"scroll"} position={"fixed"} left={'5%'} top={'5%'} zIndex={999}
           isOpen={visibleToolKit[event.id]} onClose={() => handleToolKitClose(event.id)}>
-          <SimpleGrid columns={{ base: 2, md: 5 }} spacing={{ base: 0, md: 0 }} w={{ base: '100%', md: '50%' }} m="auto" >
+          <SimpleGrid columns={{ base: 2, md: 5 }} spacing={{ base: 0, md: 0 }} w={{ base: '100%', md: '50%' }} m="auto" mt={{ base: "10%", md: 0 }} >
           <CustomButton variant="solidGreen" title="Choose Event Image" onClick={() => toggleImages(event.id)} rightIcon={<ImageIcon />}>
                 {visibleImages[event.id] ? <ViewIcon /> : <ViewOffIcon />}
               </CustomButton>

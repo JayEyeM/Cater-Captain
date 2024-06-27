@@ -63,8 +63,7 @@ const styles = buttonStyles[variant];
     <Button
       {...styles}
       margin="5px 5px"
-      paddingTop={"20px"}
-      paddingBottom={"20px"}
+      p={"auto"}
       borderRadius={0}
       {...props}
     >
