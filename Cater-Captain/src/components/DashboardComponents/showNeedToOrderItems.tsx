@@ -75,6 +75,8 @@ const ShowNeedToOrderItems: React.FC = () => {
         });
     };
 
+    const setStyles = (condition: boolean, trueValue: any, falseValue: any) => (condition ? trueValue : falseValue);
+
     return (
         <Box
             bg={backgroundColor}
@@ -136,75 +138,69 @@ const ShowNeedToOrderItems: React.FC = () => {
                 outline={"2px solid"}
                 outlineColor={secondary}
             >
-                {needToOrderItems.map((item) => (
-                    <Box 
-                        key={item.id}
-                        bg={selectedItems.some(selected => selected.id === item.id && selected.orderPlaced) ? primary : backgroundColor}
-                        outline={selectedItems.some(selected => selected.id === item.id && selected.orderPlaced) ? "2px solid" : "4px solid"}
-                        outlineColor={selectedItems.some(selected => selected.id === item.id && selected.orderPlaced) ? primary : accent}
-                        p={2}
-                        w={{ base: "100%", md: "100%" }}
-                        h={"100%"}
-                        position={"relative"}
-                        mx={"auto"}
-                        mb={"10px"}
-                        mt={"10px"}
-                    >
-                      <Text
-                        color={textColor}
-                        fontSize={"2xl"}
-                        fontWeight="bold"
-                    >
-                        {item.name}
-                        
-                    </Text>
-                    <Text as="span" display="inline" mb={0} color={accent} fontSize="sm">
-                            ${item.costPerUnit} per {item.amountPerUnit} {item.unit} {item.packageType}
-                        </Text>
-                        
-                        <Text
-                           
-                            color={textColor}
-                            fontSize={"lg"}
+                {needToOrderItems.map((item) => {
+                    const isSelected = selectedItems.some(selected => selected.id === item.id && selected.orderPlaced);
+                    return (
+                        <Box 
+                            key={item.id}
+                            bg={setStyles(isSelected, secondary, backgroundColor)}
+                            outline={setStyles(isSelected, "2px solid", "4px solid")}
+                            outlineColor={setStyles(isSelected, secondary, accent)}
+                            p={2}
+                            w={{ base: "100%", md: "100%" }}
+                            h={"100%"}
+                            position={"relative"}
+                            mx={"auto"}
+                            mb={"10px"}
+                            mt={"10px"}
                         >
-                           <Text as={"b"} color={secondary}> SKU:</Text> {item.sku}
-                        </Text>
-                        <Text
-                            
-                            color={textColor}
-                            fontSize={"lg"}
-                        >
-                            <Text as={"b"} color={secondary}> Supplier:</Text> {item.supplierName}
-                        </Text>
-                        <Text
-                        
-                        color={textColor}
-                        fontSize={"lg"}
-                        >
-                        
-                        <Text as={"b"} color={textColor}> {suppliers.find((supplier) => supplier.supplierName === item.supplierName)?.email || ""}</Text>
-                        
-                        </Text>
-                        <Text
-                        
-                        color={textColor}
-                        fontSize={"lg"}
-                        >
-                            <Text as={"b"} color={textColor}> {suppliers.find((supplier) => supplier.supplierName === item.supplierName)?.phone || ""}</Text>
-                        </Text>
-                       <Box display={"flex"} justifyContent={"center"} mt={2}>
-                        <Checkbox 
-                        size="lg"
-                        colorScheme="green"
-                        isChecked={selectedItems.some(selected => selected.id === item.id && selected.orderPlaced)}
-                        onChange={() => handleCheckboxChange(item.id)}
-                        >
-                        Order placed
-                    </Checkbox>
-                    </Box>
-                                        
-                    </Box>
-                ))}
+                            <Text
+                               color={setStyles(isSelected, backgroundColor, textColor)}
+                                fontSize={"2xl"}
+                                fontWeight="bold"
+                            >
+                                {item.name}
+                            </Text>
+                            <Text as="span" display="inline" mb={0} color={setStyles(isSelected, secondary, accent)} 
+                            fontSize="sm">
+                                ${item.costPerUnit} per {item.amountPerUnit} {item.unit} {item.packageType}
+                            </Text>
+                            <Text color={setStyles(isSelected, secondary, textColor)} fontSize={"lg"}>
+                                <Text as={"b"} color={setStyles(isSelected, secondary, accent)}> SKU:</Text> {item.sku}
+                            </Text>
+                            <Text color={setStyles(isSelected, secondary, textColor)} fontSize={"lg"}>
+                                <Text as={"b"} color={setStyles(isSelected, secondary, accent)}> Supplier:</Text> {item.supplierName}
+                            </Text>
+                            <Text color={setStyles(isSelected, secondary, textColor)} fontSize={"lg"}>
+                                <Text as={"b"} color={setStyles(isSelected, secondary, textColor)}> {suppliers.find((supplier) => supplier.supplierName === item.supplierName)?.email || ""}</Text>
+                            </Text>
+                            <Text color={setStyles(isSelected, secondary, textColor)} fontSize={"lg"}>
+                                <Text as={"b"} color={setStyles(isSelected, secondary, textColor)}> {suppliers.find((supplier) => supplier.supplierName === item.supplierName)?.phone || ""}</Text>
+                            </Text>
+                            <Box display={"flex"} justifyContent={"center"} mt={2}>
+                                <Checkbox 
+                                    color={setStyles(isSelected, backgroundColor, textColor)}
+                                    size="lg"
+                                    colorScheme={setStyles(isSelected, backgroundColor, textColor)}
+                                    isChecked={isSelected}
+                                    onChange={() => handleCheckboxChange(item.id)}
+                                    sx={{
+                                        '& .chakra-checkbox__control': {
+                                            borderColor: accent,
+                                            
+                                        },
+                                        '& .chakra-checkbox__control[data-checked]': {
+                                            borderColor: backgroundColor,
+                                            backgroundColor: secondary
+                                        }
+                                    }}
+                                >
+                                    Order placed
+                                </Checkbox>
+                            </Box>
+                        </Box>
+                    );
+                })}
             </SimpleGrid>
         </Box>
     );

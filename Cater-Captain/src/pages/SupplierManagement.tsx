@@ -15,7 +15,10 @@ const SupplierManagement: React.FC = () => {
             Supplier Management
           </Heading>
         </Box>
+        <Box w={"100%"} display={"flex"} justifyContent={"center"} flexDir={"column"} alignItems={"center"} bg={backgroundColor}>
         <SupplierCards />
+
+        </Box>
 
       </Box>
     );

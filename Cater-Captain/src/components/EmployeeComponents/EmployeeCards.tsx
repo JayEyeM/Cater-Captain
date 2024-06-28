@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useThemeColors } from '../UseThemeColors';
-import { Card, CardHeader, CardBody, CardFooter, Heading, Text, Box, Stack } from '@chakra-ui/react';
+import { Card, CardHeader, CardBody, CardFooter, Heading, Text, Box, Stack, SimpleGrid } from '@chakra-ui/react';
 import CustomButton from '../Buttons';
 import EmployeeForm from './EmployeeForm';
+
 
 interface EmployeeCardProps {
     firstName: string;
@@ -18,18 +19,28 @@ interface EmployeeCardProps {
 }
 
 const EmployeeCard: React.FC<EmployeeCardProps> = ({ firstName, lastName, email, role, phone, fullTimePartTime, department, startDate, onEdit, onDelete }) => {
+  const { backgroundColor, primary, textColor, secondary, accent } = useThemeColors();
+  
   return (
-    <Card>
+    <Card
+    bg={backgroundColor}
+    color={textColor}
+    outline={"2px solid"}
+    outlineColor={primary}
+    borderRadius="0"
+    >
       <CardHeader>
         <Heading size='md'>{`${firstName} ${lastName}`}</Heading>
       </CardHeader>
       <CardBody>
+      <SimpleGrid columns={{ base: 1, md: 3}} spacing={2}>
         <Text>Email: {email}</Text>
         <Text>Role: {role}</Text>
         <Text>Phone: {phone}</Text>
         <Text>Status: {fullTimePartTime}</Text>
         <Text>Department: {department}</Text>
         <Text>Start Date: {startDate}</Text>
+        </SimpleGrid>
       </CardBody>
       <CardFooter>
         <CustomButton variant='solidBlue' title="Edit" alt="Edit" onClick={onEdit}>

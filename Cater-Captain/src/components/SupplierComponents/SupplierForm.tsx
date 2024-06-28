@@ -75,7 +75,7 @@ const SupplierForm: React.FC<SupplierFormProps> = ({ onFormSubmit, onCancel, ini
   };
 
   return (
-    <Box bg={backgroundColor} p={4} w={"80%"} display={"flex"} flexDirection={"column"}
+    <Box bg={backgroundColor} p={4} w={"100%"} display={"flex"} flexDirection={"column"}
       outline={"2px solid"} outlineColor={primary} borderRadius={0} mx={"auto"} mb={4} mt={4}>
       <form onSubmit={handleSubmit}>
         <FormControl>
