@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useThemeColors } from '../UseThemeColors';
-import { Card, CardHeader, CardBody, CardFooter, Heading, Text, Box, Stack } from '@chakra-ui/react';
+import { Card, CardHeader, CardBody, CardFooter, Heading, Text, Box, Stack, SimpleGrid } from '@chakra-ui/react';
 import CustomButton from '../Buttons';
 import SupplierForm from './SupplierForm';
 
@@ -16,13 +16,24 @@ interface SupplierCardProps {
     onDelete: () => void;
 }
 
+
+
 const SupplierCard: React.FC<SupplierCardProps> = ({ supplierID, supplierName, email, phone, contractStatus, startDate, endDate, onEdit, onDelete }) => {
+  const { backgroundColor, primary, textColor, secondary, accent } = useThemeColors();
+  
   return (
-    <Card>
+    <Card 
+    bg={backgroundColor}
+    color={textColor}
+    outline={"2px solid"}
+    outlineColor={primary}
+    borderRadius="0"
+    >
       <CardHeader>
-        <Heading size='md'>{`${supplierName} - ${contractStatus}`}</Heading>
+        <Heading size='lg'>{`${supplierName} - ${contractStatus}`} contract</Heading>
       </CardHeader>
       <CardBody>
+        <SimpleGrid columns={{ base: 1, md: 3}} spacing={2}>
         <Text>Supplier ID: {supplierID}</Text>
         <Text>Supplier Name: {supplierName}</Text>
         <Text>Email: {email}</Text>
@@ -30,9 +41,10 @@ const SupplierCard: React.FC<SupplierCardProps> = ({ supplierID, supplierName, e
         <Text>Contract Status: {contractStatus}</Text>
         <Text>Start Date: {startDate}</Text>
         <Text>End Date: {endDate}</Text>
+        </SimpleGrid>
       </CardBody>
       <CardFooter>
-        <CustomButton variant='solidBlue' title="Edit" alt="Edit" onClick={onEdit}>
+        <CustomButton variant='solidGreen' title="Edit" alt="Edit" onClick={onEdit}>
           Edit
         </CustomButton>
         <CustomButton variant='outlineRed' title="Delete" alt="Delete" onClick={onDelete}>

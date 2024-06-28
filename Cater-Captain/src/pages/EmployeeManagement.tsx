@@ -14,7 +14,10 @@ const EmployeeManagement: React.FC = () => {
           Employee Management
         </Heading>
       </Box>
+      <Box w={"100%"} display={"flex"} justifyContent={"center"} flexDir={"column"} alignItems={"center"} bg={backgroundColor}>
       <EmployeeCards />
+
+      </Box>
     </Box>
   );
 };
