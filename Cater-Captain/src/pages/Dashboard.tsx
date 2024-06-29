@@ -5,6 +5,7 @@ import NavBar from '../components/NavBar';
 import LocalStorageDisplay from '../components/LocalStorageDisplay';
 import { useThemeColors } from '../components/UseThemeColors';
 import ShowNeedToOrderItems from '../components/DashboardComponents/showNeedToOrderItems';
+import MockDataButton from '../MockData/UseMockData';
 
 const Dashboard: React.FC = () => {
     const { backgroundColor } = useThemeColors();
@@ -17,6 +18,7 @@ const Dashboard: React.FC = () => {
       </Heading>
       </Box>
       <ShowNeedToOrderItems />
+      <MockDataButton />
       <LocalStorageDisplay />
     </Box>
   );
