@@ -14,7 +14,7 @@ import {
   MenuList,
   MenuItem,
 } from '@chakra-ui/react';
-import { ChevronDownIcon, EditIcon, DeleteIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { ChevronDownIcon, EditIcon, DeleteIcon, ViewIcon, ViewOffIcon, AddIcon } from '@chakra-ui/icons';
 import { InventoryItem } from '../Interfaces';
 import { useThemeColors } from '../UseThemeColors';
 import CustomButton from '../Buttons';
@@ -161,14 +161,14 @@ const EventInventoryIngredients: React.FC = () => {
       <InputGroup mb={4}>
         <Input
           type="number"
-          placeholder="Quantity"
+          placeholder="Quantity Needed"
           value={quantity}
           onChange={(e) => setQuantity(e.target.value)}
         />
       </InputGroup>
 
       {/* Button to add ingredient */}
-      <CustomButton variant='solidGreen' title='Add Ingredient' alt='Add Ingredient' mb={4} onClick={handleAddIngredient}>
+      <CustomButton variant='solidGreen' title='Add Ingredient' alt='Add Ingredient' mb={4} leftIcon={<AddIcon />} onClick={handleAddIngredient}>
         Add Ingredient
       </CustomButton>
 

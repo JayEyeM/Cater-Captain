@@ -6,6 +6,7 @@ interface ClosableBoxProps extends BoxProps {
   children: ReactNode;
   isOpen?: boolean; 
   onClose: () => void;
+  ref?: React.Ref<HTMLDivElement>;
 }
 
 const ClosableBox: React.FC<ClosableBoxProps> = ({ children, isOpen = true, onClose, ...boxProps }) => {

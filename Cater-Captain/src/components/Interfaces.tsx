@@ -77,11 +77,14 @@ export interface SortEvents {
 // ingredient interface
 export interface Ingredient {
   name: string;
-  units: string;
-  quantity: string;
-  onHand: boolean;
-  needToOrder: boolean;
-  costPerUnit: string;
+      units: string;
+      unitQuantity: string;
+      quantityNeeded: number;
+      onHand: boolean;
+      needToOrder: boolean;
+      costPerUnit: string;
+      packageType: string;
+      supplierName: string;
 }
 
 //create interface for Notes
