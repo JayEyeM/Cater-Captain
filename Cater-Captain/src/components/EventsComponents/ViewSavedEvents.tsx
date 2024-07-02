@@ -390,7 +390,7 @@ const toggleImages = (eventId: number) => {
             <CustomButton variant="outlineRed" onClick={() => handleDelete(event.id)} alt="Delete Event" label="Delete Event" title="Delete Event"><DeleteIcon /></CustomButton>
           
           {visibleToolKit[event.id] && (
-          <ClosableBox bg={backgroundColor} outline={"2px solid"} outlineColor={primary} p={4} w={{ base: '80%', md: '90%' }} h={"90%"} overflowY={"scroll"} position={"fixed"} left={'5%'} top={'5%'} zIndex={999}
+          <ClosableBox bg={backgroundColor} outline={"2px solid"} outlineColor={primary} p={4} w={{ base: '100%', md: '100%' }} h={"100%"} overflowY={"hidden"} position={"absolute"} top={0} left={0} zIndex={999}
           isOpen={visibleToolKit[event.id]} onClose={() => handleToolKitClose(event.id)}>
           <SimpleGrid columns={{ base: 2, md: 5 }} spacing={{ base: 0, md: 0 }} w={{ base: '100%', md: '50%' }} m="auto" mt={{ base: "10%", md: 0 }} >
           <CustomButton variant="solidGreen" title="Choose Event Image" onClick={() => toggleImages(event.id)} rightIcon={<ImageIcon />}>
@@ -425,17 +425,23 @@ const toggleImages = (eventId: number) => {
 
             
             </SimpleGrid>
+            <Box bg={backgroundColor}  w={{ base: '100%', md: '100%' }} h={{ base: '100%', md: '90%' }} overflowY={"scroll"} position={"relative"} m={"auto"} zIndex={999}>
             <Text position={"absolute"} color={textColor} mt={16} left={{ base: "0%", md: "30%" }} w={{ base: "100%", md: "40%" }} textAlign={"center"} fontSize={"2xl"}>Click the buttons above to toggle the visibility of the different tools.</Text>
             {visibleImages[event.id] && <EventImageSelector onSelectImage={(image) => handleSelectImage(event.id, { src: image, alt: image, title: image })} />}
             
+            
             {visibleIngredients[event.id] && (
+             
               <EventIngredientList
+                
                 ingredients={event.ingredients || []}
                 onAddIngredient={(newIngredient) => handleAddIngredient(event.id, newIngredient)}
                 onDeleteIngredient={(index) => handleDeleteIngredient(event.id, index)}
                 onEditIngredient={(index, updatedIngredient) => handleEditIngredient(event.id, index, updatedIngredient)}
               />
+             
             )}
+             
 
             {visibleMenu[event.id] && (
               <EventMenu
@@ -461,7 +467,7 @@ const toggleImages = (eventId: number) => {
                 onEditPricing={(index, updatedPricing) => handleEditPricing(event.id, index, updatedPricing)}
               />
             )}
-            
+            </Box>
             
             </ClosableBox>
           )}
