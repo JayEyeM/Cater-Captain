@@ -101,8 +101,9 @@ const ManageEvents: React.FC = () => {
 
   return (
     <Box w={"100%"} bg={backgroundColor}>
-    <Box bg={backgroundColor} id="EventManagementPage" w={{base:'100%', md:'90%'}} m="auto">
       <NavBar />
+    <Box bg={backgroundColor} id="EventManagementPage" w={{base:'100%', md:'90%'}} m="auto">
+      
       <Box w={"100%"} display={"flex"} justifyContent={"center"} flexDir={"column"} alignItems={"center"}>
       
       

@@ -208,6 +208,7 @@ const Inventory: React.FC = () => {
 
   return (
     <Box w="100%" h="100%" bg={backgroundColor} >
+      <NavBar />
       <Box
         bg={backgroundColor}
         id="EventManagementPage"
@@ -218,7 +219,7 @@ const Inventory: React.FC = () => {
         mb={4}
         pb={2}
       >
-        <NavBar />
+        
         <Box
           w={{ base: "100%", md: "100%" }}
           h="auto"
@@ -492,7 +493,7 @@ const Inventory: React.FC = () => {
                         {...provided.dragHandleProps}
                         bg={backgroundColor}
                         outline={item.quantity <= item.whenToOrder ? "5px solid red" : "2px solid"}
-                        outlineColor={item.quantity <= item.whenToOrder ? "red" : primary}
+                        outlineColor={item.quantity <= item.whenToOrder ? accent : primary}
                         color={textColor}
                         p={4}
                         mt={2}
@@ -503,12 +504,12 @@ const Inventory: React.FC = () => {
                       >
                         <Box display="flex" justifyContent="space-between">
                           <Text fontWeight="bold" fontSize="3xl"
-                          color={item.quantity <= item.whenToOrder ? "red" : textColor}
+                          color={item.quantity <= item.whenToOrder ? accent : textColor}
                           >{item.name}</Text>
                           <Text fontSize="lg">{item.amountPerUnit} {item.unit} per {item.packageType}</Text>
                           
                           <Text fontSize={item.quantity <= item.whenToOrder ? "2xl" : ""} fontWeight={item.quantity <= item.whenToOrder ? "bold" : ""}
-                          color={item.quantity <= item.whenToOrder ? "red" : textColor}>{item.quantity} On Hand</Text>
+                          color={item.quantity <= item.whenToOrder ? accent : textColor}>{item.quantity} On Hand</Text>
                           <Box>
                             <CustomButton
                               variant='outlineGreen'
@@ -534,9 +535,9 @@ const Inventory: React.FC = () => {
                             <Text color={secondary}>Unit Measurment:<Text color={textColor}>{item.unit}</Text></Text>
                             <Text color={secondary}>Package Type:<Text color={textColor}>{item.packageType}</Text></Text>
                             <Text color={secondary}>Cost Per Unit:<Text color={textColor}>{item.costPerUnit}</Text></Text>
-                            <Text color={item.quantity <= item.whenToOrder ? "red" : secondary}>On-hand Qty:<Text color={item.quantity <= item.whenToOrder ? "red" : textColor}
+                            <Text color={item.quantity <= item.whenToOrder ? accent : secondary}>On-hand Qty:<Text color={item.quantity <= item.whenToOrder ? accent : textColor}
                             fontSize={item.quantity <= item.whenToOrder ? "2xl" : ""} fontWeight={item.quantity <= item.whenToOrder ? "bold" : ""}>{item.quantity}</Text></Text>
-                            <Text color={item.quantity <= item.whenToOrder ? "red" : secondary}>Re-order Qty:<Text color={item.quantity <= item.whenToOrder ? "red" : textColor}
+                            <Text color={item.quantity <= item.whenToOrder ? accent : secondary}>Re-order Qty:<Text color={item.quantity <= item.whenToOrder ? accent : textColor}
                             fontSize={item.quantity <= item.whenToOrder ? "2xl" : ""} fontWeight={item.quantity <= item.whenToOrder ? "bold" : ""}>{item.whenToOrder}</Text></Text>
                             <Text color={secondary}>Supplier Name:<Text color={textColor}>{item.supplierName}</Text></Text>
                           </Box>

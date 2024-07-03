@@ -34,13 +34,13 @@ const SupplierCard: React.FC<SupplierCardProps> = ({ supplierID, supplierName, e
       </CardHeader>
       <CardBody>
         <SimpleGrid columns={{ base: 1, md: 3}} spacing={2}>
-        <Text>Supplier ID: {supplierID}</Text>
-        <Text>Supplier Name: {supplierName}</Text>
-        <Text>Email: {email}</Text>
-        <Text>Phone: {phone}</Text>
-        <Text>Contract Status: {contractStatus}</Text>
-        <Text>Start Date: {startDate}</Text>
-        <Text>End Date: {endDate}</Text>
+        <Text><Text as="b" color={secondary}>Supplier ID:</Text> {supplierID}</Text>
+        <Text><Text as="b" color={secondary}>Supplier Name:</Text> {supplierName}</Text>
+        <Text><Text as="b" color={secondary}>Email:</Text> {email}</Text>
+        <Text><Text as="b" color={secondary}>Phone:</Text> {phone}</Text>
+        <Text><Text as="b" color={secondary}>Contract Status:</Text> {contractStatus}</Text>
+        <Text><Text as="b" color={secondary}>Start Date:</Text> {startDate}</Text>
+        <Text><Text as="b" color={secondary}>End Date:</Text> {endDate}</Text>
         </SimpleGrid>
       </CardBody>
       <CardFooter>

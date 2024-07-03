@@ -58,22 +58,22 @@ export default function NavBar() {
                 <MenuList bg={backgroundColor} outline={"2px solid"} p={2} outlineColor={primary} borderRadius={0}>
                     <SimpleGrid columns={{ base: 1, md: 2 }} spacing={3} p={4} ml={{ base: "auto", md: "auto" }} mr={{ base: "auto", md: "auto" }} w={{ base: "auto", md: "auto" }} h={"auto"}  overflow={"auto"} scrollBehavior={"auto"}>
                     <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/')}>
-                        Home
+                        Home Page
                     </MenuItem>
                     <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/Dashboard')}>
                         Dashboard
                     </MenuItem>
                     <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/ManageEvents')}>
-                        Event Management
+                        Events
                     </MenuItem>
                     <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/Inventory')}>
                         Inventory
                     </MenuItem>
                     <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/EmployeeManagement')}>
-                        Employee Management
+                        Employees
                     </MenuItem>
                     <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/SupplierManagement')}>
-                        Supplier Management
+                        Suppliers
                     </MenuItem>
                     
                     <MenuItem bg={backgroundColor} borderRadius={0}  gridColumn="2"
