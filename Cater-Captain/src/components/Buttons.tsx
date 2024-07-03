@@ -16,7 +16,7 @@ interface CustomButtonProps {
 const CustomButton: React.FC<CustomButtonProps> = ({ children, variant, title, ...props }) => {
  
 
-  const { bBackgroundColor, bTextColor } = useThemeColors();
+  const { bBackgroundColor, bTextColor, accent, secondary } = useThemeColors();
 
 // variant styles
 const buttonStyles = {
@@ -33,25 +33,25 @@ const buttonStyles = {
     _hover: { boxShadow: "inset 0 0 2px 2px #ADADAD" },
   },
   solidRed: {
-    bg: "#D2A4A4",
+    bg: accent,
     color: "#141220",
     _hover: { boxShadow: " 0 0 2px 2px #ADADAD" },
   },
   outlineRed: {
     variant: "outline",
-    borderColor: "#D2A4A4",
-    color: "#D2A4A4",
+    borderColor: accent,
+    color: accent,
     _hover: { boxShadow: "inset 0 0 2px 2px #ADADAD"},
   },
   solidBlue: {
-    bg: "#90B4D6",
+    bg: secondary,
     color: "#141220",
     _hover: { boxShadow: " 0 0 2px 2px #ADADAD"},
   },
   outlineBlue: {
     variant: "outline",
-    borderColor: "#90B4D6",
-    color: "#90B4D6",
+    borderColor: secondary,
+    color: secondary,
     _hover: { boxShadow: "inset 0 0 2px 2px #ADADAD"},
   },
 };

@@ -34,16 +34,16 @@ const EmployeeCard: React.FC<EmployeeCardProps> = ({ firstName, lastName, email,
       </CardHeader>
       <CardBody>
       <SimpleGrid columns={{ base: 1, md: 3}} spacing={2}>
-        <Text>Email: {email}</Text>
-        <Text>Role: {role}</Text>
-        <Text>Phone: {phone}</Text>
-        <Text>Status: {fullTimePartTime}</Text>
-        <Text>Department: {department}</Text>
-        <Text>Start Date: {startDate}</Text>
+        <Text><Text as="b" color={secondary}>Email:</Text> {email}</Text>
+        <Text><Text as="b" color={secondary}>Role:</Text> {role}</Text>
+        <Text><Text as="b" color={secondary}>Phone:</Text> {phone}</Text>
+        <Text><Text as="b" color={secondary}>Status: </Text> {fullTimePartTime}</Text>
+        <Text><Text as="b" color={secondary}>Department:</Text> {department}</Text>
+        <Text><Text as="b" color={secondary}>Start Date:</Text> {startDate}</Text>
         </SimpleGrid>
       </CardBody>
       <CardFooter>
-        <CustomButton variant='solidBlue' title="Edit" alt="Edit" onClick={onEdit}>
+        <CustomButton variant='solidGreen' title="Edit" alt="Edit" onClick={onEdit}>
           Edit
         </CustomButton>
         <CustomButton variant='outlineRed' title="Delete" alt="Delete" onClick={onDelete}>

@@ -1,13 +1,27 @@
 import React from 'react';
 import NavBar from '../components/NavBar';
 import { Heading, Box } from '@chakra-ui/react';
+import WhatAppDoesInfo from '../components/HomepageComponents/WhatAppDoesInfo';
+import { useThemeColors } from '../components/UseThemeColors';
+import Footer from '../components/GeneralUtilities/Footer';
 
 const Home: React.FC = () => {
+    const { backgroundColor } = useThemeColors();
 
     return (
-    <Box>
+    <Box bg={backgroundColor} h="auto" w="100%" overflowY={"hidden"} overflowX={"hidden"}>
             <NavBar />
-            <Heading as="h1" size="lg" w="100%" ml={12} fontFamily={'Cinzel'}>Homepage</Heading>
+            
+
+            <WhatAppDoesInfo />
+            <Box
+                w={"100%"}
+                h={"100px"}>
+            
+            </Box>
+
+
+            <Footer />
 
     </Box>
 

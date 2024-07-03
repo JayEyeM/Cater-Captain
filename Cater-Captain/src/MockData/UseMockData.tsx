@@ -17,9 +17,10 @@ const storeData = () => {
 
 const MockDataButton: React.FC = () => {
   return (
-    <CustomButton variant='solidGreen' title='Load Mock Data into the app for testing' alt='Load Mock Data into the app for testing' onClick={storeData}>
+    <CustomButton variant='solidGreen' title='Load Mock Data into the app for testing. Click, then refresh page to view data.' alt='Load Mock Data into the app for testing. Click, then refresh page to view data.' onClick={storeData}>
       Use Mock Data
     </CustomButton>
+
   );
 };
 

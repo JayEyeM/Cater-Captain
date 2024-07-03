@@ -6,8 +6,8 @@ const theme = extendTheme({
   colors: {
     light: {
       primary: "#141220",
-      secondary: "#90B4D6",
-      accent: "#BDBDBD",
+      secondary: "#2782d7",
+      accent: "#d76d6d",
       background:  "#F5F5F5",
       text: "#141220",
 
