@@ -1,9 +1,12 @@
 import { useCallback } from 'react';
 import { InventoryItem } from '../Interfaces';
+import { Event } from '../Interfaces'; // Import Event interface if not already imported
 
 interface ExportData {
-  [key: string]: InventoryItem[];
+  inventoryItems?: InventoryItem[];
+  upcomingEvents?: Event[];
 }
+
 
 interface UseExportParams {
   data: ExportData;
@@ -17,7 +20,7 @@ interface UseExportParams {
 
 export const useExport = ({ data, toast }: UseExportParams) => {
   const handleExport = useCallback(
-    (title: string, exportType: 'json' | 'csv', category: string) => {
+    (title: string, exportType: 'json' | 'csv', category: keyof ExportData) => {
       const dataToExport = data[category];
       if (dataToExport && dataToExport.length > 0) {
         if (exportType === 'json') {

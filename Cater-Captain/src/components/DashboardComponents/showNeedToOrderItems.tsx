@@ -24,28 +24,29 @@ const ShowNeedToOrderItems: React.FC = () => {
     const toast = useToast();
 
     // Wrap needToOrderItems in an object with a suitable key
-    const exportItems = useExport(
-        {
-            data: { needToOrder: needToOrderItems },
-            toast: (options) => {
-                const { title, status, duration, isClosable } = options;
-                toast({
-                    title,
-                    status,
-                    duration,
-                    isClosable,
-                });
-            }
+    const exportItems = useExport({
+        data: {
+            inventoryItems: needToOrderItems, 
+        },
+        toast: (options) => {
+            const { title, status, duration, isClosable } = options;
+            toast({
+                title,
+                status,
+                duration,
+                isClosable,
+            });
         }
-    );
+    });
+    
 
     // Define handleExport functions
     const handleExportJSON = () => {
-        exportItems.handleExport('NeedToOrderItems', 'json', 'needToOrder');
+        exportItems.handleExport('NeedToOrderItems', 'json', 'inventoryItems');
     };
 
     const handleExportCSV = () => {
-        exportItems.handleExport('NeedToOrderItems', 'csv', 'needToOrder');
+        exportItems.handleExport('NeedToOrderItems', 'csv', 'inventoryItems');
     };
 
     // Use the useSupplierData hook
@@ -101,6 +102,7 @@ const ShowNeedToOrderItems: React.FC = () => {
                 Need to Order
             </Text>
             {/* Export need to order items as a JSON file */}
+            <Box textAlign="center" mb={4}>
             <CustomButton
                 variant="solidBlue"
                 title="Export Need To Order Items"
@@ -123,6 +125,7 @@ const ShowNeedToOrderItems: React.FC = () => {
             >
                 Export CSV
             </CustomButton>
+            </Box>
 
             <SimpleGrid
                 columns={{ base: 1, md: 3 }}
