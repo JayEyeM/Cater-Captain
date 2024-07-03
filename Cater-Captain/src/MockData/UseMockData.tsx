@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@chakra-ui/react';
+import CustomButton from '../components/Buttons';
 import { inventoryItems, suppliers, employees, events } from './MockData';
 
 
@@ -17,9 +17,9 @@ const storeData = () => {
 
 const MockDataButton: React.FC = () => {
   return (
-    <Button colorScheme="blue" onClick={storeData}>
+    <CustomButton variant='solidGreen' title='Load Mock Data into the app for testing' alt='Load Mock Data into the app for testing' onClick={storeData}>
       Use Mock Data
-    </Button>
+    </CustomButton>
   );
 };
 

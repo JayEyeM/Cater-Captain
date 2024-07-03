@@ -168,7 +168,9 @@ const LocalStorageDisplay: React.FC = () => {
           </CustomButton>
         </Box>
       </Box>
-      <Box my={4} p={4} borderWidth={1} borderRadius="lg" display={visibility[title] ? 'block' : 'none'}>
+      <Box my={4} p={4} borderWidth={1} borderRadius="lg" display={visibility[title] ? 'block' : 'none'}
+      w={'100%'} overflowX={'scroll'}
+      >
         <Table variant="striped" mt={4} color={textColor} bg={backgroundColor}>
           <Thead>
             <Tr>
