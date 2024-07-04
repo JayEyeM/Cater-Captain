@@ -15,7 +15,7 @@ const ShowUpcomingEvents: React.FC = () => {
     const events: Event[] = useEventData(); // Ensure useEventData returns Event[]
 
     const [upcomingEvents, setUpcomingEvents] = useState<Event[]>([]);
-    const { backgroundColor, primary, secondary, accent, textColor } = useThemeColors();
+    const { backgroundColor, secondary, accent, textColor } = useThemeColors();
     const toast = useToast();
 
     // Wrap upcomingEvents in an object with a suitable key for exporting

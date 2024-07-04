@@ -19,7 +19,7 @@ interface SupplierCardProps {
 
 
 const SupplierCard: React.FC<SupplierCardProps> = ({ supplierID, supplierName, email, phone, contractStatus, startDate, endDate, onEdit, onDelete }) => {
-  const { backgroundColor, primary, textColor, secondary, accent } = useThemeColors();
+  const { backgroundColor, primary, textColor, secondary } = useThemeColors();
   
   return (
     <Card 

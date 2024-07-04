@@ -35,7 +35,7 @@ const AnimatedBlurb: React.FC<AnimatedBlurbProps> = ({
     }
   }, [index, isVisible]);
 
-  const { accent, textColor, backgroundColor, primary, secondary } = useThemeColors();
+  const { accent } = useThemeColors();
 
   return (
     <Box
