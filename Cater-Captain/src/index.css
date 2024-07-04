@@ -40,12 +40,12 @@ body {
 background-color: #141220;
  overflow-y: auto;
  scrollbar-width: thin;
- scrollbar-color: #141220; /* Fallback for browsers that don't support scrollbar-color */
- scrollbar-color: #141220 #CBE6AD; /* Chrome, Safari, Opera */
- -webkit-scrollbar-thumb-color: #CBE6AD; /* Chrome, Safari, Opera */
- -webkit-scrollbar-track-color: #141220; /* Chrome, Safari, Opera */
- -moz-scrollbar-thumb-color: #CBE6AD; /* Firefox */
- -moz-scrollbar-track-color: #141220; /* Firefox */
+ scrollbar-color: #141220; 
+ scrollbar-color: #141220 #CBE6AD;
+ -webkit-scrollbar-thumb-color: #CBE6AD;
+ -webkit-scrollbar-track-color: #141220; 
+ -moz-scrollbar-thumb-color: #CBE6AD; 
+ -moz-scrollbar-track-color: #141220; 
  scroll-behavior: smooth;
   
 }

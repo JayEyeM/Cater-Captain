@@ -16,7 +16,7 @@ interface SelectedItem {
 const ShowNeedToOrderItems: React.FC = () => {
     const [inventoryItems, setInventoryItems] = useInventoryData() as [InventoryItem[], Dispatch<SetStateAction<InventoryItem[]>>];
     
-    const { backgroundColor, primary, textColor, secondary, accent } = useThemeColors();
+    const { backgroundColor, textColor, secondary, accent } = useThemeColors();
     const needToOrderItems = inventoryItems.filter((item: InventoryItem) => {
         const isNeedToOrder = item.whenToOrder >= item.quantity;
         return isNeedToOrder;

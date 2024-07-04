@@ -22,7 +22,7 @@ interface EmployeeData {
 }
 
 const EmployeeForm: React.FC<EmployeeFormProps> = ({ onFormSubmit, onCancel, initialData }) => {
-  const { backgroundColor, primary, textColor } = useThemeColors(); 
+  const { backgroundColor, primary } = useThemeColors(); 
   const [formData, setFormData] = useState<EmployeeData>({
     firstName: '',
     lastName: '',

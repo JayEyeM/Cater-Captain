@@ -21,7 +21,7 @@ interface SupplierData {
 }
 
 const SupplierForm: React.FC<SupplierFormProps> = ({ onFormSubmit, onCancel, initialData }) => {
-  const { backgroundColor, primary, textColor } = useThemeColors(); 
+  const { backgroundColor, primary } = useThemeColors(); 
   const [formData, setFormData] = useState<SupplierData>({
     supplierID: '',
     supplierName: '',

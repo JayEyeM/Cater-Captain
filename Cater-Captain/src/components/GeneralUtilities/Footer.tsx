@@ -4,13 +4,13 @@ import { useThemeColors } from "../UseThemeColors";
 
 
 const Footer: React.FC = () => {
-    const { backgroundColor, textColor, primary, secondary, accent } = useThemeColors();
+    const { backgroundColor, textColor, primary } = useThemeColors();
     return (
         <Box
             bg={backgroundColor}
             color={textColor}
             w="100%"
-            h="auto"
+            h="200px"
             p={4}
             display="flex"
             justifyContent="center"
