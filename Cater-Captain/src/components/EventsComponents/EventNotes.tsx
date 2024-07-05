@@ -57,12 +57,13 @@ const EventNotes: React.FC<EventNotesProps> = ({ notes, onAddNote, onDeleteNote 
     bg={backgroundColor}
     outline={"2px solid"}
     outlineColor={primary}
-    p={6}
-    w={{ base: "100%", md: "80%" }} h={"100%"} 
+    p={2}
+    w={{ base: "90%", md: "80%" }} h={{ base: "85%", md: "100%" }} 
     overflowY={"scroll"} 
      position={"relative"} 
      mx={'auto'}
-     mb={"10px"}
+     mb={"2"}
+     mt={"4"}
      zIndex={999}
     >
    <Heading mb={4} color={textColor} size="lg" textAlign={"center"}>Notes</Heading>

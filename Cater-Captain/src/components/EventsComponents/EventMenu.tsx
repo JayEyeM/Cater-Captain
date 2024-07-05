@@ -40,11 +40,12 @@ const EventMenu: React.FC<EventMenuProps> = ({
     outline={"2px solid"}
     outlineColor={primary}
     p={2}
-    w={{ base: '100%', md: '80%'}} h={"100%"} 
+    w={{ base: "90%", md: "80%" }} h={{ base: "85%", md: "100%" }} 
     overflowY={"scroll"} 
      position={"relative"} 
      mx={"auto"}
      mb={"10px"}
+     mt={4}
      zIndex={999}
      color={textColor}
     >

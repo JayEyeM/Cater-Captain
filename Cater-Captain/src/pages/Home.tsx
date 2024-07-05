@@ -1,6 +1,6 @@
 import React from 'react';
 import NavBar from '../components/NavBar';
-import { Heading, Box } from '@chakra-ui/react';
+import { Heading, Box, Flex } from '@chakra-ui/react';
 import WhatAppDoesInfo from '../components/HomepageComponents/WhatAppDoesInfo';
 import { useThemeColors } from '../components/UseThemeColors';
 import Footer from '../components/GeneralUtilities/Footer';
@@ -10,31 +10,36 @@ const Home: React.FC = () => {
     const { backgroundColor } = useThemeColors();
 
     return (
-    <Box bg={backgroundColor} h="auto" w="100%" overflowY={"hidden"} overflowX={"hidden"}>
+        <Box bg={backgroundColor} w="100%" overflowX="hidden">
             <NavBar />
-            
+            <Flex
+                w="100%"
+                direction="column"
+                alignItems="center"
+                bg={backgroundColor}
+                px={{ base: 4, md: 8 }}
+                py={4}
+            >
+                
 
-            <CallToAction 
-            headerText='Ready to be a Cater-Captain?'
-            buttonText='Get Started'
-            buttonLink='/signup'
-            />
-            <WhatAppDoesInfo />
-            <Box
-                w={"100%"}
-                h={"50px"}>
-            
-            </Box>
-            <CallToAction 
-            headerText='Now that you know what Cater-Captain is and how it can help you, let’s get started on your journey!'
-            buttonText='Sign Up Now'
-            buttonLink='/signup'
-            />
+                <Box w="100%" display="flex" justifyContent="center" flexDirection="column" alignItems="center">
+                    <CallToAction
+                        headerText='Ready to be a Cater-Captain?'
+                        buttonText='Get Started'
+                        buttonLink='/signup'
+                    />
+                    <WhatAppDoesInfo />
+                    <Box h="50px" />
+                    <CallToAction
+                        headerText='Now that you know what Cater-Captain is and how it can help you, let us get started on our journey together!'
+                        buttonText='Sign Up Now'
+                        buttonLink='/signup'
+                    />
+                </Box>
 
-            <Footer />
-
-    </Box>
-
+                <Footer />
+            </Flex>
+        </Box>
     );
 };
 

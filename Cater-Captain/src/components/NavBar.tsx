@@ -60,6 +60,9 @@ export default function NavBar() {
                     <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/')}>
                         Home Page
                     </MenuItem>
+                    <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/About')}>
+                        About
+                    </MenuItem>
                     <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/Dashboard')}>
                         Dashboard
                     </MenuItem>
