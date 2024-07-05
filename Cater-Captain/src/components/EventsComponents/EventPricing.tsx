@@ -62,19 +62,20 @@ const EventPricing: React.FC<PricingProps> = ({
       outline={"2px solid"}
       outlineColor={primary}
       p={4}
-      w={{ base: "100%", md: "80%" }}
-      h={"100%"}
+      w={{ base: "90%", md: "80%" }} h={{ base: "85%", md: "100%" }} 
+      
       overflowY={"scroll"}
       position={"relative"}
       m={"auto"}
       mb={"10px"}
+      mt={4}
       zIndex={999}
       color={textColor}
     >
       <Heading mb={4} color={textColor} size="lg" textAlign={"center"}>Pricing</Heading>
       <Stack spacing={3}>
         <Input
-          placeholder="Pricing Name"
+          placeholder="Item Name"
           value={newPricing.name}
           onChange={handleInputChange}
           name="name"
@@ -114,7 +115,7 @@ const EventPricing: React.FC<PricingProps> = ({
       <Table variant="simple" mt={5}>
         <Thead>
           <Tr>
-            <Th>Pricing Name</Th>
+            <Th>Item Name</Th>
             <Th>Price</Th>
             <Th>Currency</Th>
             <Th>Edit</Th>

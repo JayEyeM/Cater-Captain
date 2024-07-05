@@ -40,7 +40,6 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
 
   const [visibleDetails, setVisibleDetails] = useState<boolean[]>(ingredients.map(() => false));
 
-
   //handle input change for event ingredient list
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -110,9 +109,11 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
         outline={"2px solid"}
         outlineColor={primary}
         p={4}
-        w={{ base: "100%", md: "80%" }} h={"100%"}
+        w={{ base: "100%", md: "80%" }}
+        h={{ base: "100%", md: "100%" }}
         overflowY={"scroll"}
-        position={"relative"} m={"auto"}
+        position={"relative"}
+        m={"auto"}
         mb={"10px"}
         zIndex={999}
         color={textColor}
@@ -128,9 +129,11 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
         outline={"2px solid"}
         outlineColor={primary}
         p={4}
-        w={{ base: "100%", md: "80%" }} h={"100%"}
+        w={{ base: "100%", md: "80%" }}
+        h={{ base: "100%", md: "100%" }}
         overflowY={"scroll"}
-        position={"relative"} m={"auto"}
+        position={"relative"}
+        m={"auto"}
         mb={"10px"}
         zIndex={999}
         color={textColor}
@@ -169,7 +172,9 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
               borderRadius={0}
               outline={"2px solid"}
               outlineColor={primary}
-              maxH={"200px"} overflow={"auto"} scrollBehavior={"auto"}
+              maxH={"200px"}
+              overflow={"auto"}
+              scrollBehavior={"auto"}
             >
               {["Kg", "lbs", "cups", "oz", "fluid oz", "grams", "tbsp", "tsp", "milliliters", "liters", "quarts", "pints", "gallons", "other"].map(unit => (
                 <MenuItem key={unit} onClick={() => setNewIngredient({ ...newIngredient, units: unit })}>
@@ -202,7 +207,9 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
               borderRadius={0}
               outline={"2px solid"}
               outlineColor={primary}
-              maxH={"200px"} overflow={"auto"} scrollBehavior={"auto"}
+              maxH={"200px"}
+              overflow={"auto"}
+              scrollBehavior={"auto"}
             >
               {["Box", "Bag", "Bottle", "Carton", "Container", "Pallet", "Each", "Other"].map(type => (
                 <MenuItem key={type} onClick={() => setNewIngredient({ ...newIngredient, packageType: type })}>
@@ -257,50 +264,68 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
               <ClosableBox isOpen={visibleDetails[index]} onClose={() => toggleDetails(index)}>
                 <Box>
                   <Text fontSize="sm" color={primary}>Supplier: <Text as={"span"} color={textColor}>{ingredient.supplierName}</Text></Text>
-                  <Text fontSize="sm" color={primary}>Quantity Needed: <Text as={"span"} color={textColor}>
-                    {ingredient.quantityNeeded} ({ingredient.unitQuantity} {ingredient.units} per {ingredient.packageType}) = {calculateTotalAmountNeeded(Number(ingredient.quantityNeeded), Number(ingredient.unitQuantity))} {ingredient.units}
-                    </Text></Text>
+                  <Text fontSize="sm" color={primary}>Quantity Needed: <Text as={"span"} color={textColor}>{ingredient.quantityNeeded}</Text></Text>
+                  <Text fontSize="sm" color={primary}>Units: <Text as={"span"} color={textColor}>{ingredient.units}</Text></Text>
+                  <Text fontSize="sm" color={primary}>Unit Quantity: <Text as={"span"} color={textColor}>{ingredient.unitQuantity}</Text></Text>
+                  <Text fontSize="sm" color={primary}>On Hand: <Text as={"span"} color={textColor}>{ingredient.onHand ? 'Yes' : 'No'}</Text></Text>
+                  <Text fontSize="sm" color={primary}>Need to Order: <Text as={"span"} color={textColor}>{ingredient.needToOrder ? 'Yes' : 'No'}</Text></Text>
+                  <Text fontSize="sm" color={primary}>Package Type: <Text as={"span"} color={textColor}>{ingredient.packageType}</Text></Text>
                   <Text fontSize="sm" color={primary}>Cost Per Unit: <Text as={"span"} color={textColor}>${ingredient.costPerUnit}</Text></Text>
                   <Text fontSize="sm" color={primary}>Total Item Cost: <Text as={"span"} color={textColor}>${calculateItemCost(ingredient, ingredient.quantityNeeded)}</Text></Text>
-                  <Text fontSize="sm" color={primary}>On Hand: <Text as={"span"} color={textColor}>{ingredient.onHand ? 'Yes' : 'No'}</Text> </Text>
-              </Box>
-              <Spacer />
-              <Box>
-                <CustomButton
-                  variant='outlineGreen'
-                  title='Edit Quantity'
-                  alt='Edit Quantity'
-                  onClick={() => {
-                    const newQuantity = prompt('Enter new quantity', ingredient.quantityNeeded.toString());
-                    if (newQuantity !== null && newQuantity !== '') {
-                      const updatedIngredient = { ...ingredient, quantityNeeded: parseFloat(newQuantity) };
-                      onEditIngredient(index, updatedIngredient);
-                    }
-                  }}
-                >
-                  <EditIcon />
-                </CustomButton>
-                <CustomButton
-                  variant='outlineRed'
-                  title='Delete Ingredient'
-                  alt='Delete Ingredient'
-                  onClick={() => onDeleteIngredient(index)}
-                >
-                  <DeleteIcon />
-                </CustomButton>
-              </Box>
-            </ClosableBox>
-          </ListItem>
-        ))}
-      </List>
+                  <CustomButton
+                    variant="outlineGreen"
+                    title="Edit Ingredient"
+                    alt="Edit Ingredient"
+                    onClick={() => onEditIngredient(index, ingredient)}
+                    leftIcon={<EditIcon />}
+                  >
+                    Edit
+                  </CustomButton>
+                  <CustomButton
+                    variant="outlineRed"
+                    title="Delete Ingredient"
+                    alt="Delete Ingredient"
+                    onClick={() => onDeleteIngredient(index)}
+                    leftIcon={<DeleteIcon />}
+                  >
+                    Delete
+                  </CustomButton>
+                </Box>
+              </ClosableBox>
+            </ListItem>
+          ))}
+        </List>
 
-      {/* Total cost */}
-      <Box mt={5}>
-        <Text fontWeight="bold" color={accent}>Total Cost: <Text as={"span"} color={textColor}>${calculateTotalCost().toFixed(2)}</Text></Text>
+        <Box
+          bg={backgroundColor}
+          
+          p={2}
+          w={"90%"}
+          h={"10%"}
+          m={"auto"}
+          mt={"10px"}
+          mb={"10px"}
+          zIndex={999}
+          color={textColor}
+        >
+          <Text color={textColor}><Text as={"b"} color={accent}>Total Cost: </Text> ${calculateTotalCost().toFixed(2)}</Text>
+        </Box>
+      </Box>
+      <Box
+      display={{ base: "block", md: "none" }}
+        bg={backgroundColor}
+        h={"20%"}
+        p={2}
+        w={"90%"}
+        m={"auto"}
+        mt={"10px"}
+        mb={"10px"}
+        zIndex={999}
+        color={textColor}
+        >
       </Box>
     </Box>
-  </Box>
-);
+  );
 };
 
 export default EventIngredientList;

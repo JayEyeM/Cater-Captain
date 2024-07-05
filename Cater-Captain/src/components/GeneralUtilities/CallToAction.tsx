@@ -29,7 +29,7 @@ const CallToAction: React.FC<CallToActionProps> = ({ headerText, buttonText, but
         >
             <Text
                 fontSize="xl"
-                fontFamily="Cinzel"
+                
                 textAlign="center"
             >
                 <Text fontSize="xl" fontWeight={"bold"} mb={2} color={textColor} >{headerText}</Text>
