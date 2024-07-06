@@ -21,7 +21,11 @@ import CustomButton from '../Buttons';
 import ClosableBox from '../GeneralUtilities/ClosableBox';
 import { useInventoryData } from '../../pages/Inventory';
 
-const EventInventoryIngredients: React.FC = () => {
+interface EventInventoryIngredientsProps {
+  eventId: string; // Ensure eventId is passed as prop
+}
+
+const EventInventoryIngredients: React.FC<EventInventoryIngredientsProps> = ({ eventId }) => {
   const [inventory] = useInventoryData();
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedItem, setSelectedItem] = useState<InventoryItem | null>(null);
@@ -32,18 +36,18 @@ const EventInventoryIngredients: React.FC = () => {
 
   const { backgroundColor, primary, textColor, accent, secondary } = useThemeColors();
 
-  // Load ingredientList from localStorage on component mount
+  // Load ingredientList from localStorage on component mount for the specific eventId
   useEffect(() => {
-    const storedIngredients = localStorage.getItem('ingredientList');
+    const storedIngredients = localStorage.getItem(`ingredientList-${eventId}`);
     if (storedIngredients) {
       setIngredientList(JSON.parse(storedIngredients));
     }
-  }, []);
+  }, [eventId]);
 
-  // Save ingredientList to localStorage whenever it changes
+  // Save ingredientList to localStorage whenever it changes for the specific eventId
   useEffect(() => {
-    localStorage.setItem('ingredientList', JSON.stringify(ingredientList));
-  }, [ingredientList]);
+    localStorage.setItem(`ingredientList-${eventId}`, JSON.stringify(ingredientList));
+  }, [eventId, ingredientList]);
 
   // Function to handle adding an ingredient to the list
   const handleAddIngredient = () => {
@@ -103,7 +107,6 @@ const EventInventoryIngredients: React.FC = () => {
     "Other"
   ];
 
-  
   useEffect(() => {
     console.log("Inventory Data: ", inventory);
     console.log("Selected Category: ", selectedCategory);
@@ -113,7 +116,7 @@ const EventInventoryIngredients: React.FC = () => {
     <Box p={4}>
       {/* Category dropdown */}
       <Menu>
-        <MenuButton bg={backgroundColor} color={textColor} outlineColor={primary} as={Button} rightIcon={<ChevronDownIcon />} mb={4} w={"65%"} borderRadius="0" >
+        <MenuButton bg={backgroundColor} color={textColor} outline={"1px solid"} outlineColor={primary} as={Button} rightIcon={<ChevronDownIcon />} mb={4} w={"65%"} borderRadius="0" >
           {selectedCategory || "Select Category"}
         </MenuButton>
         <MenuList bg={backgroundColor} borderColor={primary} color={textColor} borderRadius={0} outline={"2px solid"} outlineColor={primary} h={"200px"} overflow={"auto"} scrollBehavior={"auto"}>
@@ -127,6 +130,9 @@ const EventInventoryIngredients: React.FC = () => {
 
       {/* Dropdown to select inventory item */}
       <Select
+      outline={"1px solid"}
+      outlineColor={primary}
+      borderRadius={0}
         title='Select item'
         aria-label='Select item'
         mb={4}
@@ -160,6 +166,9 @@ const EventInventoryIngredients: React.FC = () => {
       {/* Input for quantity */}
       <InputGroup mb={4}>
         <Input
+          outline={"1px solid"}
+          outlineColor={primary}
+          borderRadius={0}
           type="number"
           placeholder="Quantity Needed"
           value={quantity}
@@ -222,9 +231,11 @@ const EventInventoryIngredients: React.FC = () => {
         ))}
       </List>
 
-      {/* Total cost */}
+      {/* Display total cost */}
       <Box mt={4}>
-        <Text fontWeight="bold" color={accent}>Total Cost: <Text as={"span"} color={textColor}> ${calculateTotalCost().toFixed(2)} </Text></Text>
+        <Text fontSize="xl" color={textColor}>
+          <Text as={"b"} color={accent}>Total Cost:</Text> ${calculateTotalCost().toFixed(2)}
+        </Text>
       </Box>
     </Box>
   );

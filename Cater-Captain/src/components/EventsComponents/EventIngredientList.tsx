@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box, Input, Stack, Text, Checkbox, Heading,
   FormLabel, Menu, MenuButton, MenuList, MenuItem, Button,
@@ -17,7 +17,22 @@ interface EventIngredientListProps {
   onAddIngredient: (newIngredient: Ingredient) => void;
   onDeleteIngredient: (index: number) => void;
   onEditIngredient: (index: number, updatedIngredient: Ingredient) => void;
+  eventId: string;
 }
+
+//use "ingredientList" data from local storage
+export const useIngredientListData = () => {
+  const [ingredientList, setIngredientList] = useState<Ingredient[]>([]);
+  useEffect(() => {
+    const storedIngredients = localStorage.getItem('ingredientList');
+    if (storedIngredients) {
+      setIngredientList(JSON.parse(storedIngredients));
+    }
+  }, []);
+  return [ingredientList, setIngredientList];
+};
+
+
 
 //event ingredient list component
 const EventIngredientList: React.FC<EventIngredientListProps> = ({
@@ -25,6 +40,7 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
   onAddIngredient,
   onDeleteIngredient,
   onEditIngredient,
+  eventId,
 }) => {
   const [newIngredient, setNewIngredient] = useState<Ingredient>({
     name: '',
@@ -39,6 +55,8 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
   });
 
   const [visibleDetails, setVisibleDetails] = useState<boolean[]>(ingredients.map(() => false));
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+
 
   //handle input change for event ingredient list
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,9 +67,7 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
     }));
   };
 
-  //handle add ingredient for event ingredient list
-  const handleAddIngredient = () => {
-    onAddIngredient(newIngredient);
+  const resetForm = () => {
     setNewIngredient({
       name: '',
       units: '',
@@ -64,6 +80,31 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
       supplierName: '',
     });
   };
+  
+
+  //handle add ingredient for event ingredient list
+  const handleAddIngredient = () => {
+    if (editingIndex !== null) {
+      // Update existing ingredient
+      onEditIngredient(editingIndex, newIngredient);
+      setEditingIndex(null); // Reset editing state
+    } else {
+      // Add new ingredient
+      onAddIngredient(newIngredient);
+    }
+    resetForm(); // Reset form fields
+  };
+  
+
+  const handleEditClick = (index: number) => {
+    setEditingIndex(index);
+    const ingredientToEdit = ingredients[index];
+    setNewIngredient({
+      ...ingredientToEdit,
+      
+    });
+  };
+  
 
   const toggleDetails = (index: number) => {
     setVisibleDetails(prevState => {
@@ -121,7 +162,7 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
         <Heading as="h2" size="lg" mb={4}>
           Add Items from Inventory.
         </Heading>
-        <EventInventoryIngredients />
+        <EventInventoryIngredients eventId={eventId} />
       </Box>
 
       <Box
@@ -143,29 +184,38 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
         </Heading>
         <Stack spacing={3}>
           <Input
+          outline={"1px solid"}
+          outlineColor={primary}
+          borderRadius={0}
             placeholder="Ingredient Name"
             name="name"
             value={newIngredient.name}
             onChange={handleInputChange}
           />
           <Input
+           outline={"1px solid"}
+           outlineColor={primary}
+           borderRadius={0}
             placeholder="Unit Quantity"
             name="unitQuantity"
             type="number"
             value={newIngredient.unitQuantity}
             onChange={handleInputChange}
           />
-          <FormLabel htmlFor="units">Unit Measurement</FormLabel>
+          
           <Menu>
             <MenuButton
+             outline={"1px solid"}
+             outlineColor={primary}
+             borderRadius={0}
               as={Button}
               rightIcon={<ChevronDownIcon />}
               bg={backgroundColor}
               color={textColor}
               mb={2}
-              borderRadius="0"
+              
             >
-              {newIngredient.units || 'Select Unit'}
+              {newIngredient.units || 'Select Unit Measurement'}
             </MenuButton>
             <MenuList
               bg={backgroundColor}
@@ -176,29 +226,37 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
               overflow={"auto"}
               scrollBehavior={"auto"}
             >
-              {["Kg", "lbs", "cups", "oz", "fluid oz", "grams", "tbsp", "tsp", "milliliters", "liters", "quarts", "pints", "gallons", "other"].map(unit => (
-                <MenuItem key={unit} onClick={() => setNewIngredient({ ...newIngredient, units: unit })}>
+              {["Kg", "lbs", "cups", "oz", "fluid oz", "grams", "tbsp", "tsp", "milliliters", "liters", "quarts", "pints", "gallons", "each", "other"].map(unit => (
+                <MenuItem 
+                bg={backgroundColor}
+                key={unit} onClick={() => setNewIngredient({ ...newIngredient, units: unit })}>
                   {unit}
                 </MenuItem>
               ))}
             </MenuList>
           </Menu>
           <Input
+           outline={"1px solid"}
+           outlineColor={primary}
+           borderRadius={0}
             placeholder="Quantity Needed"
             name="quantityNeeded"
             type="number"
             value={newIngredient.quantityNeeded}
             onChange={handleInputChange}
           />
-          <FormLabel htmlFor="packageType">Package Type</FormLabel>
+          
           <Menu>
             <MenuButton
+             outline={"1px solid"}
+             outlineColor={primary}
+             borderRadius={0}
               as={Button}
               rightIcon={<ChevronDownIcon />}
               bg={backgroundColor}
               color={textColor}
               mb={2}
-              borderRadius="0"
+              
             >
               {newIngredient.packageType || 'Select Package Type'}
             </MenuButton>
@@ -212,13 +270,18 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
               scrollBehavior={"auto"}
             >
               {["Box", "Bag", "Bottle", "Carton", "Container", "Pallet", "Each", "Other"].map(type => (
-                <MenuItem key={type} onClick={() => setNewIngredient({ ...newIngredient, packageType: type })}>
+                <MenuItem 
+                bg={backgroundColor}
+                key={type} onClick={() => setNewIngredient({ ...newIngredient, packageType: type })}>
                   {type}
                 </MenuItem>
               ))}
             </MenuList>
           </Menu>
           <Input
+           outline={"1px solid"}
+           outlineColor={primary}
+           borderRadius={0}
             placeholder="Cost Per Unit (00.00)"
             name="costPerUnit"
             type="number"
@@ -226,6 +289,9 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
             onChange={handleInputChange}
           />
           <Input
+           outline={"1px solid"}
+           outlineColor={primary}
+           borderRadius={0}
             placeholder="Supplier Name"
             name="supplierName"
             value={newIngredient.supplierName}
@@ -238,10 +304,11 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
           >
             On Hand
           </Checkbox>
-          <CustomButton variant="solidGreen" title="Add Ingredient" alt="Add Ingredient" leftIcon={<AddIcon />} onClick={handleAddIngredient}>
+          
+        </Stack>
+        <CustomButton variant="solidGreen" title="Add Ingredient" alt="Add Ingredient" leftIcon={<AddIcon />} onClick={handleAddIngredient}>
              Add Ingredient
           </CustomButton>
-        </Stack>
 
         <List spacing={3} mt={5}>
           {ingredients.map((ingredient, index) => (
@@ -276,11 +343,12 @@ const EventIngredientList: React.FC<EventIngredientListProps> = ({
                     variant="outlineGreen"
                     title="Edit Ingredient"
                     alt="Edit Ingredient"
-                    onClick={() => onEditIngredient(index, ingredient)}
+                    onClick={() => handleEditClick(index)}
                     leftIcon={<EditIcon />}
                   >
                     Edit
                   </CustomButton>
+
                   <CustomButton
                     variant="outlineRed"
                     title="Delete Ingredient"
