@@ -433,7 +433,7 @@ const toggleImages = (eventId: number) => {
             {visibleIngredients[event.id] && (
              
               <EventIngredientList
-                
+                eventId={event.id.toString()}
                 ingredients={event.ingredients || []}
                 onAddIngredient={(newIngredient) => handleAddIngredient(event.id, newIngredient)}
                 onDeleteIngredient={(index) => handleDeleteIngredient(event.id, index)}
@@ -461,6 +461,7 @@ const toggleImages = (eventId: number) => {
 
             {visiblePricing[event.id] && (
               <EventPricing
+              eventId={event.id.toString()}
                 pricing={event.pricing || []}
                 onAddPricing={(newPricing: Pricing) => handleAddPricing(event.id, newPricing)}
                 onDeletePricing={(index) => handleDeletePricing(event.id, index)}

@@ -6,7 +6,7 @@ import { useThemeColors } from '../components/UseThemeColors';
 import ShowNeedToOrderItems from '../components/DashboardComponents/showNeedToOrderItems';
 import MockDataButton from '../MockData/UseMockData';
 import ShowUpcomingEvents from '../components/DashboardComponents/ShowUpcomingEvents';
-import AboutMe from '../components/AboutPageComponents/AboutMe';
+
 
 const Dashboard: React.FC = () => {
     const { backgroundColor } = useThemeColors();
@@ -29,8 +29,6 @@ const Dashboard: React.FC = () => {
             </Box>
 
             
-
-
             <Box
                 w={"100%"}
                 mb={6}
