@@ -108,13 +108,13 @@ const LocalStorageDisplay: React.FC = () => {
     }
   };
 
-  const handlePrint = async () => {
-    await toggleCategory('inventoryItems');
-    await toggleCategory('events');
-    await toggleCategory('employees');
-    await toggleCategory('suppliers');
-    window.print();
-  };
+  // const handlePrint = async () => {
+  //   await toggleCategory('inventoryItems');
+  //   await toggleCategory('events');
+  //   await toggleCategory('employees');
+  //   await toggleCategory('suppliers');
+  //   window.print();
+  // };
 
   const renderTable = (title: string, data: any) => (
     <Box my={4} p={4} borderWidth={2} borderColor={primary}>
@@ -155,7 +155,7 @@ const LocalStorageDisplay: React.FC = () => {
           >
             Export CSV
           </CustomButton>
-          <CustomButton
+          {/* <CustomButton
             variant='solidBlue'
             title="Print"
             alt="Print"
@@ -165,7 +165,7 @@ const LocalStorageDisplay: React.FC = () => {
             colorScheme={colorMode === 'dark' ? 'gray' : 'teal'}
           >
             Print
-          </CustomButton>
+          </CustomButton> */}
         </Box>
       </Box>
       <Box my={4} p={4} borderWidth={1} borderRadius="lg" display={visibility[title] ? 'block' : 'none'}
