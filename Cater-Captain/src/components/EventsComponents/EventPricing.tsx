@@ -4,6 +4,7 @@ import CustomButton from "../Buttons";
 import {
   Box,
   Text,
+  FormLabel,
   Heading,
   Input,
   Stack,
@@ -37,7 +38,7 @@ const EventPricing: React.FC<PricingProps> = ({
   const [newPricing, setNewPricing] = React.useState<Pricing>({
     name: "",
     price: 0,
-    currency: "",
+    currency: "CAD",
   });
 
   const [editingIndex, setEditingIndex] = React.useState<number | null>(null);
@@ -95,7 +96,7 @@ const EventPricing: React.FC<PricingProps> = ({
 
   const handleAddPricing = () => {
     onAddPricing(newPricing);
-    setNewPricing({ name: "", price: 0, currency: "" });
+    setNewPricing({ name: "", price: 0, currency: "CAD" });
   };
 
   const handleEditButtonClick = (index: number) => {
@@ -111,16 +112,16 @@ const EventPricing: React.FC<PricingProps> = ({
     if (editingIndex !== null) {
       onEditPricing(editingIndex, newPricing);
       setEditingIndex(null);
-      setNewPricing({ name: "", price: 0, currency: "" });
+      setNewPricing({ name: "", price: 0, currency: "CAD" });
     }
   };
 
   const handleCancelEdit = () => {
     setEditingIndex(null);
-    setNewPricing({ name: "", price: 0, currency: "" });
+    setNewPricing({ name: "", price: 0, currency: "CAD" });
   };
 
-  const { primary, backgroundColor, textColor, accent } = useThemeColors();
+  const { primary, backgroundColor, textColor, accent, secondary } = useThemeColors();
 
   const handleApplyDiscountAndTax = () => {
     const discountFactor = 1 - (discountPercentage / 100);
@@ -163,20 +164,32 @@ const EventPricing: React.FC<PricingProps> = ({
         Pricing
       </Heading>
       <Stack spacing={3}>
+        <FormLabel htmlFor="name" mb={0}>Item Name:</FormLabel>
         <Input
+         borderRadius={"none"}
+         outline={"1px solid"}
+         outlineColor={secondary}
           placeholder="Item Name"
           value={newPricing.name}
           onChange={(e) => handleInputChange(e, "name")}
           name="name"
         />
+        <FormLabel htmlFor="price" mb={0}>Price ($00.00):</FormLabel>
         <Input
+         borderRadius={"none"}
+         outline={"1px solid"}
+         outlineColor={secondary}
           placeholder="Price"
           type="number"
           value={newPricing.price}
           onChange={(e) => handleInputChange(e, "price")}
           name="price"
         />
+        <FormLabel htmlFor="currency" mb={0}>Currency:</FormLabel>
         <Input
+         borderRadius={"none"}
+         outline={"1px solid"}
+         outlineColor={secondary}
           placeholder="Currency"
           value={newPricing.currency}
           onChange={(e) => handleInputChange(e, "currency")}
@@ -288,24 +301,22 @@ const EventPricing: React.FC<PricingProps> = ({
           ))}
         </Tbody>
       </Table>
+      <Box mt={3} mb={6}
+      justifyContent={"right"} display={"flex"} flexDirection={"column"} alignItems={"end"}>
       <Box mt={3}>
-        <Heading size="md" color={textColor}>
+        <Heading size="md" color={textColor} textAlign={"right"}>
           <Text as="b" color={accent}>Total Before Discount/Tax:</Text> ${totalPrice.toFixed(2)} CAD
         </Heading>
       </Box>
-      <Box mt={3} textAlign="right">
-        <Heading size="md" color={textColor}>
-          <Text as="b" color={accent}>Discounted Total:</Text> ${discountedTotalPrice !== null ? discountedTotalPrice.toFixed(2) : totalPrice.toFixed(2)} CAD
-        </Heading>
-      </Box>
-      <Box mt={3} textAlign="right">
-        <Heading size="md" color={textColor}>
-          <Text as="b" color={accent}>Taxed Total:</Text> ${taxedTotalPrice !== null ? taxedTotalPrice.toFixed(2) : totalPrice.toFixed(2)} CAD
-        </Heading>
-      </Box>
-      <Box mt={3}>
-        <label htmlFor="discountPercentage">Discount Percentage:</label>
+      
+     
+      <Box mt={9} textAlign={"right"}>
+        <label htmlFor="discountPercentage">Discount Percentage: </label>
         <Input
+        borderRadius={"none"}
+        outline={"1px solid"}
+        outlineColor={secondary}
+        w={"50%"}
           placeholder="Discount Percentage"
           type="number"
           value={discountPercentage}
@@ -317,8 +328,17 @@ const EventPricing: React.FC<PricingProps> = ({
           }}
           name="discountPercentage"
         />
-        <label htmlFor="taxPercentage">Tax Percentage:</label>
+        <Box mt={3} mb={6} >
+        <Heading size="md" color={textColor}>
+          <Text as="b" color={accent}>Discounted Total: </Text> ${discountedTotalPrice !== null ? discountedTotalPrice.toFixed(2) : totalPrice.toFixed(2)} CAD
+        </Heading>
+      </Box>
+        <label htmlFor="taxPercentage">Tax Percentage: </label>
         <Input
+        borderRadius={"none"}
+        outline={"1px solid"}
+        outlineColor={secondary}
+        w={"50%"}
           placeholder="Tax Percentage"
           type="number"
           value={taxPercentage}
@@ -330,6 +350,12 @@ const EventPricing: React.FC<PricingProps> = ({
           }}
           name="taxPercentage"
         />
+         <Box mt={3} mb={3}>
+        <Heading size="md" color={textColor}>
+          <Text as="b" color={accent}>Taxed Total: </Text> ${taxedTotalPrice !== null ? taxedTotalPrice.toFixed(2) : totalPrice.toFixed(2)} CAD
+        </Heading>
+      </Box>
+      </Box>
       </Box>
     </Box>
   );

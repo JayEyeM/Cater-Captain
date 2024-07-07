@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {
   Box, Input, Stack, Text, Checkbox, Heading,
-  FormLabel, Menu, MenuButton, MenuList, MenuItem, Button,
-  List, ListItem, Spacer
+   Menu, MenuButton, MenuList, MenuItem, Button,
+  List, ListItem
 } from '@chakra-ui/react';
 import { AddIcon, DeleteIcon, ChevronDownIcon, EditIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { Ingredient } from '../Interfaces';
