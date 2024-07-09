@@ -8,12 +8,14 @@ import MockDataButton from '../MockData/UseMockData';
 import ShowUpcomingEvents from '../components/DashboardComponents/ShowUpcomingEvents';
 
 
+
 const Dashboard: React.FC = () => {
     const { backgroundColor } = useThemeColors();
 
     return (
         <Box bg={backgroundColor}>
             <NavBar />
+            
             <Box
                 w={"100%"}
                 mb={6}

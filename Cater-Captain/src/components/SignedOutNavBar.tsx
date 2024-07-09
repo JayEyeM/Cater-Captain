@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import './NavBar.css'; 
+
 import { Box, Heading, Menu, MenuButton, MenuList, MenuItem, Image, SimpleGrid } from '@chakra-ui/react';
 
 
@@ -15,9 +15,10 @@ import Signout from './AuthComponents/SignoutComponent';
 
 
 
+
 //nav bar component with logo and home button
-export default function NavBar() {
-    const { backgroundColor, primary, secondary } = useThemeColors();
+export default function SignedOutNavBar() {
+    const { backgroundColor, primary} = useThemeColors();
 
     const navigate = useNavigate();
 
@@ -58,28 +59,31 @@ export default function NavBar() {
                 /> */}
                 <MenuList bg={backgroundColor} outline={"2px solid"} p={2} outlineColor={primary} borderRadius={0}>
                     <SimpleGrid columns={{ base: 1, md: 2 }} spacing={3} p={4} ml={{ base: "auto", md: "auto" }} mr={{ base: "auto", md: "auto" }} w={{ base: "auto", md: "auto" }} h={"auto"}  overflow={"auto"} scrollBehavior={"auto"}>
-                    <MenuItem bg={backgroundColor} color={secondary} borderRadius={0} onClick={() => handleNavigation('/')}>
+                    <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/')}>
                         Home Page
                     </MenuItem>
-                    <MenuItem bg={backgroundColor} color={secondary} borderRadius={0} onClick={() => handleNavigation('/About')}>
+                    <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/About')}>
                         About
                     </MenuItem>
-                    <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/Dashboard')}>
+                    <MenuItem bg={backgroundColor} color={"gray"} borderRadius={0} onClick={() => handleNavigation('/Dashboard')}>
                         Dashboard
                     </MenuItem>
-                    <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/ManageEvents')}>
+                    <MenuItem bg={backgroundColor} color={"gray"} borderRadius={0} onClick={() => handleNavigation('/ManageEvents')}>
                         Events
                     </MenuItem>
-                    <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/Inventory')}>
+                    <MenuItem bg={backgroundColor} color={"gray"} borderRadius={0} onClick={() => handleNavigation('/Inventory')}>
                         Inventory
                     </MenuItem>
-                    <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/EmployeeManagement')}>
+                    <MenuItem bg={backgroundColor} color={"gray"} borderRadius={0} onClick={() => handleNavigation('/EmployeeManagement')}>
                         Employees
                     </MenuItem>
-                    <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/SupplierManagement')}>
+                    <MenuItem bg={backgroundColor} color={"gray"} borderRadius={0} onClick={() => handleNavigation('/SupplierManagement')}>
                         Suppliers
                     </MenuItem>
-                    
+                    <MenuItem bg={backgroundColor} borderRadius={0}  gridColumn="1"
+                    gridRow="5" onClick={() => handleNavigation('/login')}>
+                        <CustomButton variant="solidGreen" title="Login" alt="Login"> Login </CustomButton>
+                    </MenuItem>
                     
                     <MenuItem bg={backgroundColor} borderRadius={0}  gridColumn="2"
                     gridRow="5" onClick={() => handleNavigation('/sign-out')}>

@@ -1,6 +1,7 @@
 import React from 'react';
-import NavBar from '../components/NavBar';
-import { Heading, Box, Flex } from '@chakra-ui/react';
+
+import SignedOutNavBar from '../components/SignedOutNavBar';
+import {  Box, Flex } from '@chakra-ui/react';
 import WhatAppDoesInfo from '../components/HomepageComponents/WhatAppDoesInfo';
 import { useThemeColors } from '../components/UseThemeColors';
 import Footer from '../components/GeneralUtilities/Footer';
@@ -11,7 +12,7 @@ const Home: React.FC = () => {
 
     return (
         <Box bg={backgroundColor} w="100%" overflowX="hidden">
-            <NavBar />
+            <SignedOutNavBar />
             <Flex
                 w="100%"
                 direction="column"
@@ -29,12 +30,13 @@ const Home: React.FC = () => {
                         buttonLink='/signup'
                     />
                     <WhatAppDoesInfo />
-                    <Box h="50px" />
+                    <Box h="auto" w={"50%"}>
                     <CallToAction
                         headerText='Now that you know what Cater-Captain is and how it can help you, let us get started on our journey together!'
                         buttonText='Sign Up Now'
                         buttonLink='/signup'
                     />
+                    </Box>
                 </Box>
 
                 <Footer />

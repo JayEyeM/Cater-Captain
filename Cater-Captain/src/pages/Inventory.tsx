@@ -97,7 +97,6 @@ const Inventory: React.FC = () => {
       const newItem: InventoryItem = {
         id: new Date().getTime().toString(),
         name: itemName,
-        
         amountPerUnit: parsedAmountPerUnit,
         unit: itemUnit,
         quantity,
