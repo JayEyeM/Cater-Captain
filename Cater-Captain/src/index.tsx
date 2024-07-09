@@ -1,5 +1,3 @@
-// index.tsx
-
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -15,6 +13,9 @@ import Inventory from './pages/Inventory';
 import EmployeeManagement from './pages/EmployeeManagement';
 import SupplierManagement from './pages/SupplierManagement';
 import About from './pages/About';
+import PrivateRoute from './components/AuthComponents/PrivateRoute';
+import { AuthProvider } from './components/AuthComponents/AuthContext';
+
 import './index.css';
 
 const App: React.FC = () => {
@@ -25,17 +26,18 @@ const App: React.FC = () => {
         <Router>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/Signup" element={<Signup />} />
-            <Route path="/Login" element={<Login />} />
-            <Route path="/Dashboard" element={<Dashboard />} />
-            <Route path="/ManageEvents" element={<ManageEvents />} />
-            <Route path="/Inventory" element={<Inventory />} />
-            <Route path="/EmployeeManagement" element={<EmployeeManagement />} />
-            <Route path="/SupplierManagement" element={<SupplierManagement />} />
-            <Route path="/About" element={<About />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/about" element={<About />} />
             <Route path="*" element={<NotFound />} />
+
+            <Route path="/dashboard" element={<PrivateRoute element={Dashboard} />} />
+            <Route path="/ManageEvents" element={<PrivateRoute element={ManageEvents} />} />
+            <Route path="/inventory" element={<PrivateRoute element={Inventory} />} />
+            <Route path="/EmployeeManagement" element={<PrivateRoute element={EmployeeManagement} />} />
+            <Route path="/SupplierManagement" element={<PrivateRoute element={SupplierManagement} />} />
           </Routes>
-        </Router> 
+        </Router>
       </ChakraProvider>
     </>
   );
@@ -45,7 +47,11 @@ const rootElement = document.getElementById('root');
 
 if (rootElement) {
   const root = createRoot(rootElement);
-  root.render(<App />);
+  root.render(
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  );
 } else {
   console.error('No root element found');
-};
+}

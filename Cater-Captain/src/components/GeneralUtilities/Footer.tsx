@@ -13,6 +13,7 @@ const Footer: React.FC = () => {
             h="200px"
             p={4}
             mt={10}
+            mb={0}
             display="flex"
             justifyContent="center"
             alignItems="center"

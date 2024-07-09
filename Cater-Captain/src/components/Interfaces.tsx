@@ -111,5 +111,5 @@ export interface InventoryItem {
     sku: string;
     packageType: string;
     supplierName: string;
-    eventId: number;
+    eventId?: number;
   }
