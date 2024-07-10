@@ -1,13 +1,13 @@
 import React from "react";
 import SignedOutNavBar from "../components/SignedOutNavBar";
 import { useThemeColors } from "../components/UseThemeColors";
-import { Box, Heading, Text } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 import Footer from "../components/GeneralUtilities/Footer";
-import CallToAction from "../components/GeneralUtilities/CallToAction";
+
 import DisplayTutorialVideos from "../components/TutorialPageComponents/DisplayTutorialVideos";
 
 const Tutorials: React.FC = () => {
-    const { backgroundColor, accent, secondary } = useThemeColors();
+    const { backgroundColor } = useThemeColors();
 
     return (
         <Box bg={backgroundColor}>
