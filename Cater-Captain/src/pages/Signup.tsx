@@ -2,9 +2,9 @@
 
 import React from 'react';
 import SignupComponent from '../components/AuthComponents/SignupComponent';
-import { Box, Heading, Flex } from '@chakra-ui/react';
+import { Box, Heading, Flex, Text } from '@chakra-ui/react';
 import { useThemeColors } from '../components/UseThemeColors';
-import NavBar from '../components/NavBar';
+import SignedOutNavBar from '../components/SignedOutNavBar';
 import Footer from '../components/GeneralUtilities/Footer';
 import CallToAction from '../components/GeneralUtilities/CallToAction';
 
@@ -13,7 +13,7 @@ const Signup: React.FC = () => {
 
     return (
         <Box bg={backgroundColor} w="100%" overflowX="hidden">
-        <NavBar />
+        <SignedOutNavBar />
         <Flex
             w="100%"
             direction="column"
@@ -25,6 +25,10 @@ const Signup: React.FC = () => {
             <Heading as="h1" size="lg" fontFamily={'Cinzel'}>
                         Signup
                     </Heading>
+                    <Text mt={4} bg={"darkred"} color={"yellow"} fontWeight={"bold"} fontSize={{base:"md", md:"lg"}} textAlign={"center"} w={{base:"100%", md:"50%"}}>
+                    ***If you don't want to create an account, you can go to the login page and use the demo account credentials
+                    found on the login page.***
+            </Text>
             
     
             <Box w="100%" display="flex" justifyContent="center" flexDirection="column" alignItems="center">

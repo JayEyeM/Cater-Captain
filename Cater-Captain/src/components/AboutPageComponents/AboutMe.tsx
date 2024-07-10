@@ -8,7 +8,7 @@ const MyImage = "/OtherContent/IMG_3640.jpg";
 const SalmonFlowImage = "/OtherContent/salmonFlowFavicon.svg";
 
 const AboutMe: React.FC = () => {
-    const { backgroundColor, textColor, primary, secondary, accent } = useThemeColors();
+    const { backgroundColor, textColor, secondary, accent } = useThemeColors();
     return (
         <Box
             bg={backgroundColor}
@@ -37,14 +37,14 @@ const AboutMe: React.FC = () => {
                 flexDirection="column"
                 alignItems="center"
             >
-                <Image src={CaterCaptainImg} alt="CaterCaptainImg" maxW="300px" />
+                <Image src={CaterCaptainImg} alt="CaterCaptainImg" w={{ base: "95%", md: "30%" }} />
                 <Text fontSize="2xl" mb={6} color={accent}>
                     Nope, not him... that is the Cater-Captain!
                 </Text>
                 <Text fontSize="2xl" mb={2} color={textColor}>
                     This is me...
                 </Text>
-                <Image src={MyImage} alt="MyImage" maxW="300px" />
+                <Image src={MyImage} alt="MyImage" w={{ base: "95%", md: "30%" }} />
                 <Text fontSize="2xl" mb={2} color={textColor}>
                     Joshua Ivany.
                 </Text>

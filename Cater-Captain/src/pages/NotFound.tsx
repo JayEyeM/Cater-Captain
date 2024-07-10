@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Box, Text, Image, Heading } from "@chakra-ui/react";
-import NavBar from "../components/NavBar";
+import SignedOutNavBar from "../components/SignedOutNavBar";
 import { useThemeColors } from "../components/UseThemeColors";
 import CustomButton from "../components/Buttons";
 import Footer from "../components/GeneralUtilities/Footer";
@@ -11,7 +11,7 @@ export default function NotFound() {
     const { backgroundColor, textColor, accent } = useThemeColors();
     return (
        <Box>
-        <NavBar />
+        <SignedOutNavBar />
             <Box bg={backgroundColor}
             color={textColor}
             w="100%"
@@ -39,7 +39,7 @@ export default function NotFound() {
                     <Link to="/">
                     <Box display={"flex"} flexDirection={"column"} alignItems={"center"} w={"80%"} mx={"auto"}>
                         <Text fontSize="2xl" mb={6} w={"100%"} textAlign={"center"}>
-                            Eat your soup, get back on course and continue the treachorous journey back to the Homepage!
+                            Eat your soup, get back on course and continue to Greatness with Cater-Captain!
                         </Text>
                         <CustomButton variant="solidGreen" title="Homepage" alt="Homepage">
                             Homepage

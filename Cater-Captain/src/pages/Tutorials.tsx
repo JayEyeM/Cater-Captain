@@ -1,14 +1,13 @@
 import React from "react";
 import SignedOutNavBar from "../components/SignedOutNavBar";
 import { useThemeColors } from "../components/UseThemeColors";
-import { Box, Heading, Text, Image } from "@chakra-ui/react";
+import { Box, Heading, Text } from "@chakra-ui/react";
 import Footer from "../components/GeneralUtilities/Footer";
 import CallToAction from "../components/GeneralUtilities/CallToAction";
+import DisplayTutorialVideos from "../components/TutorialPageComponents/DisplayTutorialVideos";
 
-
-const SignOut: React.FC = () => {
-    const { backgroundColor } = useThemeColors();
-    const signOutImg = "/OtherContent/chefOnBoatSaluting.jpeg";
+const Tutorials: React.FC = () => {
+    const { backgroundColor, accent, secondary } = useThemeColors();
 
     return (
         <Box bg={backgroundColor}>
@@ -24,19 +23,16 @@ const SignOut: React.FC = () => {
                 bg={backgroundColor}
             >
                 <Heading as="h1" size="lg" fontFamily="Cinzel">
-                    Signed out.
+                    Tutorials
                 </Heading>
-                <Image mt={10} src={signOutImg} alt="CaterCaptainImg" w={{ base: "80%", md: "40%" }} />
-                <Text fontSize="lg" fontFamily="Cinzel" mt={5} mb={40}>
-                    Thank you for using Cater-Captain. See you soon!
-                </Text>
                 
-                
+                <DisplayTutorialVideos />
             </Box>
-            <CallToAction headerText="Become a Cater-Captain and Steer Your Business Forward!" buttonText="Get Started" buttonLink="/signup" />
+            
+            
             <Footer />
         </Box>
     );
 };
 
-export default SignOut;
+export default Tutorials;

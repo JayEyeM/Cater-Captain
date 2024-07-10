@@ -8,7 +8,7 @@ import NavBar from '../components/NavBar';
 import Footer from '../components/GeneralUtilities/Footer';
 
 const Login: React.FC = () => {
-    const { backgroundColor } = useThemeColors();
+    const { backgroundColor, accent, primary, textColor } = useThemeColors();
   return (
     <Box bg={backgroundColor} w="100%" overflowX="hidden">
     <NavBar />
@@ -23,6 +23,15 @@ const Login: React.FC = () => {
         <Heading as="h1" size="lg" fontFamily={'Cinzel'}>
                     Login
                 </Heading>
+                <Text color={accent} fontSize={{base:"md", md:"lg"}}>
+                Demo account credentials: 
+                <Text color={primary} fontSize={{base:"md", md:"lg"}}> 
+                    Email: <Text as={"span"} color={textColor} fontWeight={"bold"}>demo@catercaptain.com</Text>
+                </Text>
+                <Text color={primary} fontSize={{base:"md", md:"lg"}}> 
+                    Password: <Text as={"span"} color={textColor} fontWeight={"bold"}>democatercaptain</Text>
+                </Text>
+            </Text>
         
 
         <Box w="100%" display="flex" justifyContent="center" flexDirection="column" alignItems="center">

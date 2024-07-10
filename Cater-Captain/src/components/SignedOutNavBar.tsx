@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import { Box, Heading, Menu, MenuButton, MenuList, MenuItem, Image, SimpleGrid } from '@chakra-ui/react';
+import { Box, Heading, Menu, MenuButton, MenuList, MenuItem, Image, SimpleGrid, Text } from '@chakra-ui/react';
 
 
 import ToggleColorModeButton from './ToggleColorModeButton';
@@ -18,7 +18,7 @@ import Signout from './AuthComponents/SignoutComponent';
 
 //nav bar component with logo and home button
 export default function SignedOutNavBar() {
-    const { backgroundColor, primary} = useThemeColors();
+    const { backgroundColor, primary, accent} = useThemeColors();
 
     const navigate = useNavigate();
 
@@ -27,7 +27,8 @@ export default function SignedOutNavBar() {
     };
 
     return (
-        <Box id="navDiv" display="flex" flexDirection={"row"} alignItems={"center"} w={"100%"} pl={12} pr={12} pt={2}  className="nav-container" bg={backgroundColor} >
+        <Box id="navDiv" display="flex" flexDirection={"column"} alignItems={"center"} w={"100%"} pl={12} pr={12} pt={2}  className="nav-container" bg={backgroundColor} >
+        <Box id="navDiv" display="flex" flexDirection={"row"} alignItems={"center"} w={"100%"}  className="nav-container" bg={backgroundColor} >
             <Image src='/captainCaterLogoFinal.svg' alt='Cater-Captain Logo' w={{base:"50px", md:"100px"}} />
             
             <Heading as="h1" size={{base:"lg", md:"3xl"}} w="100%" textAlign={"center"} fontFamily={'Cinzel'} color={primary} id="navTitle">Cater-Captain</Heading>
@@ -80,13 +81,16 @@ export default function SignedOutNavBar() {
                     <MenuItem bg={backgroundColor} color={"gray"} borderRadius={0} onClick={() => handleNavigation('/SupplierManagement')}>
                         Suppliers
                     </MenuItem>
+                    <MenuItem bg={backgroundColor} borderRadius={0} onClick={() => handleNavigation('/tutorials')}>
+                        Learn
+                    </MenuItem>
                     <MenuItem bg={backgroundColor} borderRadius={0}  gridColumn="1"
                     gridRow="5" onClick={() => handleNavigation('/login')}>
                         <CustomButton variant="solidGreen" title="Login" alt="Login"> Login </CustomButton>
                     </MenuItem>
                     
                     <MenuItem bg={backgroundColor} borderRadius={0}  gridColumn="2"
-                    gridRow="5" onClick={() => handleNavigation('/sign-out')}>
+                    gridRow="5" onClick={() => handleNavigation('/signout')}>
                         <Signout />
                     </MenuItem>
                     
@@ -94,6 +98,11 @@ export default function SignedOutNavBar() {
                 </MenuList>
             </Menu>
             
+        </Box>
+        <Box>
+            <Text color={accent} fontSize={{base:"sm", md:"md"}}>Get Coding - Module 2 PROJECT</Text>
+            
+        </Box>
         </Box>
     );
 }
