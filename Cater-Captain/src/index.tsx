@@ -15,6 +15,8 @@ import SupplierManagement from './pages/SupplierManagement';
 import About from './pages/About';
 import PrivateRoute from './components/AuthComponents/PrivateRoute';
 import { AuthProvider } from './components/AuthComponents/AuthContext';
+import SignOut from './pages/Signout';
+import Tutorials from './pages/Tutorials';
 
 import './index.css';
 
@@ -29,13 +31,16 @@ const App: React.FC = () => {
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
             <Route path="/about" element={<About />} />
+            <Route path="/tutorials" element={<Tutorials />} />
             <Route path="*" element={<NotFound />} />
+            <Route path="/signout" element={<SignOut />}/>
 
             <Route path="/dashboard" element={<PrivateRoute element={Dashboard} />} />
             <Route path="/ManageEvents" element={<PrivateRoute element={ManageEvents} />} />
             <Route path="/inventory" element={<PrivateRoute element={Inventory} />} />
             <Route path="/EmployeeManagement" element={<PrivateRoute element={EmployeeManagement} />} />
             <Route path="/SupplierManagement" element={<PrivateRoute element={SupplierManagement} />} />
+            
           </Routes>
         </Router>
       </ChakraProvider>

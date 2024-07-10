@@ -53,7 +53,8 @@ const Login: React.FC = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </FormControl>
-        <CustomButton mt={4} variant='solidGreen' title='Login' alt='Login' type="submit">Login</CustomButton>
+        <Link to="/signup">
+        <CustomButton mt={4} variant='solidGreen' title='Login' alt='Login' type="submit">Login</CustomButton></Link>
         {message && <Text mt={4}>{message}</Text>}
       </form>
       <Box mt={8}>

@@ -21,8 +21,14 @@ const Home: React.FC = () => {
                 px={{ base: 4, md: 8 }}
                 py={4}
             >
-                
-
+                <Box w={{ base: '100%', md: '50%' }}
+                h={{ base: '180px', md: '300px' }}
+                mb={10}
+                boxShadow={"0px 0px 3px 3px black"}
+                mt={10}
+                display="flex" justifyContent="center" flexDirection="column" alignItems="center">
+                <iframe title='Cater-Captain Video' src="https://drive.google.com/file/d/13AtwecIE_S3RR3Y0i6hyqcF0W1l8eAWS/preview" width="100%" height={"100%"}  allowFullScreen ></iframe>
+                </Box>
                 <Box w="100%" display="flex" justifyContent="center" flexDirection="column" alignItems="center">
                     <CallToAction
                         headerText='Ready to be a Cater-Captain?'

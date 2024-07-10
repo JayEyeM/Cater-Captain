@@ -4,7 +4,7 @@ import { Box, Heading, Text } from "@chakra-ui/react";
 import AnimatedBlurb from "../GeneralUtilities/AnimatedBlurbs";
 
 const WhatAppDoesInfo: React.FC = () => {
-  const { backgroundColor, secondary, textColor, primary, accent } = useThemeColors();
+  const { backgroundColor, secondary, accent } = useThemeColors();
   
   const blurbs = [
     {
@@ -97,9 +97,9 @@ const WhatAppDoesInfo: React.FC = () => {
       bg={backgroundColor}
       py={10}
     >
-      <Heading as="h1" size="lg" color={secondary} fontFamily="Cinzel" mb={6} textAlign="center"
-      mt={6} >
-        Learn how we help you manage your catering business.
+      <Heading as="h1" size="lg" color={secondary} fontFamily="Cinzel" mb={0} textAlign="center"
+      mt={0} >
+        We help you manage your catering business so you have more time to focus on what matters most.
       </Heading>
       <Text as="p" fontFamily="Cinzel"  fontSize="xl" textAlign="center" w={{ base: "90%", md: "60%" }}
       mb={6} mt={6}>
