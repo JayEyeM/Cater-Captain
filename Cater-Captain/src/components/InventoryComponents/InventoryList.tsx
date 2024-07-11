@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { DragDropContext, Droppable, Draggable, DropResult } from "react-beautiful-dnd";
 import { Box, Text } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon, EditIcon, DeleteIcon } from '@chakra-ui/icons';

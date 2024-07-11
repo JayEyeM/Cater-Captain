@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { signUp } from '../../auth';
-import { Box, Button, Heading, FormControl, FormLabel, Input, Text, Link } from '@chakra-ui/react';
+import { Box, Heading, FormControl, FormLabel, Input, Text } from '@chakra-ui/react';
 import CustomButton from '../Buttons';
 import { useThemeColors } from '../UseThemeColors';
 
@@ -11,12 +11,12 @@ const Signup: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const { backgroundColor, textColor, primary, secondary,accent } = useThemeColors();
+  const { primary, secondary } = useThemeColors();
 
   const handleSubmit = async (e: React.FormEvent) => {
    
     e.preventDefault();
-    const { user, error } = await signUp(email, password);
+    const { error } = await signUp(email, password);
     if (error) {
       setMessage(error.message);
     } else {

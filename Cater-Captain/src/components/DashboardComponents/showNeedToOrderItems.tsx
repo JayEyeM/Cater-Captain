@@ -14,7 +14,7 @@ interface SelectedItem {
 }
 
 const ShowNeedToOrderItems: React.FC = () => {
-    const [inventoryItems, setInventoryItems] = useInventoryData() as [InventoryItem[], Dispatch<SetStateAction<InventoryItem[]>>];
+    const [inventoryItems] = useInventoryData() as [InventoryItem[], Dispatch<SetStateAction<InventoryItem[]>>];
     
     const { backgroundColor, textColor, secondary, accent } = useThemeColors();
     const needToOrderItems = inventoryItems.filter((item: InventoryItem) => {
@@ -50,7 +50,7 @@ const ShowNeedToOrderItems: React.FC = () => {
     };
 
     // Use the useSupplierData hook
-    const [suppliers, setSuppliers] = useSupplierData(false);
+    const [suppliers] = useSupplierData(false);
 
     const [selectedItems, setSelectedItems] = useState<SelectedItem[]>(() => {
         // Retrieve the selected items from localStorage when the component mounts

@@ -11,7 +11,7 @@ import {
   useToast,
   useColorMode,
 } from '@chakra-ui/react';
-import { ViewIcon, ViewOffIcon, DownloadIcon, AddIcon } from '@chakra-ui/icons';
+import { ViewIcon, ViewOffIcon, DownloadIcon  } from '@chakra-ui/icons';
 import { useThemeColors } from './UseThemeColors';
 import CustomButton from './Buttons';
 

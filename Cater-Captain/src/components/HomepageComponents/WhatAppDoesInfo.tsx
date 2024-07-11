@@ -49,8 +49,7 @@ const WhatAppDoesInfo: React.FC = () => {
       const blurbsSection = document.getElementById("blurbs-section");
       
       if (blurbsSection) {
-        const blurbsSectionTop = blurbsSection.offsetTop;
-        const blurbsSectionBottom = blurbsSectionTop + blurbsSection.offsetHeight;
+       
         
         const scrollPosition = window.scrollY + windowHeight / 2;
         

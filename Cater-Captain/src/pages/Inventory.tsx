@@ -225,7 +225,7 @@ const Inventory: React.FC = () => {
       {InventoryList(primary, onDragEnd, items, backgroundColor, accent, textColor, toggleDetails, visibleDetails, secondary, editItem, deleteItem)}
       </Box>
 
-      {InventoryEditForm(isOpen, onClose, backgroundColor, textColor, itemSku, setItemSku, primary, itemName, setItemName, category, setCategory, amountPerUnit, setAmountPerUnit, itemUnit, setItemUnit, packageType, setPackageType, itemQuantity, setItemQuantity, whenToOrder, setWhenToOrder, selectedSupplier, handleSupplierSelection, supplierNames, saveItem, accent)}
+      {InventoryEditForm(isOpen, onClose, backgroundColor, textColor, itemSku, setItemSku, primary, itemName, setItemName, category, setCategory, amountPerUnit, setAmountPerUnit, itemUnit, setItemUnit, packageType, setPackageType, itemQuantity, setItemQuantity, whenToOrder, setWhenToOrder, selectedSupplier, handleSupplierSelection, supplierNames, saveItem)}
     </Box>
   );
 };

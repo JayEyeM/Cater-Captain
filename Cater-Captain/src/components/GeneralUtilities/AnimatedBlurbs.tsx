@@ -19,7 +19,7 @@ const AnimatedBlurb: React.FC<AnimatedBlurbProps> = ({
 
   useEffect(() => {
     if (isVisible) {
-      const directionClass = index % 2 === 0 ? "left" : "right";
+      
 
       setAnimationStyle({
         opacity: 1,
