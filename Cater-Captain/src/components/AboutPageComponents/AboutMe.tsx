@@ -8,7 +8,7 @@ const MyImage = "/OtherContent/IMG_3640.jpg";
 const SalmonFlowImage = "/OtherContent/salmonFlowFavicon.svg";
 
 const AboutMe: React.FC = () => {
-    const { backgroundColor, textColor, secondary, accent } = useThemeColors();
+    const { backgroundColor, textColor, secondary, accent, primary } = useThemeColors();
     return (
         <Box
             bg={backgroundColor}
@@ -82,6 +82,37 @@ const AboutMe: React.FC = () => {
                         He provided me with guidance and motivation to get this project off the ground. I am grateful for his help in getting me over the initial learning curve of what a React project entails and how it all comes together. He helped me plan accordingly and stay on track to see this through to completion.
                     </Text>
                 </Box>
+
+                <Box outline="2px solid" outlineColor={primary} w={{ base: "95%", md: "80%" }} mt={6} p={4} display="flex" flexDirection="column" justifyContent="center" alignItems="center">
+                    <Heading fontSize="2xl" mb={2} color={primary}>
+                        How is Cater-Captain built?
+                    </Heading>
+                    <Text fontSize="xl" mb={2} color={textColor}>
+                       This project was built with React, Vite, Chakra UI, and TypeScript. 
+                    </Text>
+                    <Text fontSize="xl" mb={2} color={textColor}>
+                       I used DayJS to help
+                        me with date formatting/filtering logic, and Beautiful DND for drag and drop functionality in
+                        the Inventory page.
+                    </Text>
+                    <Text fontSize="xl" mb={2} color={textColor}>
+                        Chakra UI was used to style the webpages and was the source for some of the button icons used throughout the project.
+                        I also created the Event Images and Event Tool Kit Icons using Inkscape.
+                    </Text>
+                    <Text fontSize="xl" mb={2} color={textColor}>
+                        For images such as the Cater-Captain image on this page, the Cater-Captain's Wife
+                        on the 404 Not Found page, and the Sailor Waving Goodbye image on the Signed Out page, I used
+                        perchance.org/ai-cartoon-generator.
+                    </Text>
+
+                    <Text fontSize="xl" mb={2} color={textColor}>
+                       I edited the Homepage and Learn Page videos with clipchamp.com.
+                       Music used for the videos were all found on pixabay.com.
+                    </Text>
+
+                </Box>
+
+                
                 <Text mt={6} color={accent}>
                     You can play my game from Module 1 of the Get Coding program here:
                 </Text>

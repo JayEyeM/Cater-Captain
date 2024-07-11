@@ -33,7 +33,7 @@ const About: React.FC = () => {
                 Uh oh! There are duplicates of the same button below.
             </Text>
             <Text fontSize="2xl"  color={accent} mt={0} mb={0} textAlign={"center"}>
-                One may be an easy path to success, while the other a bit more difficult.
+                One may be an easy path to getting started with Cater-Captain, while the other a bit more difficult.
             </Text>
             <Text fontWeight={"bold"} fontSize="xl" color={secondary} mt={0} mb={6} textAlign={"center"}>
                 Test your luck. The easy path may not always be the most fulfilling 

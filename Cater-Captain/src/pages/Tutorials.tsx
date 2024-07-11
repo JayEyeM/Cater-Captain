@@ -23,7 +23,7 @@ const Tutorials: React.FC = () => {
                 bg={backgroundColor}
             >
                 <Heading as="h1" size="lg" fontFamily="Cinzel">
-                    Tutorials
+                    Learn to be a Cater-Captain
                 </Heading>
                 
                 <DisplayTutorialVideos />

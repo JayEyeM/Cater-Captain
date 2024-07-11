@@ -23,7 +23,7 @@ const Login: React.FC = () => {
         <Heading as="h1" size="lg" fontFamily={'Cinzel'}>
                     Login
                 </Heading>
-                <Text color={accent} fontSize={{base:"md", md:"lg"}}>
+                <Text color={accent} fontWeight={"bold"} fontSize={{base:"md", md:"lg"}}>
                 Demo account credentials: 
                 <Text color={primary} fontSize={{base:"md", md:"lg"}}> 
                     Email: <Text as={"span"} color={textColor} fontWeight={"bold"}>demo@catercaptain.com</Text>
@@ -32,6 +32,11 @@ const Login: React.FC = () => {
                     Password: <Text as={"span"} color={textColor} fontWeight={"bold"}>democatercaptain</Text>
                 </Text>
             </Text>
+            <Text mt={4} bg={"darkred"} color={"yellow"} fontWeight={"bold"} fontSize={{base:"md", md:"lg"}} textAlign={"center"} w={{base:"100%", md:"50%"}}>
+                    *** For demo purposes, once you log in, you can click the
+                    "Use Mock Data" button on the Dashboard page to load the app with mock data.
+                    The project currently uses local storage. ***
+                    </Text>
         
 
         <Box w="100%" display="flex" justifyContent="center" flexDirection="column" alignItems="center">

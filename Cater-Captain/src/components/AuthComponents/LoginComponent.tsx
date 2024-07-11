@@ -53,13 +53,41 @@ const Login: React.FC = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </FormControl>
-        <Link to="/signup">
-        <CustomButton mt={4} variant='solidGreen' title='Login' alt='Login' type="submit">Login</CustomButton></Link>
-        {message && <Text mt={4}>{message}</Text>}
+        
+        <CustomButton mt={4} variant='solidGreen' title='Login' alt='Login' type="submit">Login</CustomButton>
+        {message === 'Login successful!' && (
+           <Box mt={4}>
+           <Text mt={0}>{message}</Text>
+           <Box
+             mt={2}
+             p={4}
+             w="60%"
+             outline="1px solid"
+             outlineColor={primary}
+             color={secondary}
+             display="flex"
+             justifyContent="center"
+             alignItems="center"
+             mx="auto" // Center the box horizontally
+             textAlign="center"
+           >
+             <Link to="/dashboard">
+               <Text textAlign="center" as="span" fontSize="xl">
+                 Sail onto Dashboard
+               </Text>
+             </Link>
+           </Box>
+         </Box>
+        )
+        } {
+          <Text mt={4}>{message}</Text>
+        
+        }
       </form>
       <Box mt={8}>
         <Text fontSize="sm">Don't have an account? <Link to="/signup"><Text as="span" color={accent} fontSize="sm">Sign up here</Text></Link></Text>
       </Box>
+     
       
     </Box>
   );

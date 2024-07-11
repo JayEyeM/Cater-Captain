@@ -28,7 +28,7 @@ const Signup: React.FC = () => {
                     <Text mt={4} bg={"darkred"} color={"yellow"} fontWeight={"bold"} fontSize={{base:"md", md:"lg"}} textAlign={"center"} w={{base:"100%", md:"50%"}}>
                     ***If you don't want to create an account, you can go to the login page and use the demo account credentials
                     found on the login page.***
-            </Text>
+                    </Text>
             
     
             <Box w="100%" display="flex" justifyContent="center" flexDirection="column" alignItems="center">
