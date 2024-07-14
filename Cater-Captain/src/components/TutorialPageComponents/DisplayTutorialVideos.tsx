@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {  Box, Flex, Heading } from '@chakra-ui/react';
+import {  Box, Flex, Heading, Text } from '@chakra-ui/react';
 
 import { useThemeColors } from '../UseThemeColors';
 
@@ -13,6 +13,8 @@ const DisplayTutorialVideos: React.FC = () => {
 
     return (
         <Box bg={backgroundColor} w="100%" overflowX="hidden">
+            <Text fontSize={"2xl"} color={secondary} w="80%" m={"auto"} mt={10} textAlign="center"  > To get the full Cater-Captain learning experience, 
+            headphones on and volume up. Go on a journey of discovery. </Text>
             
             <Flex
                 w="100%"
@@ -22,7 +24,9 @@ const DisplayTutorialVideos: React.FC = () => {
                 px={{ base: 4, md: 8 }}
                 py={4}
             >
-
+                
+                    
+               
                 <Box w={{ base: '100%', md: '50%' }}
                 h={{ base: '280px', md: '400px' }}
                 mb={10}
