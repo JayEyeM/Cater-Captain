@@ -11,7 +11,7 @@ import {
   useToast,
   useColorMode,
 } from '@chakra-ui/react';
-import { ViewIcon, ViewOffIcon, DownloadIcon, AddIcon } from '@chakra-ui/icons';
+import { ViewIcon, ViewOffIcon, DownloadIcon} from '@chakra-ui/icons';
 import { useThemeColors } from './UseThemeColors';
 import CustomButton from './Buttons';
 
@@ -117,7 +117,7 @@ const LocalStorageDisplay: React.FC = () => {
   // };
 
   const renderTable = (title: string, data: any) => (
-    <Box my={4} p={4} borderWidth={2} borderColor={primary}>
+    <Box my={4} p={4} borderWidth={2} borderColor={primary} boxShadow={" -5px 5px 5px 1.25px #cbe6ad91"}>
       <Heading size="md" mb={2} color={primary}>
         View Your {title}
       </Heading>

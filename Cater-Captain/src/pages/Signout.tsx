@@ -26,7 +26,7 @@ const SignOut: React.FC = () => {
                 <Heading as="h1" size="lg" fontFamily="Cinzel">
                     Signed out.
                 </Heading>
-                <Image mt={10} src={signOutImg} alt="CaterCaptainImg" w={{ base: "80%", md: "40%" }} />
+                <Image mt={10} src={signOutImg} alt="CaterCaptainImg" w={{ base: "80%", md: "40%" }} boxShadow={" 0px 0px 10px 1.25px gray"} />
                 <Text fontSize="lg" textAlign={"center"} fontFamily="Cinzel" w={{ base: "80%", md: "40%" }} mt={5} mb={40}>
                     Thank you for using Cater-Captain. See you soon!
                 </Text>
