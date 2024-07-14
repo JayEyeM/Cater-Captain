@@ -37,14 +37,14 @@ const AboutMe: React.FC = () => {
                 flexDirection="column"
                 alignItems="center"
             >
-                <Image src={CaterCaptainImg} alt="CaterCaptainImg" w={{ base: "95%", md: "30%" }} />
+                <Image src={CaterCaptainImg} alt="CaterCaptainImg" w={{ base: "95%", md: "30%" }} boxShadow={" 0px 0px 10px 1.25px gray"} />
                 <Text fontSize="2xl" mb={6} color={accent}>
                     Nope, not him... that is the Cater-Captain!
                 </Text>
                 <Text fontSize="2xl" mb={2} color={textColor}>
                     This is me...
                 </Text>
-                <Image src={MyImage} alt="MyImage" w={{ base: "95%", md: "30%" }} />
+                <Image src={MyImage} alt="MyImage" w={{ base: "95%", md: "30%" }} boxShadow={" 0px 0px 10px 1.25px gray"} />
                 <Text fontSize="2xl" mb={2} color={textColor}>
                     Joshua Ivany.
                 </Text>
@@ -71,11 +71,11 @@ const AboutMe: React.FC = () => {
                     My background is in Marine Cooking. I have worked offshore and onshore in various roles. I also have a diploma in Supply Chain.
                 </Text>
                 <Text fontSize="xl" mb={2} color={textColor}>
-                    When deciding what my project would be for module 2 of the Get Coding program, I wanted to bring my skills and knowledge to the table, and work on something relatable, meaningful and with purpose. It was a toss up between two ideas, but this Cater-Captain idea was nagging at me. There is much that can be done with this project, but for the current stage it is at, I am pleased with the outcome, and I hope to continue working on it over time.
+                    When deciding what my project would be for module 2 of the Get Coding program, I wanted to bring my experience and knowledge to the table, and work on something relatable, and purposeful. It was a toss up between two ideas, but a catering management app was nagging at me. There is much that can be done with this project, but for the current stage it is at, I am pleased with the outcome, and I hope to continue working on it over time.
                 </Text>
                 <Box bg="#141220" mt={6} p={4} display="flex" justifyContent="center" alignItems="center">
                     <Text fontSize="xl" mb={2} color="#F5F5F5">
-                        I would like to thank my mentor,
+                        I would like to thank my mentor,  
                         <Text as="b" color={secondary}>
                             Eti-abasi Umobong.
                         </Text>{" "}

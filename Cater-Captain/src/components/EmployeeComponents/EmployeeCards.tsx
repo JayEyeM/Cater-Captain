@@ -18,7 +18,8 @@ interface EmployeeCardProps {
     onDelete: () => void;
 }
 
-const EmployeeCard: React.FC<EmployeeCardProps> = ({ firstName, lastName, email, role, phone, fullTimePartTime, department, startDate, onEdit, onDelete }) => {
+const EmployeeCard: React.FC<EmployeeCardProps> = ({ 
+  firstName, lastName, email, role, phone, fullTimePartTime, department, startDate, onEdit, onDelete }) => {
   const { backgroundColor, primary, textColor, secondary } = useThemeColors();
   
   return (

@@ -34,6 +34,7 @@ export default function NotFound() {
                 <Image src={CaterCaptainWifeImg} alt="CaterCaptainWifeImg" 
                 w={{ base: "95%", md: "25%"}} 
                 maxW={"400px"}
+                boxShadow={" 0px 0px 10px 1.25px gray"}
                 />
                 <Box w={"100%"} >
                     <Link to="/">
