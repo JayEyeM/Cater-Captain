@@ -91,6 +91,9 @@ const AboutMe: React.FC = () => {
                        This project was built with React, Vite, Chakra UI, and TypeScript. 
                     </Text>
                     <Text fontSize="xl" mb={2} color={textColor}>
+                       Supabase was used for user authentication. 
+                    </Text>
+                    <Text fontSize="xl" mb={2} color={textColor}>
                        I used DayJS to help
                         me with date formatting/filtering logic, and Beautiful DND for drag and drop functionality in
                         the Inventory page.
