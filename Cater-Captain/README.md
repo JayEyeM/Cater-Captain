@@ -31,7 +31,7 @@ Suppliers and Employees both operate in a similar manner. Fill out the form and 
 
 Currently on the Dashboard page, the user can view their upcoming events for the next 14 days. They can also see a list of all inventory items that need to be re-ordered, and check them off once they are ordered. There is also a scetion where the user can view data tables of events, inventory, employees, suppliers, with the ability to export as csv or json.
 
-### The above four pages are accesible once the user has signed in.
+### The above pages are accesible once the user has signed in.
 
 ## Learning Page:
 
@@ -44,6 +44,10 @@ You will find a quick overview of the key points of what Cater-Captain is and ho
 ## About Page:
 
 You can read a bit more about me and the project on the about page.
+
+## Login/Sign-up/Sign-out:
+
+Supabase was used for user authentication processes.
 
 ## Shout-out:
 
