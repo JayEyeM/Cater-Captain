@@ -8,26 +8,34 @@ import { DownloadIcon } from "@chakra-ui/icons";
 import { useExport } from "../GeneralUtilities/HandleExport";
 import useSupplierData from "../SupplierComponents/useSupplierData";
 
+// Create interface for SelectedItem
 interface SelectedItem {
     id: string;
     orderPlaced: boolean;
 }
 
 const ShowNeedToOrderItems: React.FC = () => {
+    //Inventory items are from useInventoryData.
     const [inventoryItems, setInventoryItems] = useInventoryData() as [InventoryItem[], Dispatch<SetStateAction<InventoryItem[]>>];
     
     const { backgroundColor, textColor, secondary, accent } = useThemeColors();
+    //needToOrderItems is an array of inventory items that need to be ordered. The items are filtered, based on whenToOrder.
     const needToOrderItems = inventoryItems.filter((item: InventoryItem) => {
+        //If whenToOrder is less than or equal to quantity, the item is added to the array.
         const isNeedToOrder = item.whenToOrder >= item.quantity;
+        //The ShowNeedToOrderItems are returned.
         return isNeedToOrder;
     });
+    //The toast function is used to display notifications.
     const toast = useToast();
 
     // Wrap needToOrderItems in an object with a suitable key
     const exportItems = useExport({
+        //data is an object with a key of 'inventoryItems' and a value of needToOrderItems
         data: {
             inventoryItems: needToOrderItems, 
         },
+        //The toast function is used to display notifications when the export is complete.
         toast: (options) => {
             const { title, status, duration, isClosable } = options;
             toast({
@@ -42,16 +50,19 @@ const ShowNeedToOrderItems: React.FC = () => {
 
     // Define handleExport functions
     const handleExportJSON = () => {
+        // Call the handleExport function with the appropriate arguments (in this case, 'json', 'inventoryItems', and 'NeedToOrderItems')
         exportItems.handleExport('NeedToOrderItems', 'json', 'inventoryItems');
     };
 
     const handleExportCSV = () => {
+        // Call the handleExport function with the appropriate arguments (in this case, 'csv', 'inventoryItems', and 'NeedToOrderItems')
         exportItems.handleExport('NeedToOrderItems', 'csv', 'inventoryItems');
     };
 
-    // Use the useSupplierData hook
+    // Use the useSupplierData hook to use the suppliers data.
     const [suppliers, setSuppliers] = useSupplierData(false);
 
+    // Make useState hook for selectedItems that will be used to track which items have been selected
     const [selectedItems, setSelectedItems] = useState<SelectedItem[]>(() => {
         // Retrieve the selected items from localStorage when the component mounts
         const saved = localStorage.getItem('selectedItems');
@@ -63,19 +74,27 @@ const ShowNeedToOrderItems: React.FC = () => {
         localStorage.setItem('selectedItems', JSON.stringify(selectedItems));
     }, [selectedItems]);
 
+    //The handleCheckboxChange function is used to toggle the orderPlaced property of the selected item.
     const handleCheckboxChange = (itemId: string) => {
         setSelectedItems(prevSelectedItems => {
+            //Find if the item is already exists in the array
             const existingItem = prevSelectedItems.find(item => item.id === itemId);
+            //If the item exists in the array, change the orderPlaced property to the opposite value
             if (existingItem) {
                 return prevSelectedItems.map(item =>
+                    // The item.id is equal to the itemId, return the item with the orderPlaced property changed.
+                    //The spread operator is used to create a new object with the same properties as the old object, but with the orderPlaced property changed.
                     item.id === itemId ? { ...item, orderPlaced: !item.orderPlaced } : item
                 );
             } else {
+                //If the item is not in the array, add it with the orderPlaced property set to true
                 return [...prevSelectedItems, { id: itemId, orderPlaced: true }];
             }
         });
     };
 
+    // Define setStyles function for the needToOrderItems
+    //if condition is true, trueValue is returned. Otherwise, falseValue is returned.
     const setStyles = (condition: boolean, trueValue: any, falseValue: any) => (condition ? trueValue : falseValue);
 
     return (
@@ -141,6 +160,7 @@ const ShowNeedToOrderItems: React.FC = () => {
                 outline={"2px solid"}
                 outlineColor={secondary}
             >
+                {/* Loop through the needToOrderItems and render each item as a box */}
                 {needToOrderItems.map((item) => {
                     const isSelected = selectedItems.some(selected => selected.id === item.id && selected.orderPlaced);
                     return (

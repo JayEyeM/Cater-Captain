@@ -18,6 +18,7 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
+// the AuthProvider component will wrap the app and provide the auth context to the applicable components
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
