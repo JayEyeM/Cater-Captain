@@ -11,18 +11,23 @@ import CustomButton from "../Buttons";
 
 dayjs.extend(isBetween);
 
+// The ShowUpcomingEvents component displays the upcoming events for the user for a 14 day period starting from the current day.
 const ShowUpcomingEvents: React.FC = () => {
-    const events: Event[] = useEventData(); // Ensure useEventData returns Event[]
+    const events: Event[] = useEventData(); // Ensure useEventData returns Event[], which is an array of Event objects
 
-    const [upcomingEvents, setUpcomingEvents] = useState<Event[]>([]);
+    const [upcomingEvents, setUpcomingEvents] = useState<Event[]>([]); // upcomingEvents is an array of events that fall on or between the current day and the 14th day from the current day (14 days in the future)
     const { backgroundColor, secondary, accent, textColor } = useThemeColors();
-    const toast = useToast();
+    const toast = useToast();// used to display notifications
 
     // Wrap upcomingEvents in an object with a suitable key for exporting
     const exportItems = useExport({
+        // The data is an object with a key of 'upcomingEvents' and a value of upcomingEvents
         data: { upcomingEvents },
+        // The toast function is used to display notifications when the export is complete.
         toast: (options) => {
+            // The options object contains the title, status, duration, and isClosable properties.
             const { title, status, duration, isClosable } = options;
+            // The toast function is called with the title, status, duration, and isClosable properties.
             toast({
                 title,
                 status,
@@ -34,26 +39,32 @@ const ShowUpcomingEvents: React.FC = () => {
 
     // Define handleExport functions
     const handleExportJSON = () => {
+        // Call the handleExport function with the appropriate arguments (in this case, 'json', 'upcomingEvents', and 'UpcomingEvents')
         exportItems.handleExport('UpcomingEvents', 'json', 'upcomingEvents');
     };
 
     const handleExportCSV = () => {
+        // Call the handleExport function with the appropriate arguments (in this case, 'csv', 'upcomingEvents', and 'UpcomingEvents')
         exportItems.handleExport('UpcomingEvents', 'csv', 'upcomingEvents');
     };
 
     // Show events that fall on or between the current day and the 14th day from the current day (14 days in the future)
     useEffect(() => {
-        const currentDate = dayjs();
-        const futureDate = currentDate.add(14, 'day');
+        //dayJS is used to filter events that fall on or between the current day and the 14th day from the current day (14 days in the future)
+        const currentDate = dayjs();// get the current day by calling dayjs()
+        const futureDate = currentDate.add(14, 'day');// get the 14th day by calling currentDate.add(14, 'day') from dayjs
+        // filter the events by use of the isBetween method from dayjs
         const filteredEvents = events.filter((event) => {
-            const eventDate = dayjs(event.EventDate);
-            return eventDate.isBetween(currentDate, futureDate, 'day', '[]');
+            // get the event date by calling dayjs() with the EventDate property of the event
+            const eventDate = dayjs(event.EventDate);// This is converting the event date to a dayjs object
+            //
+            return eventDate.isBetween(currentDate, futureDate, 'day', '[]');// This is checking if the event date is between the current date and the 14th day from the current date
         });
         // Sort the events by date in ascending order
-        filteredEvents.sort((a, b) => dayjs(a.EventDate).diff(dayjs(b.EventDate)));
-
+        filteredEvents.sort((a, b) => dayjs(a.EventDate).diff(dayjs(b.EventDate)));// This uses dayjs to sort the events by date in ascending order
+        // Set the filtered events as the upcoming events
         setUpcomingEvents(filteredEvents);
-    }, [events]);
+    }, [events]);// This is the dependency array for the useEffect hook, which allows it to re-run when the events array changes.
 
     return (
         <Box
