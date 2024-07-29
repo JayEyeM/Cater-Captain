@@ -9,6 +9,7 @@ import { useThemeColors } from './UseThemeColors';
 import { HamburgerIcon } from '@chakra-ui/icons';
 import CustomButton from './Buttons';
 import Signout from './AuthComponents/SignoutComponent';
+import SoundToggleButton from './GeneralUtilities/SoundToggleButton';
 
 
 
@@ -41,6 +42,7 @@ export default function SignedOutNavBar() {
             <Heading as="h1" size={{base:"lg", md:"3xl"}} w="100%" textAlign={"center"} fontFamily={'Cinzel'} color={primary} id="navTitle">Cater-Captain</Heading>
             
             <ToggleColorModeButton />
+            <SoundToggleButton />
             <Menu>
                 <CustomButton 
                 as={MenuButton}

@@ -11,10 +11,14 @@ const ImageIconDark = './buttonIcons/ImageIconDark.svg';
 const ImageIconLight = './buttonIcons/ImageIconLight.svg';
 const PriceIconDark = './buttonIcons/PriceIconDark.svg';
 const PriceIconLight = './buttonIcons/PriceIconLight.svg';
+const muteIconDark = './buttonIcons/muteIconDark.svg';
+const muteIconLight = './buttonIcons/muteIconLight.svg';
+const unmuteIconDark = './buttonIcons/unMuteIconDark.svg';
+const unmuteIconLight = './buttonIcons/unmuteIconLight.svg';
 
 const iconStyles = {
     height: "100%", 
-    maxHeight: "2.25em", // Adjust this value as needed
+    maxHeight: "2.25em", 
     width: "auto"
 };
 
@@ -51,4 +55,18 @@ export const PriceIcon: React.FC = () => {
     const iconSrc = colorMode === 'light' ? PriceIconLight : PriceIconDark;
 
     return <Image src={iconSrc} alt="Price Icon" {...iconStyles} />;
+};
+
+export const MuteIcon: React.FC = () => {
+    const { colorMode } = useColorMode();
+    const iconSrc = colorMode === 'light' ? unmuteIconLight : unmuteIconDark;
+
+    return <Image src={iconSrc} alt="Mute Icon" {...iconStyles} />;
+};
+
+export const UnmuteIcon: React.FC = () => {
+    const { colorMode } = useColorMode();
+    const iconSrc = colorMode === 'light' ? muteIconLight : muteIconDark;
+
+    return <Image src={iconSrc} alt="Unmute Icon" {...iconStyles} />;
 };
