@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Tooltip } from '@chakra-ui/react';
 import { useThemeColors } from './UseThemeColors';
+import { useSound } from './GeneralUtilities/SoundContext';
 
 // Props for the customizable button
 interface CustomButtonProps {
@@ -17,6 +18,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({ children, variant, title, .
  
 
   const { bBackgroundColor, bTextColor, accent, secondary } = useThemeColors();
+  const { isMuted } = useSound();
 
 // variant styles
 const buttonStyles = {
@@ -58,6 +60,17 @@ const buttonStyles = {
 
 const styles = buttonStyles[variant];
 
+const handleClick = () => {
+  if (!isMuted && typeof children === 'string' && children.trim() !== '') {
+    // get file path for buttonSoundWAV.wav from OtherContent folder in the Public folder
+    const audio = new Audio('../OtherContent/buttonSoundWAV2.wav'); 
+    audio.play();
+  }
+  if (props.onClick) {
+    props.onClick();
+  }
+};
+
   return (
     <Tooltip label={title} hasArrow placement='top' bg={bBackgroundColor} fontFamily={"Cinzel"} fontSize={"16px"} fontWeight={"bold"}>
     <Button
@@ -66,6 +79,7 @@ const styles = buttonStyles[variant];
       p={"auto"}
       borderRadius={0}
       {...props}
+      onClick={handleClick}
     >
       {children}
     </Button>

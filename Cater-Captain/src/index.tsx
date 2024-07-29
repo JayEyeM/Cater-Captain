@@ -17,6 +17,7 @@ import PrivateRoute from './components/AuthComponents/PrivateRoute';
 import { AuthProvider } from './components/AuthComponents/AuthContext';
 import SignOut from './pages/Signout';
 import Tutorials from './pages/Tutorials';
+import { SoundProvider } from './components/GeneralUtilities/SoundContext';
 
 import './index.css';
 
@@ -54,7 +55,9 @@ if (rootElement) {
   const root = createRoot(rootElement);
   root.render(
     <AuthProvider>
+      <SoundProvider>
       <App />
+      </SoundProvider>
     </AuthProvider>
   );
 } else {
