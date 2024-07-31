@@ -62,8 +62,8 @@ const styles = buttonStyles[variant];
 
 const handleClick = () => {
   if (!isMuted && typeof children === 'string' && children.trim() !== '') {
-    // get file path for buttonSoundWAV.wav from OtherContent folder in the Public folder
-    const audio = new Audio('../OtherContent/buttonSoundWAV2.wav'); 
+    // get file path for pixabayRowingWaveSound1.mp3 from OtherContent folder in the Public folder
+    const audio = new Audio('../OtherContent/pixabayRowingWaveSound1.mp3'); 
     audio.play();
   }
   if (props.onClick) {

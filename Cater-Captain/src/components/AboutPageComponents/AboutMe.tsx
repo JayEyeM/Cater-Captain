@@ -110,7 +110,12 @@ const AboutMe: React.FC = () => {
 
                     <Text fontSize="xl" mb={2} color={textColor}>
                        I edited the Homepage and Learn Page videos with clipchamp.com.
-                       Music used for the videos were all found on pixabay.com.
+                       Music used for the videos, as well as the sound effect used for
+                       button clicks (excluding buttons with no text), were all found on pixabay.com.
+                       Music credits found at end of each video.
+                       Button click sound effect by <Link target="_blank" rel="noopener noreferrer" color={secondary} href="https://pixabay.com/users/u_2ozkptnlp9-36748051/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=151181">u_2ozkptnlp9</Link> from <Link target="_blank" rel="noopener noreferrer" color={secondary} href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=151181">
+                       Pixabay</Link>
+
                     </Text>
 
                 </Box>
