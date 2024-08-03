@@ -341,7 +341,7 @@ const toggleImages = (eventId: number) => {
         >
           <CardHeader display={{ base: 'flex', md: 'flex' }} flexDirection={{ base: 'column', md: 'row' }} alignItems={"center"}>
           <Box>
-          <Image src={event.imageUrl} alt={event.imageAlt ?? `${event.EventName} Image`} w={{ base: '150px', md: '200px' }}  />
+          <Image src={event.imageUrl} alt={event.imageAlt ?? `Go to the Event's "Tool Kit" to select an icon for the ${event.EventName} Image`} w={{ base: '150px', md: '200px' }}  />
           </Box>
           <Box display={'flex'} flexDirection={'column'} alignItems={{ base: 'center', md: 'flex-start' }} ml={{ base: 0, md: 6 }}>
             <Heading size={{ base: 'lg', md: 'xl' }} color={textColor}>{event.EventName}</Heading>
