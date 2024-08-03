@@ -353,13 +353,16 @@ const toggleImages = (eventId: number) => {
           title="View More Details"
           alt="View More Details"
           ml={{ base: 0, md: 'auto' }}
-          mr={{ base: 0, md: 12 }}
+          mr={{ base: 0, md: 0 }}
+          pl={12}
+          pr={12}
+          
                   leftIcon={visibleDetails[event.id] ? <ViewIcon /> : <ViewOffIcon />}
                  
                   onClick={() => toggleDetails(event.id)}
                   colorScheme="teal"
           >
-            {visibleDetails[event.id] ? 'Hide Details' : 'View More Details'}
+            {visibleDetails[event.id] ? 'Hide Details' : 'More Details'}
           </CustomButton>
             
           </CardHeader>
@@ -392,15 +395,15 @@ const toggleImages = (eventId: number) => {
           {visibleToolKit[event.id] && (
           <ClosableBox bg={backgroundColor} outline={"2px solid"} outlineColor={primary} p={4} w={{ base: '100%', md: '100%' }} h={"100%"} overflowY={"hidden"} position={"absolute"} top={0} left={0} zIndex={999}
           isOpen={visibleToolKit[event.id]} onClose={() => handleToolKitClose(event.id)}>
-          <SimpleGrid columns={{ base: 2, md: 5 }} spacing={{ base: 0, md: 0 }} w={{ base: '100%', md: '50%' }} m="auto" mt={{ base: "10%", md: 0 }} >
-          <CustomButton variant="solidGreen" title="Choose Event Image" onClick={() => toggleImages(event.id)} rightIcon={<ImageIcon />}>
+          <SimpleGrid columns={{ base: 2, md: 5 }} spacing={{ base: 0, md: 18 }} w={{ base: '100%', md: '90%' }} m="auto" ml={0} mt={{ base: "10%", md: 0 }} >
+          <CustomButton variant="solidGreen" title="Choose Event Image" pl={12} pr={12} onClick={() => toggleImages(event.id)} rightIcon={<ImageIcon />}>
                 {visibleImages[event.id] ? <ViewIcon /> : <ViewOffIcon />}
               </CustomButton>
               
             
             
             
-            <CustomButton variant="solidGreen" title="Ingredients" onClick={() => toggleIngredientList(event.id)} rightIcon={<IngredientsIcon />}>
+            <CustomButton variant="solidGreen" title="Ingredients" pl={12} pr={12} onClick={() => toggleIngredientList(event.id)} rightIcon={<IngredientsIcon />}>
               
               {visibleIngredients[event.id] ? <ViewIcon /> : <ViewOffIcon />}
             </CustomButton>
@@ -408,18 +411,18 @@ const toggleImages = (eventId: number) => {
             
 
             
-            <CustomButton variant="solidGreen" title="Menu" onClick={() => toggleMenuList(event.id)} rightIcon={<MenuIcon />}>
+            <CustomButton variant="solidGreen" title="Menu" pl={12} pr={12} onClick={() => toggleMenuList(event.id)} rightIcon={<MenuIcon />}>
               {visibleMenu[event.id] ? <ViewIcon /> : <ViewOffIcon />}
             </CustomButton>
 
            
 
             
-            <CustomButton variant="solidGreen" title="Notes" onClick={() => toggleNotes(event.id)} rightIcon={<NotesIcon />}>
+            <CustomButton variant="solidGreen" title="Notes" pl={12} pr={12} onClick={() => toggleNotes(event.id)} rightIcon={<NotesIcon />}>
               {visibleNotes[event.id] ? <ViewIcon /> : <ViewOffIcon />}
             </CustomButton>
 
-            <CustomButton variant='solidGreen' title="Pricing" onClick={() => togglePricing(event.id)} rightIcon={<PriceIcon />}>
+            <CustomButton variant='solidGreen' title="Pricing" pl={12} pr={12} onClick={() => togglePricing(event.id)} rightIcon={<PriceIcon />}>
               {visiblePricing[event.id] ? <ViewIcon /> : <ViewOffIcon />}
             </CustomButton>
 
