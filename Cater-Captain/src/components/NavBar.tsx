@@ -21,8 +21,10 @@ import SoundToggleButton from './GeneralUtilities/SoundToggleButton';
 export default function NavBar() {
     const { backgroundColor, primary, secondary, accent } = useThemeColors();
 
+    // a react function to handle navigation
     const navigate = useNavigate();
 
+    // handle navigation to the link that the user clicks
     const handleNavigation = (link: string) => {
         navigate(link);
     };
@@ -39,8 +41,9 @@ export default function NavBar() {
     </Link>
             
             <Heading as="h1" size={{base:"lg", md:"3xl"}} w="100%" textAlign={"center"} fontFamily={'Cinzel'} color={primary} id="navTitle">Cater-Captain</Heading>
-            
+            {/* The toggle color mode button imported */}
             <ToggleColorModeButton />
+            {/* The sound toggle button imported */}
             <SoundToggleButton />
             <Menu>
                 <CustomButton 
@@ -55,19 +58,9 @@ export default function NavBar() {
                     
                 </CustomButton>
 
-
-                {/* <MenuButton
-                    as={IconButton}
-                    aria-label="Options"
-                    icon={<HamburgerIcon w={5} h={5}  />}
-                    variant="outline"
-                    color={primary}
-                    borderColor={primary}
-                    _hover={{ bg: primary, color: backgroundColor }}
-                    borderRadius={0}
-                /> */}
                 <MenuList bg={backgroundColor} outline={"2px solid"} p={2} outlineColor={primary} borderRadius={0}>
                     <SimpleGrid columns={{ base: 1, md: 2 }} spacing={3} p={4} ml={{ base: "auto", md: "auto" }} mr={{ base: "auto", md: "auto" }} w={{ base: "auto", md: "auto" }} h={"auto"}  overflow={"auto"} scrollBehavior={"auto"}>
+                    {/* The handleNavigation function is called when the user clicks on the menu item */}
                     <MenuItem bg={backgroundColor} color={secondary} borderRadius={0} onClick={() => handleNavigation('/')}>
                         Home Page
                     </MenuItem>

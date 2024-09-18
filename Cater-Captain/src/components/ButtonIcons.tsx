@@ -1,6 +1,7 @@
 import React from "react";
 import { useColorMode, Image } from '@chakra-ui/react';
 
+//button icon image paths
 const IngredientsIconDark = './buttonIcons/IngredientsIconDark.svg';
 const IngredientsIconLight = './buttonIcons/IngredientsIconLight.svg';
 const MenuIconDark = './buttonIcons/MenuIconDark.svg';
@@ -16,12 +17,14 @@ const muteIconLight = './buttonIcons/muteIconLight.svg';
 const unmuteIconDark = './buttonIcons/unMuteIconDark.svg';
 const unmuteIconLight = './buttonIcons/unmuteIconLight.svg';
 
+// button icon styles 
 const iconStyles = {
     height: "100%", 
     maxHeight: "2.25em", 
     width: "auto"
 };
 
+// ingredients icon component
 export const IngredientsIcon: React.FC = () => {
     const { colorMode } = useColorMode();
     const iconSrc = colorMode === 'light' ?  IngredientsIconLight : IngredientsIconDark;
@@ -29,6 +32,7 @@ export const IngredientsIcon: React.FC = () => {
     return <Image src={iconSrc} alt="Ingredients Icon" {...iconStyles} />;
 };
 
+// menu icon component
 export const MenuIcon: React.FC = () => {
     const { colorMode } = useColorMode();
     const iconSrc = colorMode === 'light' ? MenuIconLight : MenuIconDark;
@@ -36,6 +40,7 @@ export const MenuIcon: React.FC = () => {
     return <Image src={iconSrc} alt="Menu Icon" {...iconStyles} />;
 };
 
+// notes icon component
 export const NotesIcon: React.FC = () => {
     const { colorMode } = useColorMode();
     const iconSrc = colorMode === 'light' ? NotesIconLight : NotesIconDark;
@@ -43,6 +48,7 @@ export const NotesIcon: React.FC = () => {
     return <Image src={iconSrc} alt="Notes Icon" {...iconStyles} />;
 };
 
+// image icon component
 export const ImageIcon: React.FC = () => {
     const { colorMode } = useColorMode();
     const iconSrc = colorMode === 'light' ? ImageIconLight : ImageIconDark;
@@ -50,6 +56,7 @@ export const ImageIcon: React.FC = () => {
     return <Image src={iconSrc} alt="Image Icon" {...iconStyles} />;
 };
 
+// price icon component
 export const PriceIcon: React.FC = () => {
     const { colorMode } = useColorMode();
     const iconSrc = colorMode === 'light' ? PriceIconLight : PriceIconDark;
@@ -57,6 +64,7 @@ export const PriceIcon: React.FC = () => {
     return <Image src={iconSrc} alt="Price Icon" {...iconStyles} />;
 };
 
+// mute icon component
 export const MuteIcon: React.FC = () => {
     const { colorMode } = useColorMode();
     const iconSrc = colorMode === 'light' ? unmuteIconLight : unmuteIconDark;
@@ -64,6 +72,7 @@ export const MuteIcon: React.FC = () => {
     return <Image src={iconSrc} alt="Mute Icon" {...iconStyles} />;
 };
 
+// unmute icon component
 export const UnmuteIcon: React.FC = () => {
     const { colorMode } = useColorMode();
     const iconSrc = colorMode === 'light' ? muteIconLight : muteIconDark;
