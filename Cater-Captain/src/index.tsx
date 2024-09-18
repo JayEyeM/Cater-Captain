@@ -51,6 +51,7 @@ const App: React.FC = () => {
 
 const rootElement = document.getElementById('root');
 
+//The SoundProvider is imported and wraps the App component, same as the AuthProvider does. This allows the SoundContext to be used in the App component.
 if (rootElement) {
   const root = createRoot(rootElement);
   root.render(

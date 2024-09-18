@@ -18,6 +18,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({ children, variant, title, .
  
 
   const { bBackgroundColor, bTextColor, accent, secondary } = useThemeColors();
+  // get isMuted from SoundContext, by calling the useSound hook that has been imported
   const { isMuted } = useSound();
 
 // variant styles
@@ -60,12 +61,17 @@ const buttonStyles = {
 
 const styles = buttonStyles[variant];
 
+
+// the handleClick function is called when the button is clicked. This function checks if the button is not muted and the children is not an empty string, and if so, it plays the sound.
 const handleClick = () => {
+  // if the isMuted is true and the children is not an empty string, and children.trim() is not equal to an empty string, then play the sound.
   if (!isMuted && typeof children === 'string' && children.trim() !== '') {
     // get file path for pixabayRowingWaveSound1.mp3 from OtherContent folder in the Public folder
     const audio = new Audio('../OtherContent/pixabayRowingWaveSound1.mp3'); 
+    // the play method plays the audio
     audio.play();
   }
+  // if props.onClick is defined, then call it
   if (props.onClick) {
     props.onClick();
   }
@@ -73,6 +79,10 @@ const handleClick = () => {
 
   return (
     <Tooltip label={title} hasArrow placement='top' bg={bBackgroundColor} fontFamily={"Cinzel"} fontSize={"16px"} fontWeight={"bold"}>
+    {/* CustomButton is rendered with the appropriate styles and props. 
+    The handleClick function is called when the button is clicked. Which handles 
+    playing the sound. The children are also passed as props to the Button component 
+    so that it can be rendered inside the Button. */}
     <Button
       {...styles}
       margin="5px 5px"
